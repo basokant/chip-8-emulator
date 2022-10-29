@@ -40,6 +40,52 @@ void Processor::add(uint8_t vx, uint8_t byte) {
 }
 
 /**
+* @brief Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx
+* @param vx number of the register (0x0-0xf for v0-vf)
+* @param vy number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::chip_and(uint8_t vx, uint8_t vy) {
+    v_registers[vx] = v_registers[vx] & v_registers[vy];
+}
+
+/**
+* @brief Performs a bitwise OR on the values of Vx and Vy, then stores the result in Vx
+* @param vx number of the register (0x0-0xf for v0-vf)
+* @param vy number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::chip_or(uint8_t vx, uint8_t vy) {
+    v_registers[vx] = v_registers[vx] | v_registers[vy];
+
+}
+
+/**
+* @brief Performs a bitwise XOR on the values of Vx and Vy, then stores the result in Vx
+* @param vx number of the register (0x0-0xf for v0-vf)
+* @param vy number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::chip_xor(uint8_t vx, uint8_t vy) {
+    v_registers[vx] = v_registers[vx] ^ v_registers[vy];
+}
+
+/**
+ * @brief The interpreter puts the value byte into register Vx.
+ * @param vx number of the register (0x0-0xf for v0-vf)
+ * @param byte 8-bit value (0x00-0xff)
+ */
+void Processor::load_byte(uint8_t vx, uint8_t byte) {
+    v_registers[vx] = byte;
+}
+
+/**
+ * @brief Stores the value of register Vy in register Vx.
+ * @param vx number of the register (0x0-0xf for v0-vf)
+ * @param vy number of the register (0x0-0xf for v0-vf)
+ */
+void Processor::load_register(uint8_t vx, uint8_t vy) {
+    v_registers[vx] = v_registers[vy];
+}
+
+/**
  * @brief Return from a subroutine.
  *
  * The interpreter sets the program counter to the address at the top of the stack,
