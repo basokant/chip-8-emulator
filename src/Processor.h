@@ -54,6 +54,45 @@ private:
     void add(uint8_t vx, uint8_t byte);
 
     /**
+ * @brief Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx
+ * @param vx number of the register (0x0-0xf for v0-vf)
+ * @param vy number of the register (0x0-0xf for v0-vf)
+ */
+
+    void chip_and(uint8_t vx, uint8_t vy);
+
+
+    /**
+    * @brief Performs a bitwise OR on the values of Vx and Vy, then stores the result in Vx
+    * @param vx number of the register (0x0-0xf for v0-vf)
+    * @param vy number of the register (0x0-0xf for v0-vf)
+    */
+    void chip_or(uint8_t vx, uint8_t vy);
+
+    /**
+    * @brief Performs a bitwise XOR on the values of Vx and Vy, then stores the result in Vx
+    * @param vx number of the register (0x0-0xf for v0-vf)
+    * @param vy number of the register (0x0-0xf for v0-vf)
+    */
+    void chip_xor(uint8_t vx, uint8_t vy);
+
+
+    /**
+     * @brief The interpreter puts the value kk into register Vx.
+     * @param vx number of the register (0x0-0xf for v0-vf)
+     * @param byte 8-bit value (0x00-0xff)
+     */
+    void load_byte(uint8_t vx, uint8_t byte);
+
+    /**
+     * @brief Stores the value of register Vy in register Vx.
+     * @param vx number of the register (0x0-0xf for v0-vf)
+     * @param vy number of the register (0x0-0xf for v0-vf)
+     */
+    void load_register(uint8_t vx, uint8_t vy);
+
+
+    /**
      * @brief Return from a subroutine.
      * 
      * The interpreter sets the program counter to the address at the top of the stack, 
