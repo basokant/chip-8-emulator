@@ -116,7 +116,7 @@ private:
      * @param v0 number of the register (0x0-0xf for v0-vf)
      * @param addr A 16-bit address in memory
      */
-    void jump(uint8_t v0, uint16_t addr);
+    void jump_register(uint8_t v0, uint16_t addr);
 
     
     /**
@@ -166,9 +166,8 @@ private:
      * @brief Wait for a key press, store the value of the key in register vx.
      * 
      * @param vx number of the register (0x0-0xf for v0-vf)
-     * @param key value of the key (0x0-0xf)
      */
-    void load_key(uint8_t vx, uint16_t key);
+    void load_key(uint8_t vx);
 
 
     /**
