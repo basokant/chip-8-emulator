@@ -42,8 +42,61 @@ private:
 
 private:
     // 36 CHIP-8 instructions
-    /* declare all instruction names following documentation */
+
+    /**
+     * @brief Jumps to a machine code routine at addr.
+     *
+     * This instruction is only used on the old computers on which Chip-8 was originally
+     * implemented. It is ignored by modern interpreters.
+     * @param addr The 16-bit address to jump to
+     */
     void sys(uint16_t addr);
+
+    /**
+     * @brief Return from a subroutine.
+     *
+     * The interpreter sets the program counter to the address at the top of the stack,
+     * then subtracts 1 from the stack pointer.
+     *
+     */
+    void ret();
+
+    /**
+     * @brief The interpreter sets the program counter to addr.
+     * 
+     * @param addr 16-bit address to jump to
+     */
+    void jp(uint16_t addr);
+
+    /**
+     * @brief The interpreter jumps to addr, pushing the current PC to the stack.
+     * 
+     * @param addr 16-bit address to jump to
+     */
+    void call(uint16_t addr);
+
+    /**
+     * @brief Skips the next instruction if vx == byte
+     * 
+     * @param vx The number of the register (0x0-0xf)
+     * @param byte The byte to compare with
+     */
+    void se_byte(uint8_t vx, uint8_t byte);
+
+    /**
+     * @brief Skips the next instruction if vx != byte
+     * @param vx The number of the register (0x0-0xf)
+     * @param byte The byte to compare with
+     */
+    void sne_byte(uint8_t vx, uint8_t byte);
+
+    /**
+     * @brief Skips the next instruction if vx == vy
+     * 
+     * @param vx The number of the first register (0x0-0xf)
+     * @param vy The number of the second register (0x0-0xf)
+     */
+    void se_register(uint8_t vx, uint8_t vy);
 
     /**
      * @brief ADD Vx, byte instruction: add byte to Vx register
@@ -54,10 +107,10 @@ private:
     void add(uint8_t vx, uint8_t byte);
 
     /**
- * @brief Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx
- * @param vx number of the register (0x0-0xf for v0-vf)
- * @param vy number of the register (0x0-0xf for v0-vf)
- */
+     * @brief Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx
+     * @param vx number of the register (0x0-0xf for v0-vf)
+     * @param vy number of the register (0x0-0xf for v0-vf)
+     */
 
     void chip_and(uint8_t vx, uint8_t vy);
 
@@ -196,10 +249,13 @@ private:
     ST: 16-bit sound timer register
     */
 
-    std::array<uint16_t, 16> v_registers = {0};
+    std::array<uint16_t, 16> v_registers;
     uint16_t pc = 0; // program counter
     uint8_t sp = 0; // stack pointer
 
     uint16_t dt = 0; // delay timer
     uint16_t st = 0; // sound timer
+
+    // Internal call stack: stores return address from subroutine calls
+    std::array<uint16_t, 16> stack;
 };

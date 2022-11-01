@@ -25,8 +25,82 @@ void Processor::run() {
 }
 */
 
+/**
+ * @brief Jumps to a machine code routine at addr.
+ *
+ * This instruction is only used on the old computers on which Chip-8 was originally
+ * implemented. It is ignored by modern interpreters.
+ * @param addr The 16-bit address to jump to
+ */
 void Processor::sys(uint16_t addr) {
-    // TODO
+    // do nothing: this instruction is ignored by modern interpreters.
+}
+
+/**
+ * @brief Return from a subroutine.
+ *
+ * The interpreter sets the program counter to the address at the top of the stack,
+ * then subtracts 1 from the stack pointer.
+ *
+ */
+void Processor::ret() {
+    uint8_t top_of_stack = read_memory(sp);
+    pc = top_of_stack;
+    // pop stack: decrement stack pointer
+    sp -= 1;
+}
+
+/**
+ * @brief The interpreter sets the program counter to addr.
+ *
+ * @param addr 16-bit address to jump to
+ */
+void Processor::jp(uint16_t addr) {
+    pc = addr;
+}
+
+/**
+ * @brief The interpreter jumps to addr, pushing the current PC to the stack.
+ *
+ * @param addr 16-bit address to jump to
+ */
+void Processor::call(uint16_t addr) {
+    // push current PC to the top of the stack
+    sp += 1;
+    stack[sp] = pc;
+    pc = addr;
+}
+
+/**
+ * @brief Skips the next instruction if vx == byte
+ *
+ * @param vx The number of the register (0x0-0xf)
+ * @param byte The byte to compare with
+ */
+void Processor::se_byte(uint8_t vx, uint8_t byte) {
+    if (v_registers[vx] == byte)
+        pc += 1;
+}
+
+/**
+ * @brief Skips the next instruction if vx != byte
+ * @param vx The number of the register (0x0-0xf)
+ * @param byte The byte to compare with
+ */
+void Processor::sne_byte(uint8_t vx, uint8_t byte) {
+    if (v_registers[vx] != byte)
+        pc += 1;
+}
+
+/**
+ * @brief Skips the next instruction if vx == vy
+ *
+ * @param vx The number of the first register (0x0-0xf)
+ * @param vy The number of the second register (0x0-0xf)
+ */
+void Processor::se_register(uint8_t vx, uint8_t vy) {
+    if (v_registers[vx] == v_registers[vy])
+        pc += 1;
 }
 
 /**
@@ -128,7 +202,7 @@ void Processor::jump_register(uint8_t v0, uint16_t addr) {
  * @param byte 8-bit value (0x00-0xff)
  */
 void Processor::random(uint8_t vx, uint8_t byte) {
-
+    
 }
 
 
