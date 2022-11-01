@@ -292,7 +292,13 @@ void write_memory(uint16_t addr, uint8_t byte) {
     // TODO: implement write
 }
 
-
+/**
+ * @brief Checks whether a certain key is pressed.
+ * 
+ * @param key the keycode from a 16-bit hexadecimal keypad
+ * @return true if the key is pressed
+ * @return false if the key is not pressed
+ */
 bool is_pressed(uint16_t key) {
     // TODO: implement emulator input
 }
