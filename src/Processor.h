@@ -146,15 +146,6 @@ private:
 
 
     /**
-     * @brief Return from a subroutine.
-     * 
-     * The interpreter sets the program counter to the address at the top of the stack, 
-     * then subtracts 1 from the stack pointer.
-     *
-     */
-    void ret();
-
-    /**
      * @brief Stores the address in register i.
      * 
      * @param i number of the register (0x-0xf for v0-vf)

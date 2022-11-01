@@ -159,19 +159,6 @@ void Processor::load_register(uint8_t vx, uint8_t vy) {
     v_registers[vx] = v_registers[vy];
 }
 
-/**
- * @brief Return from a subroutine.
- *
- * The interpreter sets the program counter to the address at the top of the stack,
- * then subtracts 1 from the stack pointer.
- *
- */
-void Processor::ret() {
-    uint8_t top_of_stack = read_memory(sp);
-    pc = top_of_stack;
-    // pop stack: decrement stack pointer
-    sp -= 1;
-}
 
 /**
  * @brief Stores the address in register i.
@@ -202,7 +189,10 @@ void Processor::jump_register(uint8_t v0, uint16_t addr) {
  * @param byte 8-bit value (0x00-0xff)
  */
 void Processor::random(uint8_t vx, uint8_t byte) {
-    
+    srand(time(0));
+
+    uint8_t num = rand() % 0xFF;
+    v_registers[vx] = num;
 }
 
 
@@ -214,7 +204,7 @@ void Processor::random(uint8_t vx, uint8_t byte) {
  * @param nibble 4-bit value (0x0-0xf)
  */
 void Processor::display(uint8_t vx, uint8_t vy, uint8_t nibble) {
-
+    // TODO: implement display functionality
 }
 
 
