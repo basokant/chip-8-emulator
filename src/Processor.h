@@ -229,6 +229,45 @@ private:
      */
     void load_st_from_register(uint8_t vx);
 
+    /**
+     * @brief The values of index and the value stored in the register Vx are added, and the results are stored in index.
+     * 
+     * @param index 8 byte integer value
+     * @param vx number of the register (0x0-0xf for v0-vf)
+     */
+    void add_sum(uint8_t index, uint8_t vx);
+
+    /**
+     * @brief Set the value of index to the location of the sprite for the digit stored in Vx. 
+     * Get the address of the first byte of any character by taking an offset from the start address.
+     * 
+     * @param Vx number of the register (0x0-0xf for v0-vf)  
+     */
+    void load_loc_of_sprite(uint8_t vx);
+
+    /**
+     * @brief Store BCD representation of Vx in memory locations I, I+1, and I+2
+     * 
+     * @param Vx number of the register (0x0-0xf for v0-vf)
+     */
+    void str_bcd_in_memory(uint8_t vx);
+
+    /**
+     * @brief Store registers V0 through Vx in memory starting at location I
+     * 
+     * @param i an 8 byte memory starting location integer value, 
+     * @param  Vx number of the register (0x0-0xf for v0-vf)
+     */
+    void str_registers_in_memory(uint8_t i, uint8_t vx);
+   
+    /**
+     * @brief Read registers V0 through Vx from memory starting at location I.
+     * 
+     * @param i an 8 byte memory starting location integer value, 
+     * @param  Vx number of the register (0x0-0xf for v0-vf)
+     */
+    void read_registers(uint8_t vx, uint8_t i);
+
 private:
     /*
     v0-vF: 16 8-bit registers
@@ -249,4 +288,11 @@ private:
 
     // Internal call stack: stores return address from subroutine calls
     std::array<uint16_t, 16> stack;
+
+    uint8_t index = 0; //index 
+
+    const FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters 
+
+    // Array storing memory 
+    std::array<uint16_t> memory;
 };
