@@ -13,19 +13,29 @@
 
 #include "Processor.h"
 
-/*
-void Processor::run() {
-    while (running) {
-        instruction (integer) = read_instruction_from_memory()
-        switch (instruction & 0xf) {
-            case 0: run_instruction_0(); break;
-            case 0: run_instruction_1(); break;
-            ...
-            case 0: run_instruction_100(); break;
-        }
-    }
+// void Processor::run() {
+//     while (is_running) {
+//         instruction = read_instruction_from_memory()
+//         switch (instruction & 0xf) {
+//             case 0: run_instruction_0(); break;
+//             case 0: run_instruction_1(); break;
+//             ...
+//             case 0: run_instruction_100(); break;
+//         }
+//     }
+// }
+
+/**
+ * @brief Read the next instruction from memory pointed
+ * to by the PC, and increment the PC
+ *
+ * @return uint16_t
+ */
+uint16_t Processor::read_instruction_from_memory() {
+    // read next 2 bytes pointed by PC, then concatenate
+    return 0x00;
 }
-*/
+
 
 /**
  * @brief Jumps to a machine code routine at addr.

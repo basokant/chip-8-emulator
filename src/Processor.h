@@ -31,6 +31,13 @@ public:
 
 private:
     /**
+     * @brief Read the next instruction from memory pointed
+     * to by the PC, and increment the PC
+     * 
+     * @return uint16_t 
+     */
+    uint16_t read_instruction_from_memory();
+    /**
      * @brief Read the byte stored at memory address addr
      * 
      * @param addr A 16-byte address in memory
@@ -301,6 +308,8 @@ private:
     // TODO: separate this into a memory class later
     // CHIP-8 has 4KB of addressable memory = 0x10000 bytes
     std::array<uint16_t, 0x10000> memory;
+
+    bool is_running = true;
 };
 
 #endif
