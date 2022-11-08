@@ -14,6 +14,7 @@
 
 #include <array>
 #include <cstdint>
+#include <string>
 
 /*
 See CHIP-8 documentation
@@ -23,20 +24,28 @@ http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.5
 class Processor
 {
 public:
-    Processor() = default;
+    Processor();
     ~Processor() = default;
 
-    // Start running the processor
+    /**
+     * @brief Run the processor until the end of memory.
+     */
     void run();
 
-private:
     /**
-     * @brief Read the next instruction from memory pointed
-     * to by the PC, and increment the PC
-     * 
-     * @return uint16_t 
+     * @brief Load a byte-array into memory at 0x0.
+     * TODO:
+     * @param byte_array The list of bytes to load into memory. 
      */
-    uint16_t read_instruction_from_memory();
+    void load_memory(const std::array<uint8_t, 0x10000> &byte_array);
+
+    /**
+     * @brief Dump the registers of the CPU into a printable string.
+     * TODO:
+     */
+    std::string dump();
+
+private:
     /**
      * @brief Read the byte stored at memory address addr
      * 
@@ -50,6 +59,14 @@ private:
      * 
      */
     void write_memory(uint16_t addr, uint8_t byte);
+
+    /**
+     * @brief Read the next instruction from memory pointed
+     * to by the PC, and increment the PC
+     *
+     * @return uint16_t
+     */
+    uint16_t read_instruction_from_memory();
 
 private:
     // 36 CHIP-8 instructions
