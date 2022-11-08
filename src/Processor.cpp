@@ -34,8 +34,12 @@ Processor::Processor() {
 }
 
 uint16_t Processor::read_instruction_from_memory() {
-    // read 2 bytes
+    // read next 2 bytes pointed by PC, then concatenate
+    uint8_t d1 = read_memory(pc++); //0x20
+    uint8_t d2 = read_memory(pc++); //0x40
 
+    uint16_t instr = ((uint16_t)d2 << 8) | d1;
+    return instr;
 }
 
 
