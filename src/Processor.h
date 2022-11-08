@@ -9,7 +9,11 @@
  * 
  */
 
+#ifndef PROCESSOR_H_INCLUDED
+#define PROCESSOR_H_INCLUDED
+
 #include <array>
+#include <cstdint>
 
 /*
 See CHIP-8 documentation
@@ -291,8 +295,12 @@ private:
 
     uint8_t index = 0; //index 
 
-    const FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters 
+    const uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters 
 
     // Array storing memory 
-    std::array<uint16_t> memory;
+    // TODO: separate this into a memory class later
+    // CHIP-8 has 4KB of addressable memory = 0x10000 bytes
+    std::array<uint16_t, 0x10000> memory;
 };
+
+#endif

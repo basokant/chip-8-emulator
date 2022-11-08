@@ -9,6 +9,8 @@
  *
  */
 
+#include <cstdint>
+
 #include "Processor.h"
 
 /*
