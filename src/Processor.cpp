@@ -29,11 +29,15 @@
  * @brief Read the next instruction from memory pointed
  * to by the PC, and increment the PC
  *
- * @return uint16_t
+ * @return uint16_t instruction
  */
 uint16_t Processor::read_instruction_from_memory() {
     // read next 2 bytes pointed by PC, then concatenate
-    return 0x00;
+    uint8_t d1 = read_memory(pc++); //0x20
+    uint8_t d2 = read_memory(pc++); //0x40
+
+    uint16_t instr = ((uint16_t)d2 << 8) | d1;
+    return instr;
 }
 
 
@@ -370,6 +374,7 @@ void Processor::str_registers_in_memory(uint8_t i, uint8_t vx) {
     for (uint8_t n = 0; n <= vx; n++) {
         memory[i + n] = v_registers[n]; 
     }
+}
 
 /**
  * @brief Read registers V0 through Vx from memory starting at location I.
@@ -382,6 +387,4 @@ void Processor::read_registers(uint8_t vx, uint8_t i) {
     for (uint8_t n = 0; n <= vx; n++) {
         v_registers[n] = memory[i + n];
     }
-}
-
 }
