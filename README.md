@@ -7,6 +7,18 @@ Using a UNIX environment, run `make` in the root directory to build the executab
 
 * run `make clean` to clean up the intermediate build files in the build directory `build/`.
 
+## Expected Output
+The emulator runs the following CHIP8 binary ROM stored in the array `instructions` in the `main.cpp` file.
+```asm
+ld v0, 0x1
+ld v1, 0x2
+add v0, v1
+```
+The value 1 is loaded into register v0; the value 2 is loaded into register v1; the sum of v0 and v1 is stored in v0.
+
+The expected output should demonstrate that v0 contains the value 3 (1 + 2) and v1 contains the value 2.
+
+The PC register will have incremented to 6 because it has run 6 instructions (from 0x0000 to 0x0005).
+
 ## Notes from the Professor
-* We used GitHub instead of BitBucket for familiarity with the team: we recieved permission from the professor for this
-* 
+* We used GitHub instead of BitBucket for familiarity with the team: we recieved permission from the professor to use Github.
