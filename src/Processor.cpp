@@ -10,9 +10,12 @@
  */
 
 #include <cstdint>
+#include <cstdlib>
+#include <ctime>
 
 #include "Processor.h"
 
+// TODO: be able to run the assembly program
 // void Processor::run() {
 //     while (is_running) {
 //         instruction = read_instruction_from_memory()
@@ -25,12 +28,11 @@
 //     }
 // }
 
-/**
- * @brief Read the next instruction from memory pointed
- * to by the PC, and increment the PC
- *
- * @return uint16_t instruction
- */
+Processor::Processor() {
+    // seed the random-number generator for future calls to RAND
+    std::srand(std::time(0));
+}
+
 uint16_t Processor::read_instruction_from_memory() {
     // read next 2 bytes pointed by PC, then concatenate
     uint8_t d1 = read_memory(pc++); //0x20
@@ -282,9 +284,7 @@ void Processor::jump_register(uint8_t v0, uint16_t addr) {
  * @param byte 8-bit value (0x00-0xff)
  */
 void Processor::random(uint8_t vx, uint8_t byte) {
-    srand(time(0));
-
-    uint8_t num = rand() % 0xFF;
+    uint8_t num = std::rand() % 0xFF;
     v_registers[vx] = num;
 }
 
