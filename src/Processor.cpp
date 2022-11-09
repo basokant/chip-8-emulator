@@ -157,6 +157,83 @@ void Processor::chip_xor(uint8_t vx, uint8_t vy) {
     v_registers[vx] = v_registers[vx] ^ v_registers[vy];
 }
 
+void Processor::add_2(uint8_t vx, uint8_t vy) {
+   uint16_t sum = v_registers[vx] + v_registers[vy];
+   if (sum > 255U) {
+       v_registers[0xF] = 1;
+   }
+   else {
+       v_registers[0xF] = 0;
+   }
+   v_registers[vx] = sum & 0xFFu;
+}
+
+/**
+* @brief If Vx > Vy, then VF is set to 1, otherwise 0. 
+* Then Vy is subtracted from Vx, and the results stored in Vx.
+* @param vx number of the register (0x0-0xf for v0-vf)
+* @param vy number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::sub(uint8_t vx, uint8_t vy) {
+    if (v_registers[vx] > v_registers[vy]) {
+        v_registers[0xF] = 1;
+    }
+    else {
+        v_registers[0xf] = 0;
+    }
+    v_registers[vx] = v_registers[vx] - v_registers[vy];
+}
+
+/**
+* @brief If the least-significant bit of Vx is 1, then VF is set to 1, otherwise 0. 
+* Then Vx is divided by 2.
+* @param vx number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::shr(uint8_t vx) {
+    v_registers[0xF] = v_registers[vx] & 0x1u;
+    v_registers[vx] >>= 1;
+}
+
+
+/**
+* @brief If Vy > Vx, then VF is set to 1, otherwise 0. 
+* Then Vx is subtracted from Vy, and the results stored in Vx.
+* @param vx number of the register (0x0-0xf for v0-vf)
+* @param vy number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::subn(uint8_t vx, uint8_t vy) {
+    if (v_registers[vy] > v_registers[vx]) {
+        v_registers[0xF] = 1;
+    }
+    else {
+        v_registers[0xf] = 0;
+    }
+    v_registers[vx] = v_registers[vy] - v_registers[vx];
+}
+
+/**
+* @brief If the most-significant bit of Vx is 1, then VF is set to 1, otherwise to 0. 
+* Then Vx is multiplied by 2.
+* @param vx number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::shl(uint8_t vx) {
+    v_registers[0xF] = v_registers[vx] & 0x80u;
+    v_registers[0xF] = v_registers[vx] >> 7u;
+    v_registers[vx] <<= 1;
+}
+
+/**
+* @brief The values of Vx and Vy are compared, 
+* and if they are not equal, the program counter is increased by 2.
+* @param vx number of the register (0x0-0xf for v0-vf)
+* @param vy number of the register (0x0-0xf for v0-vf)
+*/
+void Processor::sne(uint8_t vx, uint8_t vy) {
+    if (v_registers[vx] != v_registers[vy]) {
+        pc += 2;
+    }
+}
+
 /**
  * @brief The interpreter puts the value byte into register Vx.
  * @param vx number of the register (0x0-0xf for v0-vf).
