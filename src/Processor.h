@@ -18,6 +18,7 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 /*
 See CHIP-8 documentation
@@ -27,7 +28,10 @@ http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.5
 class Processor
 {
 public:
-    Processor();
+
+    Processor() {
+        std::srand(std::time(NULL));
+    }
     ~Processor() = default;
 
     /**
