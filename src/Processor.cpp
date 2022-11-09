@@ -37,7 +37,7 @@ std::string Processor::dump() {
     std::string init_string = "";
     std::stringstream dump(init_string);
     for (int i = 0; i < v_registers.size(); i++) {
-        dump << "Register V" << (uint8_t)i << ": " << v_registers[i] << "\n";
+        dump << "Register V" << i << ": " << v_registers[i] << "\n";
     }
     dump << "PC: " << pc << "\n";
     dump << "SP: " << sp << "\n";
