@@ -19,65 +19,129 @@
 
 #include "Processor.h"
 
-bool is_pressed(uint8_t key);
-uint16_t key_input();
-uint8_t read_memory(uint16_t addr);
-void write_memory(uint16_t addr, uint8_t byte);
+// helper functions: use anonymous namespace for internal linkage
+namespace {
 
-// Processor::Processor() {
-//     // seed the random-number generator for future calls to RAND
-//     std::srand(std::time(0));
-// }
+    /**
+     * @brief Checks whether a certain key is pressed.
+     *
+     * @param key the keycode from a 16-bit hexadecimal keypad
+     * @return true if the key is pressed
+     * @return false if the key is not pressed
+     */
+    bool is_pressed(uint8_t key) {
+        // TODO: implement emulator input
+        return false;
+    }
+
+    uint16_t key_input() {
+        // TODO: implement emulator input
+        return 1;
+    }
+}
 
 /**
- * @brief Dump the registers of the CPU into a printable string.
- * TODO:
+ * @brief Construct a new Processor::Processor object
+ * 
+ * Seeds the random number generator used by the RANDOM instruction
  */
-std::string Processor::dump() {
-    std::string init_string = "";
-    std::stringstream dump(init_string);
-    for (int i = 0; i < v_registers.size(); i++) {
-        dump << "Register V" << i << ": " << v_registers[i] << "\n";
-    }
-    dump << "PC: " << pc << "\n";
-    dump << "SP: " << sp << "\n";
-    dump << "DT: " << dt << "\n";
-    dump << "ST: " << st << "\n";
-    return dump.str();
+Processor::Processor() {
+    // seed the random-number generator for future calls to RAND
+    std::srand(std::time(0));
 }
 
 /**
  * @brief Run the processor until the end of memory.
  */
 void Processor::run() {
-    // TODO: be able to run the assembly program
-    while (is_running) {
-        // uint16_t instruction = read_instruction_from_memory()
-        // switch(instruction & 0xf000) {
-        //     case 0: 
-        //         run_instruction_0();
-        //         break;
-        // }
-        // std::cout << "running" << std::endl;
+    // TODO: implement proper program execution (not hardcoded to a test ROM)
+    // loop from beginning of memory to the end of our test program
+    while (pc < 0x6) {
+        uint16_t instruction_to_run = read_instruction_from_memory();
+
+        // TODO: implement decoding for all instructions
+        // for now, just LD and ADD for the test ROM
+        switch (instruction_to_run & 0xf000) {
+            // instruction can be identified by 4 most significant bits
+            case 0x6000: {
+                // LD Vx, byte
+                // vx is bits 8-11
+                uint8_t vx = (instruction_to_run >> 8) & 0xf;
+                // byte is bits 0-7
+                uint8_t byte = instruction_to_run & 0xff;
+                load_byte(vx, byte);
+            } break;
+            case 0x8000: {
+                // ADD Vx, Vy
+                // vx is bits 8-11
+                uint8_t vx = (instruction_to_run >> 8) & 0xf;
+                // vy is bits 4-7
+                uint8_t vy = (instruction_to_run >> 4) & 0xf;
+                add_registers(vx, vy);
+            } break;
+            default: {
+                std::cout << "Unimplemented instruction! " << instruction_to_run << '\n';
+            }
+        }
     }
 }
 
 /**
  * @brief Load a byte-array into memory at 0x0.
- * TODO:
  * @param byte_array The list of bytes to load into memory.
  */
 void Processor::load_memory(const std::array<uint8_t, 0x10000> &byte_array) {
-    std::cout << "loading memory" << std::endl;
+    memory = byte_array;
 }
 
+/**
+ * @brief Dump the registers of the CPU into a printable string.
+ *
+ * @return a string containing all the register values
+ */
+std::string Processor::dump() {
+    std::stringstream dump_ss;
+    for (int i = 0; i < v_registers.size(); i++)
+    {
+        dump_ss << "Register V" << i << ": " << v_registers[i] << "\n";
+    }
+    dump_ss << "PC: " << pc << "\n";
+    // convert SP to an int because stringstream interprets uint8_t's as chars
+    dump_ss << "SP: " << static_cast<int>(sp) << "\n";
+    dump_ss << "DT: " << dt << "\n";
+    dump_ss << "ST: " << st << "\n";
+    return dump_ss.str();
+}
 
+/**
+ * @brief Read the byte stored at memory address addr
+ *
+ * @param addr A 16-byte address in memory
+ * @return uint8_t
+ */
+uint8_t Processor::read_memory(uint16_t addr) {
+    return memory[addr];
+}
+
+/**
+ * @brief Write a byte to memory at address addr
+ */
+void Processor::write_memory(uint16_t addr, uint8_t byte) {
+    memory[addr] = byte;
+}
+
+/**
+ * @brief Read the next instruction from memory pointed
+ * to by the PC, and increment the PC
+ *
+ * @return uint16_t
+ */
 uint16_t Processor::read_instruction_from_memory() {
     // read next 2 bytes pointed by PC, then concatenate
     uint8_t d1 = read_memory((uint16_t)pc++); //0x20
     uint8_t d2 = read_memory((uint16_t)pc++); //0x40
 
-    uint16_t instr = ((uint16_t)d2 << 8) | d1;
+    uint16_t instr = ((uint16_t)d1 << 8) | d2;
     return instr;
 }
 
@@ -198,7 +262,7 @@ void Processor::chip_xor(uint8_t vx, uint8_t vy) {
     v_registers[vx] = v_registers[vx] ^ v_registers[vy];
 }
 
-void Processor::add_2(uint8_t vx, uint8_t vy) {
+void Processor::add_registers(uint8_t vx, uint8_t vy) {
    uint16_t sum = v_registers[vx] + v_registers[vy];
    if (sum > 255U) {
        v_registers[0xF] = 1;
@@ -405,43 +469,6 @@ void Processor::load_st_from_register(uint8_t vx) {
     st = v_registers[vx];
 }
 
-
-
-/**
- * @brief Read the byte stored at memory address addr
- *
- * @param addr A 16-byte address in memory
- * @return uint8_t
- */
-uint8_t Processor::read_memory(uint16_t addr) {
-    return 0x1;
-}
-
-/**
- * @brief Write a byte to memory at address addr
- */
-void write_memory(uint16_t addr, uint8_t byte) {
-    // TODO: implement write
-}
-
-/**
- * @brief Checks whether a certain key is pressed.
- * 
- * @param key the keycode from a 16-bit hexadecimal keypad
- * @return true if the key is pressed
- * @return false if the key is not pressed
- */
-bool is_pressed(uint8_t key) {
-    // TODO: implement emulator input
-    return false;
-}
-
-
-uint16_t key_input() {
-    // TODO: implement emulator input
-    return 1;
-}
-
 /**
  * @brief The values of index and the value stored in the register Vx are added, and the results are stored in index.
  * @param vx number of the register (0x0-0xf for v0-vf)
@@ -500,7 +527,6 @@ void Processor::str_registers_in_memory(uint8_t i, uint8_t vx) {
  * @param  Vx number of the register (0x0-0xf for v0-vf)
  */
 void Processor::read_registers(uint8_t vx, uint8_t i) {
-
     for (uint8_t n = 0; n <= vx; n++) {
         v_registers[n] = memory[i + n];
     }

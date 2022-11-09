@@ -14,11 +14,7 @@
 
 #include <array>
 #include <cstdint>
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
 #include <string>
-#include <sstream>
 
 /*
 See CHIP-8 documentation
@@ -29,9 +25,7 @@ class Processor
 {
 public:
 
-    Processor() {
-        std::srand(std::time(NULL));
-    }
+    Processor();
     ~Processor() = default;
 
     /**
@@ -41,18 +35,18 @@ public:
 
     /**
      * @brief Load a byte-array into memory at 0x0.
-     * TODO:
      * @param byte_array The list of bytes to load into memory. 
      */
     void load_memory(const std::array<uint8_t, 0x10000> &byte_array);
 
     /**
      * @brief Dump the registers of the CPU into a printable string.
-     * TODO:
+     * 
+     * @return a string containing all the register values
      */
     std::string dump();
 
-private:
+private: // internal memory calls
     /**
      * @brief Read the byte stored at memory address addr
      * 
@@ -75,8 +69,7 @@ private:
      */
     uint16_t read_instruction_from_memory();
 
-private:
-    // 36 CHIP-8 instructions
+private: // 36 CHIP-8 instructions
 
     /**
      * @brief Jumps to a machine code routine at addr.
@@ -171,7 +164,7 @@ private:
     * @param vx number of the register (0x0-0xf for v0-vf)
     * @param vy number of the register (0x0-0xf for v0-vf)
     */
-    void add_2(uint8_t vx, uint8_t vy);
+    void add_registers(uint8_t vx, uint8_t vy);
     
     /**
     * @brief If Vx > Vy, then VF is set to 1, otherwise 0. 
@@ -372,14 +365,12 @@ private:
 
     uint8_t index = 0; //index 
 
-    const uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters 
+    static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters 
 
     // Array storing memory 
     // TODO: separate this into a memory class later
     // CHIP-8 has 4KB of addressable memory = 0x10000 bytes
-    std::array<uint16_t, 0x10000> memory;
-
-    bool is_running = true;
+    std::array<uint8_t, 0x10000> memory;
 };
 
 #endif
