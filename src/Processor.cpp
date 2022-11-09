@@ -15,9 +15,36 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include "Processor.h"
 
+bool is_pressed(uint8_t key);
+uint16_t key_input();
+uint8_t read_memory(uint16_t addr);
+void write_memory(uint16_t addr, uint8_t byte);
+
+// Processor::Processor() {
+//     // seed the random-number generator for future calls to RAND
+//     std::srand(std::time(0));
+// }
+
+/**
+ * @brief Dump the registers of the CPU into a printable string.
+ * TODO:
+ */
+std::string Processor::dump() {
+    std::string init_string = "";
+    std::stringstream dump(init_string);
+    for (int i = 0; i < v_registers.size(); i++) {
+        dump << "Register V" << i << ": " << v_registers[i] << "\n";
+    }
+    dump << "PC: " << pc << "\n";
+    dump << "SP: " << sp << "\n";
+    dump << "DT: " << dt << "\n";
+    dump << "ST: " << st << "\n";
+    return dump.str();
+}
 
 /**
  * @brief Run the processor until the end of memory.
@@ -25,43 +52,30 @@
 void Processor::run() {
     // TODO: be able to run the assembly program
     while (is_running) {
-        // instruction = read_instruction_from_memory()
-        // switch (instruction & 0xf) {
-        //     case 0: run_instruction_0(); break;
-        //     case 0: run_instruction_1(); break;
-        //     ...
-        //     case 0: run_instruction_100(); break;
+        // uint16_t instruction = read_instruction_from_memory()
+        // switch(instruction & 0xf000) {
+        //     case 0: 
+        //         run_instruction_0();
+        //         break;
         // }
-        std::cout << "running" << std::endl;
+        // std::cout << "running" << std::endl;
     }
 }
 
 /**
  * @brief Load a byte-array into memory at 0x0.
  * TODO:
- * @param byte_array The list of bytes to load into memory. 
+ * @param byte_array The list of bytes to load into memory.
  */
 void Processor::load_memory(const std::array<uint8_t, 0x10000> &byte_array) {
     std::cout << "loading memory" << std::endl;
 }
 
-/**
- * @brief Dump the registers of the CPU into a printable string.
- * TODO:
- */
-std::string Processor::dump() {
-    return "";
-}
-
-Processor::Processor() {
-    // seed the random-number generator for future calls to RAND
-    std::srand(std::time(0));
-}
 
 uint16_t Processor::read_instruction_from_memory() {
     // read next 2 bytes pointed by PC, then concatenate
-    uint8_t d1 = read_memory(pc++); //0x20
-    uint8_t d2 = read_memory(pc++); //0x40
+    uint8_t d1 = read_memory((uint16_t)pc++); //0x20
+    uint8_t d2 = read_memory((uint16_t)pc++); //0x40
 
     uint16_t instr = ((uint16_t)d2 << 8) | d1;
     return instr;
@@ -399,8 +413,8 @@ void Processor::load_st_from_register(uint8_t vx) {
  * @param addr A 16-byte address in memory
  * @return uint8_t
  */
-uint8_t read_memory(uint16_t addr) {
-    return 1;
+uint8_t Processor::read_memory(uint16_t addr) {
+    return 0x1;
 }
 
 /**
@@ -417,8 +431,9 @@ void write_memory(uint16_t addr, uint8_t byte) {
  * @return true if the key is pressed
  * @return false if the key is not pressed
  */
-bool is_pressed(uint16_t key) {
+bool is_pressed(uint8_t key) {
     // TODO: implement emulator input
+    return false;
 }
 
 

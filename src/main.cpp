@@ -16,9 +16,9 @@ int main() {
     // CPU dump BEFORE running the instructions
     std::cout << processor.dump();
     // load the intsructions into memory
-    processor.load_memory(instructions);
-    processor.run();
+    // processor.load_memory(instructions);
+    // processor.run();
     // CPU dump AFTER running the instructions
-    std::cout << processor.dump();
+    // std::cout << processor.dump();
     return 0;
 }
