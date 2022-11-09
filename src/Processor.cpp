@@ -12,21 +12,44 @@
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 
 #include "Processor.h"
 
-// TODO: be able to run the assembly program
-// void Processor::run() {
-//     while (is_running) {
-//         instruction = read_instruction_from_memory()
-//         switch (instruction & 0xf) {
-//             case 0: run_instruction_0(); break;
-//             case 0: run_instruction_1(); break;
-//             ...
-//             case 0: run_instruction_100(); break;
-//         }
-//     }
-// }
+
+/**
+ * @brief Run the processor until the end of memory.
+ */
+void Processor::run() {
+    // TODO: be able to run the assembly program
+    while (is_running) {
+        // instruction = read_instruction_from_memory()
+        // switch (instruction & 0xf) {
+        //     case 0: run_instruction_0(); break;
+        //     case 0: run_instruction_1(); break;
+        //     ...
+        //     case 0: run_instruction_100(); break;
+        // }
+        std::cout << "running" << std::endl;
+    }
+}
+
+/**
+ * @brief Load a byte-array into memory at 0x0.
+ * TODO:
+ * @param byte_array The list of bytes to load into memory. 
+ */
+void Processor::load_memory(const std::array<uint8_t, 0x10000> &byte_array) {
+    std::cout << "loading memory" << std::endl;
+}
+
+/**
+ * @brief Dump the registers of the CPU into a printable string.
+ * TODO:
+ */
+std::string Processor::dump() {
+    return "";
+}
 
 Processor::Processor() {
     // seed the random-number generator for future calls to RAND

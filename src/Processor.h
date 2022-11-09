@@ -27,7 +27,23 @@ public:
     Processor();
     ~Processor() = default;
 
-   
+    /**
+     * @brief Run the processor until the end of memory.
+     */
+    void run();
+
+    /**
+     * @brief Load a byte-array into memory at 0x0.
+     * TODO:
+     * @param byte_array The list of bytes to load into memory. 
+     */
+    void load_memory(const std::array<uint8_t, 0x10000> &byte_array);
+
+    /**
+     * @brief Dump the registers of the CPU into a printable string.
+     * TODO:
+     */
+    std::string dump();
 
 private:
     /**
