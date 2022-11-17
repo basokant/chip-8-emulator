@@ -213,21 +213,19 @@ private: // 36 CHIP-8 instructions
 
 
     /**
-     * @brief Stores the address in register i.
+     * @brief Stores the address in register I.
      * 
-     * @param i number of the register (0x-0xf for v0-vf)
      * @param addr A 16-bit address in memory
      */
-    void load_addr(uint8_t i, uint16_t addr);
+    void load_addr(uint16_t addr);
 
 
     /**
      * @brief The program jumps by setting the program counter to an address (addr plus the value of v0)
      * 
-     * @param v0 number of the register (0x0-0xf for v0-vf)
      * @param addr A 16-bit address in memory
      */
-    void jump_register(uint8_t v0, uint16_t addr);
+    void jump_register(uint16_t addr);
 
     
     /**
@@ -297,12 +295,11 @@ private: // 36 CHIP-8 instructions
     void load_st_from_register(uint8_t vx);
 
     /**
-     * @brief The values of index and the value stored in the register Vx are added, and the results are stored in index.
+     * @brief The values of I and the value stored in the register Vx are added, and the results are stored in I.
      * 
-     * @param index 8 byte integer value
      * @param vx number of the register (0x0-0xf for v0-vf)
      */
-    void add_sum(uint8_t index, uint8_t vx);
+    void add_sum(uint8_t vx);
 
     /**
      * @brief Set the value of index to the location of the sprite for the digit stored in Vx. 
@@ -322,18 +319,16 @@ private: // 36 CHIP-8 instructions
     /**
      * @brief Store registers V0 through Vx in memory starting at location I
      * 
-     * @param i an 8 byte memory starting location integer value, 
      * @param  Vx number of the register (0x0-0xf for v0-vf)
      */
-    void str_registers_in_memory(uint8_t i, uint8_t vx);
+    void str_registers_in_memory(uint8_t vx);
    
     /**
      * @brief Read registers V0 through Vx from memory starting at location I.
      * 
-     * @param i an 8 byte memory starting location integer value, 
      * @param  Vx number of the register (0x0-0xf for v0-vf)
      */
-    void read_registers(uint8_t vx, uint8_t i);
+    void read_registers(uint8_t vx);
 
 private:
     /*
@@ -347,6 +342,7 @@ private:
     */
 
     std::array<uint16_t, 16> v_registers;
+    uint16_t i = 0; // 16-bit special register
     uint16_t pc = 0; // program counter
     uint8_t sp = 0; // stack pointer
 
