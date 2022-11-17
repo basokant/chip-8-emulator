@@ -24,7 +24,7 @@ public:
      * 
      * @param file_path path to the file
      */
-    void load_file(const std::string &file_path);
+    void load_file(char const* filename);
 
     /**
      * @brief Reads the byte in memory located at the given address
@@ -54,6 +54,9 @@ private:
     // TODO: separate this into a memory class later
     // CHIP-8 has 4KB of addressable memory = 0x10000 bytes
     std::array<uint8_t, 0x10000> memory;
+
+
+    const unsigned int START_MEMORY_ADRESS = 0X200;
 };
 
 #endif
