@@ -19,6 +19,8 @@
 class Memory
 {
 public:
+    Memory();
+    ~Memory();
     /**
      * @brief Copies the binary data stored in the file into the memory array.
      * 
