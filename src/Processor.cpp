@@ -42,6 +42,34 @@ void Processor::run() {
         // for now, just LD and ADD for the test ROM
         switch (instruction_to_run & 0xf000) {
             // instruction can be identified by 4 most significant bits
+            case 0x1000: {
+                uint16_t addr = instruction_to_run & 0xfff;
+                jp(addr);
+                break;
+            }
+            case 0x2000: {
+                uint16_t addr = instruction_to_run & 0xfff;
+                call(addr);
+                break;
+            }
+            case 0x3000: {
+                uint8_t vx = (instruction_to_run >> 8) & 0xf;
+                uint8_t byte = instruction_to_run & 0xff;
+
+                se_byte(vx, byte);
+            }
+            case 0x4000: {
+                uint8_t vx = (instruction_to_run >> 8) & 0xf;
+                uint8_t byte = instruction_to_run & 0xff;
+
+                sne_byte(vx, byte);
+            }
+            case 0x5000: {
+                uint8_t vx = (instruction_to_run >> 8) & 0xf;
+                uint8_t vy = (instruction_to_run >> 4) & 0xf;
+
+                se_register(vx, vy);
+            }
             case 0x6000: {
                 // LD Vx, byte
                 // vx is bits 8-11
