@@ -234,24 +234,22 @@ void Processor::load_register(uint8_t vx, uint8_t vy) {
 
 
 /**
- * @brief Stores the address in register i.
+ * @brief Stores the address in register I.
  * 
- * @param i number of the register (0x-0xf for v0-vf)
  * @param addr A 16-bit address in memory
  */
-void Processor::load_addr(uint8_t i, uint16_t addr) {
-    v_registers[i] = addr;
+void Processor::load_addr(uint16_t addr) {
+    i = addr;
 }
 
 
 /**
  * @brief The program jumps by setting the program counter to an address (addr plus the value of v0)
  * 
- * @param v0 number of the register (0x0-0xf for v0-vf)
  * @param addr A 16-bit address in memory
  */
-void Processor::jump_register(uint8_t v0, uint16_t addr) {
-    pc = addr + v_registers[v0];
+void Processor::jump_register(uint16_t addr) {
+    pc = addr + v_registers[0];
 }
 
 
@@ -345,11 +343,12 @@ void Processor::load_st_from_register(uint8_t vx) {
 }
 
 /**
- * @brief The values of index and the value stored in the register Vx are added, and the results are stored in index.
+ * @brief The values of I and the value stored in the register Vx are added, and the results are stored in I.
+ * 
  * @param vx number of the register (0x0-0xf for v0-vf)
  */
-void Processor::add_sum(uint8_t index, uint8_t vx) {
-    index = index +  v_registers[vx];
+void Processor::add_sum(uint8_t vx) {
+    i = i +  v_registers[vx];
 }
 
 /**
@@ -383,12 +382,11 @@ void Processor::str_bcd_in_memory(uint8_t vx) {
 }
 
 /**
- * @brief Store registers V0 through Vx in memory starting at location I
+ * @brief Store registers V0 through Vx in memory starting at location i
  * 
- * @param i an 8 byte memory starting location integer value, 
  * @param  Vx number of the register (0x0-0xf for v0-vf)
  */
-void Processor::str_registers_in_memory(uint8_t i, uint8_t vx) {
+void Processor::str_registers_in_memory(uint8_t vx) {
     
     for (uint8_t n = 0; n <= vx; n++) {
         memory[i + n] = v_registers[n]; 
@@ -401,7 +399,7 @@ void Processor::str_registers_in_memory(uint8_t i, uint8_t vx) {
  * @param i an 8 byte memory starting location integer value, 
  * @param  Vx number of the register (0x0-0xf for v0-vf)
  */
-void Processor::read_registers(uint8_t vx, uint8_t i) {
+void Processor::read_registers(uint8_t vx) {
     for (uint8_t n = 0; n <= vx; n++) {
         v_registers[n] = memory[i + n];
     }
