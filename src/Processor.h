@@ -14,6 +14,7 @@
 
 #include <array>
 #include <cstdint>
+#include <functional>
 #include <string>
 
 /*
@@ -25,19 +26,23 @@ class Processor
 {
 public:
 
-    Processor();
+    /**
+     * @brief Construct a new Processor object given memory callback functions
+     * 
+     * @param read_memory_callback a std::function object for reading from memory
+     * @param write_memory_callback a std::function object for writing to memory
+     */
+    Processor(
+        std::function<uint8_t(uint16_t)> read_memory_callback,
+        std::function<void(uint16_t, uint8_t)> write_memory_callback
+    );
+
     ~Processor() = default;
 
     /**
      * @brief Run the processor until the end of memory.
      */
     void run();
-
-    /**
-     * @brief Load a byte-array into memory at 0x0.
-     * @param byte_array The list of bytes to load into memory. 
-     */
-    void load_memory(const std::array<uint8_t, 0x10000> &byte_array);
 
     /**
      * @brief Dump the registers of the CPU into a printable string.
@@ -47,19 +52,7 @@ public:
     std::string dump();
 
 private: // internal memory calls
-    /**
-     * @brief Read the byte stored at memory address addr
-     * 
-     * @param addr A 16-byte address in memory
-     * @return uint8_t 
-     */
-    uint8_t read_memory(uint16_t addr);
 
-    /**
-     * @brief Write a byte to memory at address addr
-     * 
-     */
-    void write_memory(uint16_t addr, uint8_t byte);
 
     /**
      * @brief Read the next instruction from memory pointed
@@ -365,12 +358,10 @@ private:
 
     uint8_t index = 0; //index 
 
-    static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters 
+    static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters
 
-    // Array storing memory 
-    // TODO: separate this into a memory class later
-    // CHIP-8 has 4KB of addressable memory = 0x10000 bytes
-    std::array<uint8_t, 0x10000> memory;
+    std::function<uint8_t(uint16_t)> read_memory;
+    std::function<void(uint16_t, uint8_t)> write_memory;
 };
 
 #endif

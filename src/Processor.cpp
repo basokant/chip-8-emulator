@@ -24,7 +24,11 @@
  * 
  * Seeds the random number generator used by the RANDOM instruction
  */
-Processor::Processor() {
+Processor::Processor(
+    std::function<uint8_t(uint16_t)> read_memory_callback,
+    std::function<void(uint16_t, uint8_t)> write_memory_callback
+) : read_memory {read_memory_callback},
+    write_memory {write_memory_callback} {
     // seed the random-number generator for future calls to RAND
     std::srand(std::time(0));
 }
@@ -94,14 +98,6 @@ void Processor::run() {
 }
 
 /**
- * @brief Load a byte-array into memory at 0x0.
- * @param byte_array The list of bytes to load into memory.
- */
-void Processor::load_memory(const std::array<uint8_t, 0x10000> &byte_array) {
-    memory = byte_array;
-}
-
-/**
  * @brief Dump the registers of the CPU into a printable string.
  *
  * @return a string containing all the register values
@@ -118,23 +114,6 @@ std::string Processor::dump() {
     dump_ss << "DT: " << dt << "\n";
     dump_ss << "ST: " << st << "\n";
     return dump_ss.str();
-}
-
-/**
- * @brief Read the byte stored at memory address addr
- *
- * @param addr A 16-byte address in memory
- * @return uint8_t
- */
-uint8_t Processor::read_memory(uint16_t addr) {
-    return memory[addr];
-}
-
-/**
- * @brief Write a byte to memory at address addr
- */
-void Processor::write_memory(uint16_t addr, uint8_t byte) {
-    memory[addr] = byte;
 }
 
 /**

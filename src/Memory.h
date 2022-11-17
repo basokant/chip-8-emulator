@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef PROCESSOR_H_INCLUDED
-#define PROCESSOR_H_INCLUDED
+#ifndef MEMORY_H_INCLUDED
+#define MEMORY_H_INCLUDED
 
 #include <array>
 #include <cstdint>
@@ -56,3 +56,4 @@ private:
     std::array<uint8_t, 0x10000> memory;
 };
 
+#endif

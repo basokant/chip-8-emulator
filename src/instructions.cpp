@@ -370,16 +370,16 @@ void Processor::load_loc_of_sprite(uint8_t vx) {
  */
 void Processor::str_bcd_in_memory(uint8_t vx) {
 
-    //one's digit 
-    memory[index + 2] = v_registers[vx] % 10; 
+    //one's digit
+    write_memory(index + 2, v_registers[vx] % 10);
     v_registers[vx] /= 10; 
 
     // ten's digit 
-    memory[index + 1] = v_registers[vx] % 10;
+    write_memory(index + 1, v_registers[vx] % 10);
     v_registers[vx] /= 10; 
 
     //hundred's digit
-    memory[index] = v_registers[vx] % 10;
+    write_memory(index, v_registers[vx] % 10);
 }
 
 /**
@@ -391,7 +391,7 @@ void Processor::str_bcd_in_memory(uint8_t vx) {
 void Processor::str_registers_in_memory(uint8_t i, uint8_t vx) {
     
     for (uint8_t n = 0; n <= vx; n++) {
-        memory[i + n] = v_registers[n]; 
+        write_memory(i + n, v_registers[n]);
     }
 }
 
@@ -403,6 +403,6 @@ void Processor::str_registers_in_memory(uint8_t i, uint8_t vx) {
  */
 void Processor::read_registers(uint8_t vx, uint8_t i) {
     for (uint8_t n = 0; n <= vx; n++) {
-        v_registers[n] = memory[i + n];
+        v_registers[n] = read_memory(i + n);
     }
 }
