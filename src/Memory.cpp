@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
 #include "Memory.h"
 
@@ -28,27 +29,28 @@ Memory::Memory() {}
 */
 void Memory::load_file(char const* filename) {
 
-    // Open the file as binary stream set the pointer to the begginig of the file  
+    // Open the file as binary stream set the pointer to the beginning of the file
     std::ifstream file(filename, std::ios::binary | std::ios::ate);
 
-    if(file.is_open()) {
-        //Get size of the file, and store it in a buffer
-        std::streampos size = file.tellg();
-        char * buffer  = new char[size];
+    // get size of file
+    std::streampos size = file.tellg();
+    file.seekg(0, std::ios::beg);
 
-        //Cheeck this 
-        file.seekg(0, std::ios::beg);
-        file.read(buffer, size);
-        file.close();
-    
+    // create buffer for file as a vector
+    std::vector<char> buffer(size);
 
-        //Load the file 
+    // if we are able to read data into buffer
+    if  (file.read(buffer.data(), size)) {
+
         for(uint8_t i = 0; i < size; ++i ){
+
+            // copy data from beginning of buffer to the start addr of memory
             memory[START_MEMORY_ADRESS + i] = buffer[i];
         }
-
-        delete[] buffer;
     }
+
+    // close file
+    file.close();
 
 }
 
