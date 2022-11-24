@@ -1,3 +1,6 @@
 build/
 chip8
 .vscode/
+config.mk
+*.o
+*.d

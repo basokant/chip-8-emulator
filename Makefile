@@ -1,45 +1,56 @@
-CXX = g++
-WARNINGS = -Wfatal-errors -Wall -Wextra -Wpedantic -Wconversion -Wshadow
-CXX_FLAGS = -g -std=c++17
-
 # Final binary
 BIN = chip8
 
-# Put all auto generated stuff to this build dir.
-BUILD_DIR = build
+CXX = g++
+WARNINGS := -Wfatal-errors -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+CXXFLAGS := -g -std=c++17
+CPPFLAGS :=
 
-# List of all .cpp source files.
-SRC = $(wildcard src/*.cpp)
-# All .o files go to build dir.
-OBJ = $(SRC:src/%.cpp=$(BUILD_DIR)/%.o)
-# Gcc/Clang will create these .d files containing dependencies.
-DEP = $(OBJ:%.o=%.d)
-# Shows where to find the header files
-INCLUDE = -Iinclude
+# system specific configurations (e.g. file include paths)
+include config.mk
+# specify defaults if not specified in config
+SDL_INCLUDE_DIR ?= /usr/include/SDL2
+
+# Our object files
+OBJS = \
+src/main.o \
+src/instructions.o \
+src/Memory.o \
+src/Processor.o \
+src/System.o \
+
 # Libraries to link
-LIBRARY = 
-LINKER = 
+LIBS = -lSDL2
+
+CPPFLAGS += $(addprefix -I, \
+	$(IMGUI_DIR) \
+	$(IMGUI_DIR)/backends \
+	include \
+	$(SDL_DIR) \
+)
+
+
 
 # Target of the binary - depends on all .o files.
-$(BIN) : $(OBJ)
-    # Create build directories - same structure as sources.
-	mkdir -p $(BUILD_DIR)
+$(BIN) : $(OBJS)
     # Just link all the object files.
-	$(CXX) $(CXX_FLAGS) $^ $(LIBRARY) $(LINKER) -o $@
+	$(CXX) `sdl2-config --cflags` $(CXXFLAGS) `sdl2-config --libs` $^ $(LIBS) -o $@
 
 # Include all .d files
--include $(DEP)
 
-# Build target for every single object file.
-# The potential dependency on header files is covered
-# by calling `-include $(DEP)`.
-$(BUILD_DIR)/%.o : src/%.cpp
-	mkdir -p $(BUILD_DIR)
+
+# Rule for building object files from C++ source
+%.o: %.cpp
     # The -MMD flags additionaly creates a .d file with
     # the same name as the .o file.
-	$(CXX) $(CXX_FLAGS) $(INCLUDE) -MMD -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -MMD -c $< -o $@
 
-.PHONY : clean
-clean :
-    # This should remove all generated files.
-	rm -rf $(BUILD_DIR)
+# generated dependencies
+DEPS = $(OBJS:%.o=%.d)
+
+# Remove object files and generated dependencies
+.PHONY: clean
+clean:
+	rm -rf $(OBJS) $(DEPS)
+
+-include $(DEPS)

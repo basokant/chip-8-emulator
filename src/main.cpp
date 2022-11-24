@@ -1,10 +1,8 @@
-#include <array>
 #include <iostream>
-#include <string>
+#include <SDL2/SDL.h>
 
-#include "Processor.h"
-
-int main() {
+int main()
+{
     std::cout << "Hello, world!\n";
     return 0;
 }
