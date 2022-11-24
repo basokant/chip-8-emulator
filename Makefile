@@ -10,6 +10,7 @@ CPPFLAGS :=
 include config.mk
 # specify defaults if not specified in config
 SDL_INCLUDE_DIR ?= /usr/include/SDL2
+SDL_LIB_DIR ?=
 
 # Our object files
 OBJS = \
@@ -18,6 +19,7 @@ src/instructions.o \
 src/Memory.o \
 src/Processor.o \
 src/System.o \
+src/Display.o
 
 # Libraries to link
 LIBS = -lSDL2
@@ -29,12 +31,14 @@ CPPFLAGS += $(addprefix -I, \
 	$(SDL_DIR) \
 )
 
+LD_FLAGS = -L$(SDL_LIB_DIR)
+
 
 
 # Target of the binary - depends on all .o files.
 $(BIN) : $(OBJS)
     # Just link all the object files.
-	$(CXX) `sdl2-config --cflags` $(CXXFLAGS) `sdl2-config --libs` $^ $(LIBS) -o $@
+	$(CXX) $(LD_FLAGS) `sdl2-config --cflags` $(CXXFLAGS) `sdl2-config --libs` $^ $(LIBS) -o $@
 
 # Include all .d files
 
