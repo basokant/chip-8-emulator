@@ -45,6 +45,13 @@ public:
     void run();
 
     /**
+     * @brief Decode the given instruction and run it.
+     * 
+     * @param instruction_to_run The instruction to run
+     */
+    void decode_and_execute(uint16_t instruction_to_run);
+
+    /**
      * @brief Dump the registers of the CPU into a printable string.
      * 
      * @return a string containing all the register values
