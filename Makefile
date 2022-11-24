@@ -28,7 +28,7 @@ CPPFLAGS += $(addprefix -I, \
 	$(IMGUI_DIR) \
 	$(IMGUI_DIR)/backends \
 	include \
-	$(SDL_DIR) \
+	$(SDL_INCLUDE_DIR) \
 )
 
 LD_FLAGS = -L$(SDL_LIB_DIR)
