@@ -264,7 +264,6 @@ void Processor::random(uint8_t vx, uint8_t byte) {
     v_registers[vx] = num;
 }
 
-
 /**
  * @brief Display n-byte sprite starting at memory location I at (vx, vy), set VF = collision.
  * 
@@ -273,9 +272,29 @@ void Processor::random(uint8_t vx, uint8_t byte) {
  * @param nibble 4-bit value (0x0-0xf)
  */
 void Processor::display(uint8_t vx, uint8_t vy, uint8_t nibble) {
-    // TODO: implement display functionality
-}
+    /*
+        HOW THE DRAW INSTRUCTION WORKS
 
+        Vx = x coordinate on the screen
+        Vy = y coordinate on the screen
+        n = size of the sprite
+
+        DRW 10, 10, 3
+
+        16-bit register I <----- 0x1234
+
+        0xaf <--- I = address 0x1234
+        0xee
+        0x23 <-- end of sprite
+        0xa0
+        0x1f
+        0x3d
+
+        01010010
+        00111010  ----> copy these pixels to screen at top-left corner (10,10)
+        10010101
+    */
+}
 
 /**
  * @brief Skip next instruction if key with the value of vx is pressed.

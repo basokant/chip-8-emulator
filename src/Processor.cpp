@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
 
 #include "Processor.h"
 
@@ -26,9 +27,11 @@
  */
 Processor::Processor(
     std::function<uint8_t(uint16_t)> read_memory_callback,
-    std::function<void(uint16_t, uint8_t)> write_memory_callback
+    std::function<void(uint16_t, uint8_t)> write_memory_callback,
+    std::function<bool(uint8_t, uint8_t, const std::vector<uint8_t> &)> write_pixels_to_screen_callback
 ) : read_memory {read_memory_callback},
-    write_memory {write_memory_callback} {
+    write_memory {write_memory_callback},
+    write_pixels_to_screen {write_pixels_to_screen_callback} {
     // seed the random-number generator for future calls to RAND
     std::srand(std::time(0));
 }

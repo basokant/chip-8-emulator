@@ -12,6 +12,7 @@
 #ifndef SYSTEM_H_INCLUDED
 #define SYSTEM_H_INCLUDED
 
+#include "Display.h"
 #include "Processor.h"
 #include "Memory.h"
 
@@ -23,6 +24,7 @@ public:
 private:
     Processor processor;
     Memory memory;
+    Display display;
 };
 
 #endif
