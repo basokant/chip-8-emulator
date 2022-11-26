@@ -24,12 +24,14 @@
 /*
 See CHIP-8 documentation
 http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.5
-*/
-
 class Memory;
 class Display;
 class Keyboard;
 
+/**
+ * @brief A class emulating the CHIP-8 processor.
+ * 
+ */
 class Processor
 {
 public:

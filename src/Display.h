@@ -18,6 +18,10 @@
 
 #include <SDL2/SDL.h>
 
+/**
+ * @brief A class representing the window and renderer for the emulator.
+ * 
+ */
 class Display
 {
 public:

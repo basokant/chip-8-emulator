@@ -3,6 +3,10 @@
 
 #include <stdexcept>
 
+/**
+ * @brief A custom exception class for errors produced by the SDL library.
+ * 
+ */
 class SDLException : public std::exception {
 public:
     const char *what() const noexcept override;

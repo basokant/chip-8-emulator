@@ -20,6 +20,10 @@
 #include "Keyboard.h"
 #include "Sound.h"
 
+/**
+ * @brief The full emulator consisting of the processor, memory, display, keyboard, and sound.
+ * 
+ */
 class System
 {
 public:

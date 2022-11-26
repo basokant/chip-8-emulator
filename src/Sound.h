@@ -13,6 +13,10 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
+/**
+ * @brief The audio unit of the processor that produces sound.
+ * 
+ */
 class Sound 
 {
     
