@@ -20,7 +20,12 @@
 
 #include "Memory.h"
 
-Memory::Memory() {}
+Memory::Memory() {
+    //Write predetermined fonts into memory from constructor 
+    for(unsigned int i = 0; i < FONTSET_LENGTH; i++) {
+        write_memory(FONTSET_ADDRESS + i, font_characters[i]);
+    }
+}
     
 /**
 * @brief Copies the binary data stored in the file into the memory array.
