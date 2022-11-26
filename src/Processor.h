@@ -351,7 +351,7 @@ private:
 
     std::array<uint16_t, 16> v_registers;
     uint16_t i_register = 0; // 16-bit special register
-    uint16_t pc = 0; // program counter
+    uint16_t pc = 0x200; // program counter, CHIP-8 programs start at 0x200
     uint8_t sp = 0; // stack pointer
 
     uint16_t dt = 0; // delay timer

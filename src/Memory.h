@@ -56,7 +56,7 @@ private:
     // Array storing memory
     // TODO: separate this into a memory class later
     // CHIP-8 has 4KB of addressable memory = 0x1000 bytes
-    std::array<uint8_t, 0x1000> memory;
+    std::array<uint8_t, 0x1000> memory = {0};
 
 
     const unsigned int START_MEMORY_ADRESS = 0X200;

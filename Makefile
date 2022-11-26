@@ -19,7 +19,8 @@ src/instructions.o \
 src/Memory.o \
 src/Processor.o \
 src/System.o \
-src/Display.o
+src/Display.o \
+src/SDLException.o
 
 # Libraries to link
 LIBS = -lSDL2

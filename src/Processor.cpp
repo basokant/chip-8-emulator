@@ -272,11 +272,11 @@ std::string Processor::dump() {
 uint16_t Processor::read_instruction_from_memory() {
     // make sure that the PC is not in a non-executable memory segment
     if (pc < 0x200) {
-        throw ProcessorException("attempt to execute instruction in non-executable memory segment\n");
+        throw ProcessorException("attempt to execute instruction in non-executable memory segment");
     }
     // make sure that the PC is in bounds
     if (pc > 0xfff) {
-        throw ProcessorException("attempt to access past the end of bounds of memory (0xfff)\n");
+        throw ProcessorException("attempt to access past the end of bounds of memory (0xfff)");
     }
 
     // read next 2 bytes pointed by PC, then concatenate

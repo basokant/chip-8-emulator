@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 
-class ProcessorException : std::runtime_error {
+struct ProcessorException : std::runtime_error {
     // Use std::runtime_error constructor for this class
     using std::runtime_error::runtime_error;
 };

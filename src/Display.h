@@ -24,8 +24,8 @@ public:
      * @brief Initialize the display's window and renderer.
      * 
      */
-    Display() = default;
-    ~Display() = default;
+    Display();
+    ~Display();
 
     /**
      * @brief Write a sequence of bytes to the screen at (x_coordinate, y_coordinate).
@@ -45,7 +45,7 @@ public:
 
 private:
     SDL_Window *window = nullptr;
-    SDL_Renderer *renderer= nullptr;
+    SDL_Renderer *renderer = nullptr;
 };
 
 #endif
