@@ -10,7 +10,8 @@ Display::Display() {
         throw SDLException {};
     }
     
-    SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
+    window = SDL_CreateWindow("CHIP OFF THE BLOCK", 100, 100, screen_width, screen_height, 0);
+    renderer = SDL_CreateRenderer(window, -1, 0);
     // set draw color to black for clearing
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     // SDL_RenderClear(renderer);
