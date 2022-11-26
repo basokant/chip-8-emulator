@@ -1,3 +1,6 @@
+#include <cstdint>
+#include <vector>
+
 #include "Processor.h"
 
 // helper functions: use anonymous namespace for internal linkage
