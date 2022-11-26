@@ -41,9 +41,9 @@ public:
     ~Processor() = default;
 
     /**
-     * @brief Run the processor until the end of memory.
+     * @brief Execute one processor instruction.
      */
-    void run();
+    void step();
 
     /**
      * @brief Decode the given instruction and run it.
@@ -350,7 +350,7 @@ private:
     */
 
     std::array<uint16_t, 16> v_registers;
-    uint16_t i = 0; // 16-bit special register
+    uint16_t i_register = 0; // 16-bit special register
     uint16_t pc = 0; // program counter
     uint8_t sp = 0; // stack pointer
 

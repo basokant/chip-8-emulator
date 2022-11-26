@@ -20,7 +20,7 @@ class Memory
 {
 public:
     Memory();
-    ~Memory();
+    ~Memory() = default;
     /**
      * @brief Copies the binary data stored in the file into the memory array.
      * 
@@ -55,16 +55,16 @@ public:
 private:
     // Array storing memory
     // TODO: separate this into a memory class later
-    // CHIP-8 has 4KB of addressable memory = 0x10000 bytes
-    std::array<uint8_t, 0x10000> memory;
+    // CHIP-8 has 4KB of addressable memory = 0x1000 bytes
+    std::array<uint8_t, 0x1000> memory;
 
 
     const unsigned int START_MEMORY_ADRESS = 0X200;
 
     //Position where ROM files will know where fonts begin in memory 
-    const unsigned int FONTSET_ADDRESS = 0x50;
+    const static unsigned int FONTSET_ADDRESS = 0x50;
     //Length of the font array
-    const unsigned int FONTSET_LENGTH = 80;
+    const static unsigned int FONTSET_LENGTH = 80;
 
     uint8_t font_characters[FONTSET_LENGTH] = {
         0xF0, 0x90, 0x90, 0x90, 0xF0, // 0

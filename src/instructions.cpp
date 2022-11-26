@@ -239,7 +239,7 @@ void Processor::load_register(uint8_t vx, uint8_t vy) {
  * @param addr A 16-bit address in memory
  */
 void Processor::load_addr(uint16_t addr) {
-    i = addr;
+    i_register = addr;
 }
 
 
@@ -294,6 +294,17 @@ void Processor::display(uint8_t vx, uint8_t vy, uint8_t nibble) {
         00111010  ----> copy these pixels to screen at top-left corner (10,10)
         10010101
     */
+
+    // loads n rows of pixels from memory into a vector
+    std::vector<uint8_t> pixels;
+    for (int i = i_register; i < (i_register + nibble); i++ ) {
+        uint8_t pixel = read_memory(i);
+        pixels.push_back(pixel);
+    }
+
+    bool pixel_collision = write_pixels_to_screen(v_registers[vx], v_registers[vy], pixels);
+    // set VF register flag to 1 if there was a collision, 0 otherwise
+    v_registers[0xf] = pixel_collision;
 }
 
 /**
@@ -367,7 +378,7 @@ void Processor::load_st_from_register(uint8_t vx) {
  * @param vx number of the register (0x0-0xf for v0-vf)
  */
 void Processor::add_sum(uint8_t vx) {
-    i = i +  v_registers[vx];
+    i_register = i_register + v_registers[vx];
 }
 
 /**
@@ -408,7 +419,7 @@ void Processor::str_bcd_in_memory(uint8_t vx) {
 void Processor::str_registers_in_memory(uint8_t vx) {
     
     for (uint8_t n = 0; n <= vx; n++) {
-        write_memory(i + n, v_registers[n]);
+        write_memory(i_register + n, v_registers[n]);
     }
 }
 
@@ -420,6 +431,6 @@ void Processor::str_registers_in_memory(uint8_t vx) {
  */
 void Processor::read_registers(uint8_t vx) {
     for (uint8_t n = 0; n <= vx; n++) {
-        v_registers[n] = read_memory(i + n);
+        v_registers[n] = read_memory(i_register + n);
     }
 }

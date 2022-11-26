@@ -1,3 +1,5 @@
+#include <SDL2/SDL.h>
+
 #include "System.h"
 
 System::System()
@@ -12,3 +14,18 @@ System::System()
         }
     }
 {}
+
+
+void System::run() {
+    bool quit = false;
+    SDL_Event event;
+    while (!quit) {
+        while (SDL_PollEvent(&event) != 0) {
+            if (event.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        // step forward one processor instruction
+        processor.step();
+    }
+}

@@ -20,6 +20,13 @@ class System
 {
 public:
     System();
+    ~System() = default;
+
+    /**
+     * @brief Run the emulator.
+     * 
+     */
+    void run();
 
 private:
     Processor processor;

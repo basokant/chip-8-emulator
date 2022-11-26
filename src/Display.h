@@ -15,9 +15,18 @@
 #include <cstdint>
 #include <vector>
 
+#include <SDL2/SDL.h>
+
 class Display
 {
 public:
+    /**
+     * @brief Initialize the display's window and renderer.
+     * 
+     */
+    Display() = default;
+    ~Display() = default;
+
     /**
      * @brief Write a sequence of bytes to the screen at (x_coordinate, y_coordinate).
      * The display XORs the bytes onto the screen: pixels that are already set are cleared and vice-versa.
@@ -33,6 +42,10 @@ public:
      * 
      */
     void clear();
+
+private:
+    SDL_Window *window = nullptr;
+    SDL_Renderer *renderer= nullptr;
 };
 
 #endif
