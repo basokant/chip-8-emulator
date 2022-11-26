@@ -28,9 +28,6 @@ public:
      */
     void load_file(char const* filename);
 
-    /**
-    */
-    void load_fonts_in_memory(uint8_t size);
 
     /**
      * @brief Reads the byte in memory located at the given address
@@ -64,7 +61,9 @@ private:
 
     const unsigned int START_MEMORY_ADRESS = 0X200;
 
+    //Position where ROM files will know where fonts begin in memory 
     const unsigned int FONTSET_ADDRESS = 0x50;
+    //Length of the font array
     const unsigned int FONTSET_LENGTH = 80;
 
     uint8_t font_characters[FONTSET_LENGTH] = {
