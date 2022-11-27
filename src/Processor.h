@@ -360,8 +360,6 @@ private:
     // Internal call stack: stores return address from subroutine calls
     std::array<uint16_t, 16> stack;
 
-    uint8_t index = 0; //index 
-
     static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters
 
     std::function<uint8_t(uint16_t)> read_memory;

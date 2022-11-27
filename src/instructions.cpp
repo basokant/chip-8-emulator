@@ -78,7 +78,7 @@ void Processor::call(uint16_t addr) {
  */
 void Processor::se_byte(uint8_t vx, uint8_t byte) {
     if (v_registers[vx] == byte)
-        pc += 1;
+        pc += 2;
 }
 
 /**
@@ -88,7 +88,7 @@ void Processor::se_byte(uint8_t vx, uint8_t byte) {
  */
 void Processor::sne_byte(uint8_t vx, uint8_t byte) {
     if (v_registers[vx] != byte)
-        pc += 1;
+        pc += 2;
 }
 
 /**
@@ -99,7 +99,7 @@ void Processor::sne_byte(uint8_t vx, uint8_t byte) {
  */
 void Processor::se_register(uint8_t vx, uint8_t vy) {
     if (v_registers[vx] == v_registers[vy])
-        pc += 1;
+        pc += 2;
 }
 
 /**
@@ -385,14 +385,14 @@ void Processor::add_sum(uint8_t vx) {
 }
 
 /**
- * @brief Set the value of index to the location of the sprite for the digit stored in Vx. 
+ * @brief Set the value of i_register to the location of the sprite for the digit stored in Vx. 
  * Get the address of the first byte of any character by taking an offset from the start address.
  * 
  * @param  Vx number of the register (0x0-0xf for v0-vf)  
  */
 
 void Processor::load_loc_of_sprite(uint8_t vx) {
-    index = FONTSET_ADDRESS + (5* v_registers[vx]);
+    i_register = FONTSET_ADDRESS + (5* v_registers[vx]);
 }
 
 /**
@@ -403,15 +403,15 @@ void Processor::load_loc_of_sprite(uint8_t vx) {
 void Processor::str_bcd_in_memory(uint8_t vx) {
 
     //one's digit
-    write_memory(index + 2, v_registers[vx] % 10);
+    write_memory(i_register + 2, v_registers[vx] % 10);
     v_registers[vx] /= 10; 
 
     // ten's digit 
-    write_memory(index + 1, v_registers[vx] % 10);
+    write_memory(i_register + 1, v_registers[vx] % 10);
     v_registers[vx] /= 10; 
 
     //hundred's digit
-    write_memory(index, v_registers[vx] % 10);
+    write_memory(i_register, v_registers[vx] % 10);
 }
 
 /**

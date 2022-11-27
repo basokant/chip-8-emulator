@@ -42,7 +42,7 @@ Processor::Processor(
  */
 void Processor::step() {
     uint16_t instruction_to_run = read_instruction_from_memory();
-    decode_and_execute(instruction_to_run);        
+    decode_and_execute(instruction_to_run);
 }
 
 void Processor::decode_and_execute(uint16_t instruction_to_run) {
@@ -236,9 +236,13 @@ void Processor::decode_and_execute(uint16_t instruction_to_run) {
                     read_registers(vx);
                 }
             }
-        }
+        } break;
         default: {
-            std::cout << "Unimplemented instruction! " << instruction_to_run << '\n';
+            std::cout << "Unimplemented instruction! 0x"
+                << std::hex
+                << instruction_to_run 
+                << std::dec
+                << '\n';
         }
     }
 }
