@@ -1,5 +1,6 @@
 ROMS := \
-loop.rom
+loop.rom \
+fonttest.rom
 
 CUSTOMASM_DIR := ../customasm
 
@@ -8,7 +9,7 @@ all: customasm $(ROMS)
 # build the assembler
 .PHONY: customasm
 customasm:
-	cargo build --manifest-path=$(CUSTOMASM_DIR)/Cargo.toml
+	cargo build --release --manifest-path=$(CUSTOMASM_DIR)/Cargo.toml
 
 .PHONY: clean
 clean:
