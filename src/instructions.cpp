@@ -36,17 +36,25 @@ void Processor::sys(uint16_t addr) {
 }
 
 /**
+ * @brief Clear the display.
+ *
+ */
+void Processor::cls() {
+    display.clear();
+}
+
+/**
  * @brief Return from a subroutine.
  *
  * The interpreter sets the program counter to the address at the top of the stack,
  * then subtracts 1 from the stack pointer.
  *
  */
-void Processor::ret() {
-    uint8_t top_of_stack = read_memory(sp);
-    pc = top_of_stack;
-    // pop stack: decrement stack pointer
+void Processor::ret()
+{
     sp -= 1;
+    uint16_t top_of_stack = stack[sp];
+    pc = top_of_stack;
 }
 
 /**
@@ -65,8 +73,8 @@ void Processor::jp(uint16_t addr) {
  */
 void Processor::call(uint16_t addr) {
     // push current PC to the top of the stack
-    sp += 1;
     stack[sp] = pc;
+    sp += 1;
     pc = addr;
 }
 
@@ -274,7 +282,7 @@ void Processor::random(uint8_t vx, uint8_t byte) {
  * @param vy number of the register (0x0-0xf for v0-vf)
  * @param nibble 4-bit value (0x0-0xf)
  */
-void Processor::display(uint8_t vx, uint8_t vy, uint8_t nibble) {
+void Processor::draw(uint8_t vx, uint8_t vy, uint8_t nibble) {
     /*
         HOW THE DRAW INSTRUCTION WORKS
 
@@ -301,11 +309,11 @@ void Processor::display(uint8_t vx, uint8_t vy, uint8_t nibble) {
     // loads n rows of pixels from memory into a vector
     std::vector<uint8_t> pixels;
     for (int i = i_register; i < (i_register + nibble); i++ ) {
-        uint8_t pixel = read_memory(i);
+        uint8_t pixel = memory.read_memory(i);
         pixels.push_back(pixel);
     }
 
-    bool pixel_collision = write_pixels_to_screen(v_registers[vx], v_registers[vy], pixels);
+    bool pixel_collision = display.write_pixels_to_screen(v_registers[vx], v_registers[vy], pixels);
     // set VF register flag to 1 if there was a collision, 0 otherwise
     v_registers[0xf] = pixel_collision;
 }
@@ -403,15 +411,15 @@ void Processor::load_loc_of_sprite(uint8_t vx) {
 void Processor::str_bcd_in_memory(uint8_t vx) {
 
     //one's digit
-    write_memory(i_register + 2, v_registers[vx] % 10);
+    memory.write_memory(i_register + 2, v_registers[vx] % 10);
     v_registers[vx] /= 10; 
 
     // ten's digit 
-    write_memory(i_register + 1, v_registers[vx] % 10);
+    memory.write_memory(i_register + 1, v_registers[vx] % 10);
     v_registers[vx] /= 10; 
 
     //hundred's digit
-    write_memory(i_register, v_registers[vx] % 10);
+    memory.write_memory(i_register, v_registers[vx] % 10);
 }
 
 /**
@@ -422,7 +430,7 @@ void Processor::str_bcd_in_memory(uint8_t vx) {
 void Processor::str_registers_in_memory(uint8_t vx) {
     
     for (uint8_t n = 0; n <= vx; n++) {
-        write_memory(i_register + n, v_registers[n]);
+        memory.write_memory(i_register + n, v_registers[n]);
     }
 }
 
@@ -434,6 +442,6 @@ void Processor::str_registers_in_memory(uint8_t vx) {
  */
 void Processor::read_registers(uint8_t vx) {
     for (uint8_t n = 0; n <= vx; n++) {
-        v_registers[n] = read_memory(i_register + n);
+        v_registers[n] = memory.read_memory(i_register + n);
     }
 }

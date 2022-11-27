@@ -12,11 +12,8 @@ Display::Display() {
     
     window = SDL_CreateWindow("CHIP OFF THE BLOCK", 100, 100, screen_width, screen_height, 0);
     renderer = SDL_CreateRenderer(window, -1, 0);
-    // set draw color to black for clearing
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    SDL_RenderClear(renderer);
-    // set draw color to white for drawing pixels
-    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+    
+    clear();
 
     // TODO: test, remove later
     // write_pixel(1, 10, 10);
@@ -58,6 +55,16 @@ bool Display::write_pixels_to_screen(uint8_t x_coordinate, uint8_t y_coordinate,
     return pixel_overwritten;
 }
 
+void Display::clear() {
+    // set draw color to black for clearing
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
+    // set draw color to white for drawing pixels
+    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+    // clear the buffer
+    pixel_buffer = std::array<std::array<bool, 64>, 32> {0};
+}
+
 bool Display::write_pixel(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) {
     // CHIP8 XORs the current pixel with the pixel to draw to determine the new pixel to show
 
@@ -90,7 +97,7 @@ bool Display::write_pixel(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate
     const int pixel_height = y_scale;
 
     SDL_Rect scaled_pixel {pixel_x, pixel_y, pixel_width, pixel_height};
-    if (SDL_RenderDrawRect(renderer, &scaled_pixel) != 0) {
+    if (SDL_RenderFillRect(renderer, &scaled_pixel) != 0) {
         throw SDLException {};
     }
 

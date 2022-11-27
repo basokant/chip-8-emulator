@@ -17,10 +17,16 @@
 #include <functional>
 #include <string>
 
+#include "Memory.h"
+#include "Display.h"
+
 /*
 See CHIP-8 documentation
 http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.5
 */
+
+class Memory;
+class Display;
 
 class Processor
 {
@@ -29,14 +35,10 @@ public:
     /**
      * @brief Construct a new Processor object given memory callback functions
      * 
-     * @param read_memory_callback a std::function object for reading from memory
-     * @param write_memory_callback a std::function object for writing to memory
+     * @param memory a reference to the memory object
+     * @param display a reference to the display
      */
-    Processor(
-        std::function<uint8_t(uint16_t)> read_memory_callback,
-        std::function<void(uint16_t, uint8_t)> write_memory_callback,
-        std::function<bool(uint8_t, uint8_t, const std::vector<uint8_t> &)> write_pixels_to_screen_callback
-    );
+    Processor(Memory &memory, Display &display);
 
     ~Processor() = default;
 
@@ -80,6 +82,12 @@ private: // 36 CHIP-8 instructions
      * @param addr The 16-bit address to jump to
      */
     void sys(uint16_t addr);
+
+    /**
+     * @brief Clear the display.
+     *
+     */
+    void cls();
 
     /**
      * @brief Return from a subroutine.
@@ -252,7 +260,7 @@ private: // 36 CHIP-8 instructions
      * @param vy number of the register (0x0-0xf for v0-vf)
      * @param nibble 4-bit value (0x0-0xf)
      */
-    void display(uint8_t vx, uint8_t vy, uint8_t nibble);
+    void draw(uint8_t vx, uint8_t vy, uint8_t nibble);
 
     
     /**
@@ -349,7 +357,7 @@ private:
     ST: 16-bit sound timer register
     */
 
-    std::array<uint16_t, 16> v_registers;
+    std::array<uint8_t, 16> v_registers;
     uint16_t i_register = 0; // 16-bit special register
     uint16_t pc = 0x200; // program counter, CHIP-8 programs start at 0x200
     uint8_t sp = 0; // stack pointer
@@ -358,13 +366,12 @@ private:
     uint16_t st = 0; // sound timer
 
     // Internal call stack: stores return address from subroutine calls
-    std::array<uint16_t, 16> stack;
+    std::array<uint16_t, 16> stack = {0};
 
     static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters
 
-    std::function<uint8_t(uint16_t)> read_memory;
-    std::function<void(uint16_t, uint8_t)> write_memory;
-    std::function<bool(uint8_t, uint8_t, const std::vector<uint8_t>)> write_pixels_to_screen;
+    Memory &memory;
+    Display &display;
 };
 
 #endif

@@ -21,18 +21,21 @@
 #include "Processor.h"
 #include "ProcessorException.h"
 
+void unimplemented_instruction(uint16_t instruction_to_run) {
+    std::cout << "Unimplemented instruction! 0x"
+              << std::hex
+              << instruction_to_run
+              << std::dec
+              << '\n';
+}
+
 /**
  * @brief Construct a new Processor::Processor object
  * 
  * Seeds the random number generator used by the RANDOM instruction
  */
-Processor::Processor(
-    std::function<uint8_t(uint16_t)> read_memory_callback,
-    std::function<void(uint16_t, uint8_t)> write_memory_callback,
-    std::function<bool(uint8_t, uint8_t, const std::vector<uint8_t> &)> write_pixels_to_screen_callback
-) : read_memory {read_memory_callback},
-    write_memory {write_memory_callback},
-    write_pixels_to_screen {write_pixels_to_screen_callback} {
+Processor::Processor(Memory &memory, Display &display)
+    : memory {memory}, display {display} {
     // seed the random-number generator for future calls to RAND
     std::srand(std::time(0));
 }
@@ -48,6 +51,19 @@ void Processor::step() {
 void Processor::decode_and_execute(uint16_t instruction_to_run) {
     switch (instruction_to_run & 0xf000) {
         // instruction can be identified by 4 most significant bits
+        case 0x0000: {
+            switch (instruction_to_run & 0xff) {
+                case 0xe0: {
+                    cls();
+                } break;
+                case 0xee: {
+                    ret();
+                } break;
+                default: {
+                    unimplemented_instruction(instruction_to_run);
+                } break;
+            }
+        } break;
         case 0x1000: {
             // JP addr
             // addr is bits 0-11
@@ -181,7 +197,7 @@ void Processor::decode_and_execute(uint16_t instruction_to_run) {
             uint8_t vy = (instruction_to_run >> 4) & 0xf;
             // nibble is bits 0-3
             uint8_t nibble = instruction_to_run & 0xf;
-            display(vx, vy, nibble);
+            draw(vx, vy, nibble);
         } break;
         case 0xE000: {
             uint8_t id = instruction_to_run & 0xf;
@@ -234,15 +250,11 @@ void Processor::decode_and_execute(uint16_t instruction_to_run) {
                 case 0x65: {
                     // LD Vx, [I]
                     read_registers(vx);
-                }
+                } break;
             }
         } break;
         default: {
-            std::cout << "Unimplemented instruction! 0x"
-                << std::hex
-                << instruction_to_run 
-                << std::dec
-                << '\n';
+            unimplemented_instruction(instruction_to_run);
         }
     }
 }
@@ -284,8 +296,8 @@ uint16_t Processor::read_instruction_from_memory() {
     }
 
     // read next 2 bytes pointed by PC, then concatenate
-    uint8_t d1 = read_memory((uint16_t)pc++); //0x20
-    uint8_t d2 = read_memory((uint16_t)pc++); //0x40
+    uint8_t d1 = memory.read_memory((uint16_t)pc++); //0x20
+    uint8_t d2 = memory.read_memory((uint16_t)pc++); //0x40
 
     uint16_t instr = ((uint16_t)d1 << 8) | d2;
     return instr;

@@ -34,6 +34,7 @@ Memory::Memory() {
 */
 void Memory::load_file(char const* filename) {
 
+    
     // Open the file as binary stream set the pointer to the beginning of the file
     std::ifstream file(filename, std::ios::binary | std::ios::ate);
 
@@ -47,7 +48,7 @@ void Memory::load_file(char const* filename) {
     // if we are able to read data into buffer
     if  (file.read(buffer.data(), size)) {
 
-        for(uint8_t i = 0; i < size; ++i ){
+        for(uint16_t i = 0; i < size; ++i ){
 
             // copy data from beginning of buffer to the start addr of memory
             memory[START_MEMORY_ADRESS + i] = buffer[i];
@@ -56,6 +57,7 @@ void Memory::load_file(char const* filename) {
 
     // close file
     file.close();
+    
 
 }
 
