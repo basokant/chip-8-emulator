@@ -48,6 +48,26 @@ void Processor::step() {
     decode_and_execute(instruction_to_run);
 }
 
+/**
+ * @brief Decrement the delay timer by one (called every frame)
+ * 
+ */
+void Processor::decrease_delay_timer() {
+    if (dt > 0){
+        --dt;
+    }
+}
+
+/**
+ * @brief Decrement the delay timer by one (called every frame)
+ * 
+ */
+void Processor::decrease_sound_timer() {
+    if (st > 0){
+        --st;
+    }
+}
+
 void Processor::decode_and_execute(uint16_t instruction_to_run) {
     switch (instruction_to_run & 0xf000) {
         // instruction can be identified by 4 most significant bits

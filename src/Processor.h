@@ -55,6 +55,17 @@ public:
     void decode_and_execute(uint16_t instruction_to_run);
 
     /**
+     * @brief Decrement the delay timer by one (called every frame)
+     * 
+     */
+    void decrease_delay_timer();
+
+    /**
+     * @brief Decrement the sound timer by one (called every frame)
+    */
+    void decrease_sound_timer();
+
+    /**
      * @brief Dump the registers of the CPU into a printable string.
      * 
      * @return a string containing all the register values
