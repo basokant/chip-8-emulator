@@ -5,3 +5,7 @@ config.mk
 *.o
 *.d
 *.bin
+*.ch8
+
+# include 3rd party ROMS
+!roms/3rdparty/*.ch8

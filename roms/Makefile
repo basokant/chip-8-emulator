@@ -1,6 +1,6 @@
 ROMS := \
-loop.rom \
-fonttest.rom
+loop.ch8 \
+fonttest.ch8
 
 CUSTOMASM_DIR := ../customasm
 
@@ -13,7 +13,7 @@ customasm:
 
 .PHONY: clean
 clean:
-	rm *.bin
+	rm *.ch8
 
-%.rom : %.asm chip8.asm
-	../customasm/target/release/customasm $<
+%.ch8 : %.asm chip8.asm
+	../customasm/target/release/customasm $< -o $@
