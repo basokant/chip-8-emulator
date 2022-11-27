@@ -1,5 +1,5 @@
 ROMS := \
-fonttest.rom
+loop.rom
 
 CUSTOMASM_DIR := ../customasm
 

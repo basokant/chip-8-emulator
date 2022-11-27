@@ -14,7 +14,7 @@ Display::Display() {
     renderer = SDL_CreateRenderer(window, -1, 0);
     // set draw color to black for clearing
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    // SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer);
     // set draw color to white for drawing pixels
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
 
