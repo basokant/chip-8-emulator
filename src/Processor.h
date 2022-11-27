@@ -17,8 +17,9 @@
 #include <functional>
 #include <string>
 
-#include "Memory.h"
 #include "Display.h"
+#include "Keyboard.h"
+#include "Memory.h"
 
 /*
 See CHIP-8 documentation
@@ -27,6 +28,7 @@ http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.5
 
 class Memory;
 class Display;
+class Keyboard;
 
 class Processor
 {
@@ -37,8 +39,9 @@ public:
      * 
      * @param memory a reference to the memory object
      * @param display a reference to the display
+     * @param keyboard a reference to the keyboard
      */
-    Processor(Memory &memory, Display &display);
+    Processor(Memory &memory, Display &display, Keyboard &keyboard);
 
     ~Processor() = default;
 
@@ -64,6 +67,17 @@ public:
      * @brief Decrement the sound timer by one (called every frame)
     */
     void decrease_sound_timer();
+
+    /**
+     * @brief Get the value of the delay timer register.
+    */
+    uint8_t delay_timer() const;
+
+
+    /**
+     * @brief Get the value of the sound timer register.
+     */
+    uint8_t sound_timer() const;
 
     /**
      * @brief Dump the registers of the CPU into a printable string.
@@ -383,6 +397,7 @@ private:
 
     Memory &memory;
     Display &display;
+    Keyboard &keyboard;
 };
 
 #endif

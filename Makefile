@@ -14,16 +14,18 @@ SDL_LIB_DIR ?=
 
 # Our object files
 OBJS = \
-src/main.o \
+src/Display.o \
 src/instructions.o \
+src/Keyboard.o \
+src/main.o \
 src/Memory.o \
 src/Processor.o \
+src/SDLException.o \
+src/Sound.o \
 src/System.o \
-src/Display.o \
-src/SDLException.o
 
 # Libraries to link
-LIBS = -lSDL2
+LIBS = -lSDL2 -lSDL2_mixer
 
 CPPFLAGS += $(addprefix -I, \
 	$(IMGUI_DIR) \

@@ -324,7 +324,8 @@ void Processor::draw(uint8_t vx, uint8_t vy, uint8_t nibble) {
  * @param vx number of the register (0x0-0xf for v0-vf)
  */
 void Processor::skip_pressed(uint8_t vx) {
-    if (is_pressed(vx)) {
+    uint8_t chip8_key = v_registers[vx];
+    if (keyboard.is_pressed(chip8_key)) {
         pc += 2;
     }
 }
@@ -336,7 +337,8 @@ void Processor::skip_pressed(uint8_t vx) {
  * @param vx number of the register (0x0-0xf for v0-vf)
  */
 void Processor::skip_not_pressed(uint8_t vx) {
-    if (!is_pressed(vx)) {
+    uint8_t chip8_key = v_registers[vx];
+    if (!keyboard.is_pressed(chip8_key)) {
         pc += 2;
     }
 }

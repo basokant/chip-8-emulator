@@ -34,8 +34,10 @@ void unimplemented_instruction(uint16_t instruction_to_run) {
  * 
  * Seeds the random number generator used by the RANDOM instruction
  */
-Processor::Processor(Memory &memory, Display &display)
-    : memory {memory}, display {display} {
+Processor::Processor(Memory &memory, Display &display, Keyboard &keyboard)
+    : memory {memory},
+    display {display},
+    keyboard {keyboard} {
     // seed the random-number generator for future calls to RAND
     std::srand(std::time(0));
 }
@@ -46,6 +48,20 @@ Processor::Processor(Memory &memory, Display &display)
 void Processor::step() {
     uint16_t instruction_to_run = read_instruction_from_memory();
     decode_and_execute(instruction_to_run);
+}
+
+/**
+ * @brief Get the value of the delay timer register.
+ */
+uint8_t Processor::delay_timer() const {
+    return dt;
+}
+
+/**
+ * @brief Get the value of the sound timer register.
+ */
+uint8_t Processor::sound_timer() const {
+    return st;
 }
 
 /**
