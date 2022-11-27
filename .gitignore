@@ -4,3 +4,4 @@ chip8
 config.mk
 *.o
 *.d
+*.bin
