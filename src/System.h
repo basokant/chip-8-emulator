@@ -12,6 +12,8 @@
 #ifndef SYSTEM_H_INCLUDED
 #define SYSTEM_H_INCLUDED
 
+#include <string>
+
 #include "Display.h"
 #include "Processor.h"
 #include "Memory.h"
@@ -27,6 +29,12 @@ public:
      * 
      */
     void run();
+
+    /**
+     * @brief Load the ROM specified at the given path into memory.
+    */
+    void load_rom(const std::string &rom_path);
+
 
 private:
     Processor processor;
