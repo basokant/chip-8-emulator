@@ -10,5 +10,5 @@ all: customasm $(ROMS)
 customasm:
 	cargo build --manifest-path=$(CUSTOMASM_DIR)/Cargo.toml
 
-%.rom : %.asm rules.asm
+%.rom : %.asm chip8.asm
 	../customasm/target/release/customasm $<

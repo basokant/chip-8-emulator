@@ -1,4 +1,4 @@
-#include "rules.asm"
+#include "chip8.asm"
 
 loop:
 jp loop
