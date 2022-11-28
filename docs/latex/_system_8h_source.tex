@@ -1,0 +1,43 @@
+\hypertarget{_system_8h_source}{}\doxysection{System.\+h}
+\label{_system_8h_source}\index{System.h@{System.h}}
+\mbox{\hyperlink{_system_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef SYSTEM\_H\_INCLUDED}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define SYSTEM\_H\_INCLUDED}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_display_8h}{Display.h}}"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_processor_8h}{Processor.h}}"{}}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_memory_8h}{Memory.h}}"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_keyboard_8h}{Keyboard.h}}"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_sound_8h}{Sound.h}}"{}}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{class }\mbox{\hyperlink{class_system}{System}}}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 \textcolor{keyword}{public}:}
+\DoxyCodeLine{26     \mbox{\hyperlink{class_system}{System}}();}
+\DoxyCodeLine{27     \mbox{\hyperlink{class_system}{\string~System}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_system_afa39feb75f96798930f4bfb48205f40b}{run}}();}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{38     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_system_a681e708833b763e23b7f0c18b009d9cc}{load\_rom}}(\textcolor{keyword}{const} std::string \&rom\_path);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{private}:}
+\DoxyCodeLine{44     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_system_a88f3245c504de659a9886c249de5c0ea}{run\_for\_one\_frame}}();}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{private}:}
+\DoxyCodeLine{47     \mbox{\hyperlink{class_processor}{Processor}} processor;}
+\DoxyCodeLine{48     \mbox{\hyperlink{class_memory}{Memory}} memory;}
+\DoxyCodeLine{49     \mbox{\hyperlink{class_display}{Display}} display;}
+\DoxyCodeLine{50     \mbox{\hyperlink{class_keyboard}{Keyboard}} keyboard;}
+\DoxyCodeLine{51     \mbox{\hyperlink{class_sound}{Sound}} sound;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{comment}{// flag indicating if the emulator is running}}
+\DoxyCodeLine{54     \textcolor{keywordtype}{bool} is\_running = \textcolor{keyword}{true};}
+\DoxyCodeLine{55 \};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

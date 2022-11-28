@@ -1,0 +1,17 @@
+\hypertarget{_s_d_l_exception_8h_source}{}\doxysection{SDLException.\+h}
+\label{_s_d_l_exception_8h_source}\index{SDLException.h@{SDLException.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef SDL\_EXCEPTION\_H\_INCLUDED}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define SDL\_EXCEPTION\_H\_INCLUDED}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <stdexcept>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{class }\mbox{\hyperlink{class_s_d_l_exception}{SDLException}} : \textcolor{keyword}{public} std::exception \{}
+\DoxyCodeLine{7 \textcolor{keyword}{public}:}
+\DoxyCodeLine{8     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *what() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \textcolor{keyword}{override};}
+\DoxyCodeLine{9 \};}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

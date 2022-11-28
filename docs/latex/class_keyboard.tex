@@ -1,0 +1,38 @@
+\hypertarget{class_keyboard}{}\doxysection{Keyboard Class Reference}
+\label{class_keyboard}\index{Keyboard@{Keyboard}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_keyboard_a06d4042f3172391377ba0b2d827cce19}\label{class_keyboard_a06d4042f3172391377ba0b2d827cce19}} 
+void {\bfseries press\+\_\+key} (SDL\+\_\+\+Keycode code)
+\begin{DoxyCompactList}\small\item\em Press the CHIP8 key associated with the given keyboard key. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_keyboard_acc79ef9d87cedde0e14058311cd1c874}\label{class_keyboard_acc79ef9d87cedde0e14058311cd1c874}} 
+void {\bfseries release\+\_\+key} (SDL\+\_\+\+Keycode code)
+\begin{DoxyCompactList}\small\item\em Release the CHIP8 key associated with the given keyboard key. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_keyboard_a83fcbd6a9ebd1a74a4066e01553385ad}\label{class_keyboard_a83fcbd6a9ebd1a74a4066e01553385ad}} 
+bool {\bfseries is\+\_\+pressed} (uint8\+\_\+t chip8\+\_\+key)
+\begin{DoxyCompactList}\small\item\em Check if the given CHIP-\/8 key is pressed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::array$<$ bool, 16 $>$ \mbox{\hyperlink{class_keyboard_aa63815c10d6d2503efc4235b52b12b63}{key\+\_\+pressed}}
+\item 
+\mbox{\Hypertarget{class_keyboard_a4d128346cd5452b23fa1a44b969ce245}\label{class_keyboard_a4d128346cd5452b23fa1a44b969ce245}} 
+const std\+::unordered\+\_\+map$<$ SDL\+\_\+\+Keycode, uint8\+\_\+t $>$ {\bfseries keymap}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_keyboard_aa63815c10d6d2503efc4235b52b12b63}\label{class_keyboard_aa63815c10d6d2503efc4235b52b12b63}} 
+\index{Keyboard@{Keyboard}!key\_pressed@{key\_pressed}}
+\index{key\_pressed@{key\_pressed}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{key\_pressed}{key\_pressed}}
+{\footnotesize\ttfamily std\+::array$<$bool, 16$>$ Keyboard\+::key\+\_\+pressed\hspace{0.3cm}{\ttfamily [private]}}
+
+The layout of the chip-\/8 virtual keyboard.
+
+1 2 3 C 4 5 6 D 7 8 9 E A 0 B F 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_keyboard_8h}{Keyboard.\+h}}\end{DoxyCompactItemize}

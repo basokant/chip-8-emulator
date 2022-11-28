@@ -1,0 +1,169 @@
+\hypertarget{_processor_8h_source}{}\doxysection{Processor.\+h}
+\label{_processor_8h_source}\index{Processor.h@{Processor.h}}
+\mbox{\hyperlink{_processor_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef PROCESSOR\_H\_INCLUDED}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define PROCESSOR\_H\_INCLUDED}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_display_8h}{Display.h}}"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_keyboard_8h}{Keyboard.h}}"{}}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_memory_8h}{Memory.h}}"{}}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{comment}{/*}}
+\DoxyCodeLine{25 \textcolor{comment}{See CHIP-\/8 documentation}}
+\DoxyCodeLine{26 \textcolor{comment}{http://devernay.free.fr/hacks/chip8/C8TECH10.HTM\#2.5}}
+\DoxyCodeLine{27 \textcolor{comment}{*/}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{class }\mbox{\hyperlink{class_memory}{Memory}};}
+\DoxyCodeLine{30 \textcolor{keyword}{class }\mbox{\hyperlink{class_display}{Display}};}
+\DoxyCodeLine{31 \textcolor{keyword}{class }\mbox{\hyperlink{class_keyboard}{Keyboard}};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{class_processor}{Processor}}}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35 \textcolor{keyword}{public}:}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{44     \mbox{\hyperlink{class_processor_a9dbc451203388cde4742df5da2446b3f}{Processor}}(\mbox{\hyperlink{class_memory}{Memory}} \&memory, \mbox{\hyperlink{class_display}{Display}} \&display, \mbox{\hyperlink{class_keyboard}{Keyboard}} \&keyboard);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \mbox{\hyperlink{class_processor}{\string~Processor}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{51     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_aa6ee160a84a9b1ed2d79d81703f74bcd}{step}}();}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{58     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_aa99c0be0ed21f573888ad57ff5e8cf93}{decode\_and\_execute}}(uint16\_t instruction\_to\_run);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{64     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a96398074552f10f3efa9f1f465590559}{decrease\_delay\_timer}}();}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a5cd41788e0f3575cb536c2080eeef4d2}{decrease\_sound\_timer}}();}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{74     uint8\_t \mbox{\hyperlink{class_processor_a2673f5f5dd5ae17d0df7406c1bcb4376}{delay\_timer}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 }
+\DoxyCodeLine{80     uint8\_t \mbox{\hyperlink{class_processor_aaf183d072c2843e123530e711a799da5}{sound\_timer}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{87     std::string \mbox{\hyperlink{class_processor_abb78ac2c9fdf29c40a52a1de0f1083d3}{dump}}();}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{keyword}{private}: \textcolor{comment}{// internal memory calls}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 }
+\DoxyCodeLine{98     uint16\_t \mbox{\hyperlink{class_processor_a160d5e214c4098993620402884170b57}{read\_instruction\_from\_memory}}();}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{keyword}{private}: \textcolor{comment}{// 36 CHIP-\/8 instructions}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{109     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a7c929f19658827c3c88071ba3db242d1}{sys}}(uint16\_t addr);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{115     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a821bd8e39a3e85e30590303116b88a98}{cls}}();}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{124     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_aee058e318474563059a3295c61ba5621}{ret}}();}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{131     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a596ccfabcf0ee9ce1c32040e739f7991}{jp}}(uint16\_t addr);}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{138     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a2e1a307c5d1f4218d3e94db62d096d6d}{call}}(uint16\_t addr);}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{146     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a5a939384a9e7be6118d8a9fd649f1d8b}{se\_byte}}(uint8\_t vx, uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{153     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_ac1ef1744944423a0243274342c4fcd44}{sne\_byte}}(uint8\_t vx, uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{161     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a2a294cc744494f597717d1a92c656b4f}{se\_register}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{169     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a1ae90faf3f0e56e3dbe1ed148e31d0e3}{add}}(uint8\_t vx, uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{177     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_afaf18e6d8cc8213a1a7fd05c5083e6ab}{chip\_and}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179 }
+\DoxyCodeLine{185     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_ab568bcecbedb1798d060d1bc6aa38ebf}{chip\_or}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{192     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a0ce365e15ce10a1754ef4a7c09780bb6}{chip\_xor}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{201     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_ad206a35776089aa93396f31b1fdf833a}{add\_registers}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{202     }
+\DoxyCodeLine{209     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a0ac4c68fe87a1bdb0f28784f7c8bc45a}{sub}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{210     }
+\DoxyCodeLine{216     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a5d2b16cc2d979bb138e775dfa124879e}{shr}}(uint8\_t vx);}
+\DoxyCodeLine{217     }
+\DoxyCodeLine{224     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_af7d3333761b441011060f7194ce6b7e0}{subn}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{231     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_adb5b9265340ad590a754da06456a19dd}{shl}}(uint8\_t vx);}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{239     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_aa247087a9d3ec80bcfd60228be9bf64a}{sne}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{246     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_ae29d750e12f5a4ea086d774f9cef0656}{load\_byte}}(uint8\_t vx, uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{253     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a60adf2964dcd5fc81b61a6c678166ea8}{load\_register}}(uint8\_t vx, uint8\_t vy);}
+\DoxyCodeLine{254 }
+\DoxyCodeLine{255 }
+\DoxyCodeLine{261     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_af2f1f1b603501b9d43e09a7cfa6387cf}{load\_addr}}(uint16\_t addr);}
+\DoxyCodeLine{262 }
+\DoxyCodeLine{263 }
+\DoxyCodeLine{269     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a897235b4843b42982f8e18540e466f51}{jump\_register}}(uint16\_t addr);}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271     }
+\DoxyCodeLine{278     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a71ad950d3e76d9ec13325bda9a058c1b}{random}}(uint8\_t vx, uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280 }
+\DoxyCodeLine{288     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_ac63c1839d0bc503b8b39199046ed3b89}{draw}}(uint8\_t vx, uint8\_t vy, uint8\_t nibble);}
+\DoxyCodeLine{289 }
+\DoxyCodeLine{290     }
+\DoxyCodeLine{296     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a785df5c161b5363c58b364ecfce23f21}{skip\_pressed}}(uint8\_t vx);}
+\DoxyCodeLine{297 }
+\DoxyCodeLine{298 }
+\DoxyCodeLine{304     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a644e5f49e00d83cfd1621543f57604ef}{skip\_not\_pressed}}(uint8\_t vx);}
+\DoxyCodeLine{305 }
+\DoxyCodeLine{306 }
+\DoxyCodeLine{312     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a2e2c8cfaf4330b5c4128c860fe9008a3}{load\_register\_from\_dt}}(uint8\_t vx);}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{314 }
+\DoxyCodeLine{320     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a704a990fc7ec06db4d8a417d7e57da5d}{load\_key}}(uint8\_t vx);}
+\DoxyCodeLine{321 }
+\DoxyCodeLine{322 }
+\DoxyCodeLine{328     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_aac03e1fe1417796576e4881200c0ccc8}{load\_dt\_from\_register}}(uint8\_t vx);}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{330 }
+\DoxyCodeLine{336     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a40b536b9916e9113609b2546b544ff15}{load\_st\_from\_register}}(uint8\_t vx);}
+\DoxyCodeLine{337 }
+\DoxyCodeLine{343     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a4dfd6ead525ece74b86802bba6f5257e}{add\_sum}}(uint8\_t vx);}
+\DoxyCodeLine{344 }
+\DoxyCodeLine{351     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a4bbcabe7ec4d6b8ab154aabdbbf155c2}{load\_loc\_of\_sprite}}(uint8\_t vx);}
+\DoxyCodeLine{352 }
+\DoxyCodeLine{358     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a3c7d334eb8468c6860881b047502c049}{str\_bcd\_in\_memory}}(uint8\_t vx);}
+\DoxyCodeLine{359 }
+\DoxyCodeLine{365     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a21701db4d787c27274476700450695b3}{str\_registers\_in\_memory}}(uint8\_t vx);}
+\DoxyCodeLine{366    }
+\DoxyCodeLine{372     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_processor_a2f3e533327105de5c0b89f6c72db6985}{read\_registers}}(uint8\_t vx);}
+\DoxyCodeLine{373 }
+\DoxyCodeLine{374 \textcolor{keyword}{private}:}
+\DoxyCodeLine{375     \textcolor{comment}{/*}}
+\DoxyCodeLine{376 \textcolor{comment}{    v0-\/vF: 16 8-\/bit registers}}
+\DoxyCodeLine{377 \textcolor{comment}{}}
+\DoxyCodeLine{378 \textcolor{comment}{    PC: 16-\/bit register}}
+\DoxyCodeLine{379 \textcolor{comment}{    SP: 8-\/bit register}}
+\DoxyCodeLine{380 \textcolor{comment}{}}
+\DoxyCodeLine{381 \textcolor{comment}{    DT: 16-\/bit delay timer register}}
+\DoxyCodeLine{382 \textcolor{comment}{    ST: 16-\/bit sound timer register}}
+\DoxyCodeLine{383 \textcolor{comment}{    */}}
+\DoxyCodeLine{384 }
+\DoxyCodeLine{385     std::array<uint8\_t, 16> v\_registers;}
+\DoxyCodeLine{386     uint16\_t i\_register = 0; \textcolor{comment}{// 16-\/bit special register}}
+\DoxyCodeLine{387     uint16\_t pc = 0x200; \textcolor{comment}{// program counter, CHIP-\/8 programs start at 0x200}}
+\DoxyCodeLine{388     uint8\_t sp = 0; \textcolor{comment}{// stack pointer}}
+\DoxyCodeLine{389 }
+\DoxyCodeLine{390     uint16\_t dt = 0; \textcolor{comment}{// delay timer}}
+\DoxyCodeLine{391     uint16\_t st = 0; \textcolor{comment}{// sound timer}}
+\DoxyCodeLine{392 }
+\DoxyCodeLine{393     \textcolor{comment}{// Internal call stack: stores return address from subroutine calls}}
+\DoxyCodeLine{394     std::array<uint16\_t, 16> stack = \{0\};}
+\DoxyCodeLine{395 }
+\DoxyCodeLine{396     \textcolor{keyword}{static} \textcolor{keyword}{constexpr} uint16\_t FONTSET\_ADDRESS = 0x50; \textcolor{comment}{//Start location in memory of the font characters}}
+\DoxyCodeLine{397 }
+\DoxyCodeLine{398     \mbox{\hyperlink{class_memory}{Memory}} \&memory;}
+\DoxyCodeLine{399     \mbox{\hyperlink{class_display}{Display}} \&display;}
+\DoxyCodeLine{400     \mbox{\hyperlink{class_keyboard}{Keyboard}} \&keyboard;}
+\DoxyCodeLine{401 \};}
+\DoxyCodeLine{402 }
+\DoxyCodeLine{403 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
