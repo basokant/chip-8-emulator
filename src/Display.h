@@ -30,6 +30,11 @@ public:
      * 
      */
     Display();
+
+    /**
+    * @brief destroy the display's window and renderer.
+    * 
+    */
     ~Display();
 
     /**
@@ -61,7 +66,7 @@ public:
     void clear_renderer();
 
     /**
-     * @brief 
+     * @brief clear the buffer(set all buffer mermory to zero)
      * 
      */
     void clear_buffer();
