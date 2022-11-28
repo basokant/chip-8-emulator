@@ -34,6 +34,8 @@ void System::run() {
 }
 
 void System::run_for_one_frame() {
+    display.clear_renderer();
+
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0) {
         if (event.type == SDL_QUIT) {
@@ -56,6 +58,9 @@ void System::run_for_one_frame() {
     } else {
         sound.stop_sound();
     }
+    
+    display.write_buffer_to_renderer();
+    display.present();
 }
 
 void System::load_rom(const std::string &rom_path) {

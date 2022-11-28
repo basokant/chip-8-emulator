@@ -38,6 +38,6 @@ void Sound::stop_sound() {
 
 void Sound::close_mix_chuck() {
     Mix_FreeChunk(Sound::curr_sound);
-    Sound::curr_sound == NULL;
+    Sound::curr_sound = NULL;
     Mix_Quit();
 }

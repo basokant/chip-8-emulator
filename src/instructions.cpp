@@ -40,7 +40,7 @@ void Processor::sys(uint16_t addr) {
  *
  */
 void Processor::cls() {
-    display.clear();
+    display.clear_buffer();
 }
 
 /**
@@ -313,7 +313,7 @@ void Processor::draw(uint8_t vx, uint8_t vy, uint8_t nibble) {
         pixels.push_back(pixel);
     }
 
-    bool pixel_collision = display.write_pixels_to_screen(v_registers[vx], v_registers[vy], pixels);
+    bool pixel_collision = display.write_pixels_to_buffer(v_registers[vx], v_registers[vy], pixels);
     // set VF register flag to 1 if there was a collision, 0 otherwise
     v_registers[0xf] = pixel_collision;
 }

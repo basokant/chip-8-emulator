@@ -13,7 +13,7 @@ Display::Display() {
     window = SDL_CreateWindow("CHIP OFF THE BLOCK", 100, 100, screen_width, screen_height, 0);
     renderer = SDL_CreateRenderer(window, -1, 0);
     
-    clear();
+    clear_renderer();
 
     // TODO: test, remove later
     // write_pixel(1, 10, 10);
@@ -35,7 +35,8 @@ Display::~Display() {
 // 10101010
 
 
-bool Display::write_pixels_to_screen(uint8_t x_coordinate, uint8_t y_coordinate, const std::vector<uint8_t> &sprite) {
+
+bool Display::write_pixels_to_buffer(uint8_t x_coordinate, uint8_t y_coordinate, const std::vector<uint8_t> &sprite) {
     const int sprite_height = sprite.size(); // sprites can be up to 15 pixels tall
     const int sprite_width = 8; // sprites are ALWAYS 8 pixels wide
 
@@ -45,46 +46,54 @@ bool Display::write_pixels_to_screen(uint8_t x_coordinate, uint8_t y_coordinate,
         uint8_t pixel_row = sprite[row];
         for (int column = 0; column < sprite_width; ++column) {
             bool pixel = (pixel_row >> (7 - column)) & 1;
-            if (write_pixel(pixel, x_coordinate + column, y_coordinate + row))
+            if (write_pixel_to_buffer(pixel, x_coordinate + column, y_coordinate + row))
                 pixel_overwritten = true;
         }
     }
-    
-    // Present the pixels drawn to the renderer
-    SDL_RenderPresent(renderer);
+
     return pixel_overwritten;
 }
 
-void Display::clear() {
+/**
+ * @brief 
+ * 
+ */
+void Display::write_buffer_to_renderer() {
+    for (int row = 0; row < pixel_buffer.size(); ++row) {
+        const std::array<bool, 64> &pixel_row = pixel_buffer[row];
+        for (int column = 0; column < pixel_buffer.size(); ++column) {
+            bool pixel = pixel_row[column];
+            write_pixel_to_renderer(pixel, column, row);
+        }
+    }
+}
+
+/**
+ * @brief 
+ * 
+ */
+void Display::present() {
+    SDL_RenderPresent(renderer);
+}
+
+void Display::clear_renderer() {
     // set draw color to black for clearing
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     // set draw color to white for drawing pixels
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+    
+}
+
+void Display::clear_buffer() {
     // clear the buffer
     pixel_buffer = std::array<std::array<bool, 64>, 32> {0};
 }
 
-bool Display::write_pixel(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) {
-    // CHIP8 XORs the current pixel with the pixel to draw to determine the new pixel to show
-
-    bool old_pixel_value = pixel_buffer[y_coordinate][x_coordinate];
-    bool new_pixel_value = pixel ^ old_pixel_value;
-    bool pixel_was_cleared = false;
-    if (new_pixel_value == old_pixel_value) {
-        // nothing changed, nothing to do
-        return pixel_was_cleared; // false => no overwrite
-    }
-
-    // black if pixel is cleared, white if pixel is set
-    pixel_buffer[y_coordinate][x_coordinate] = new_pixel_value;
-    if (new_pixel_value) {
+void Display::write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) {
+    if (pixel) {
         // pixel is set, use white
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
-    } else {
-        // pixel is cleared, use black
-        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xff);
-        pixel_was_cleared = true;
     }
 
     // get the scaling factor of the window
@@ -100,6 +109,21 @@ bool Display::write_pixel(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate
     if (SDL_RenderFillRect(renderer, &scaled_pixel) != 0) {
         throw SDLException {};
     }
+}
+
+bool Display::write_pixel_to_buffer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) {
+    // CHIP8 XORs the current pixel with the pixel to draw to determine the new pixel to show
+
+    bool old_pixel_value = pixel_buffer[y_coordinate][x_coordinate];
+    bool new_pixel_value = pixel ^ old_pixel_value;
+    bool pixel_was_cleared = false;
+    if (new_pixel_value == old_pixel_value) {
+        // nothing changed, nothing to do
+        return pixel_was_cleared; // false => no overwrite
+    }
+
+    // black if pixel is cleared, white if pixel is set
+    pixel_buffer[y_coordinate][x_coordinate] = new_pixel_value;
 
     return pixel_was_cleared;
 }

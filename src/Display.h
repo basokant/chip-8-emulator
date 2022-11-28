@@ -33,24 +33,52 @@ public:
     ~Display();
 
     /**
-     * @brief Write a sequence of bytes to the screen at (x_coordinate, y_coordinate).
+     * @brief Write a sequence of bytes to the buffer at (x_coordinate, y_coordinate).
      * The display XORs the bytes onto the screen: pixels that are already set are cleared and vice-versa.
      * 
      * @param sprite sprite bytes to XOR onto the screen 
      * @return true Collision detected: bits were cleared from the screen
      * @return false No collision detected: no bits were cleared from the screen
      */
-    bool write_pixels_to_screen(uint8_t x_coordinate, uint8_t y_coordinate, const std::vector<uint8_t> &sprite);
+    bool write_pixels_to_buffer(uint8_t x_coordinate, uint8_t y_coordinate, const std::vector<uint8_t> &sprite);
+
+    /**
+     * @brief Writes the pixel buffer to the renderer
+     * 
+     */
+    void write_buffer_to_renderer();
+
+    /**
+     * @brief Presents the SDL renderer
+     * 
+     */
+    void present();
 
     /**
      * @brief Clear the screen (set all pixels to background)
      * 
      */
-    void clear();
+    void clear_renderer();
+
+    /**
+     * @brief 
+     * 
+     */
+    void clear_buffer();
 
 private:
+
     /**
-     * @brief XOR a pixel to the screen at x_coordinate and y_coordinate
+     * @brief 
+     * 
+     * @param pixel 
+     * @param x_coordinate 
+     * @param y_coordinate 
+     */
+    void write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate);
+
+    /**
+     * @brief XOR a pixel to the buffer at x_coordinate and y_coordinate
      * 1 = on
      * 0 = off
      * 
@@ -60,7 +88,7 @@ private:
      * @return true the given coordinate pixel was overwritten
      * @return false the given pixel was not overwritten
      */
-    bool write_pixel(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate);
+    bool write_pixel_to_buffer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate);
 
 private:
     static constexpr int CHIP8_WIDTH = 64;
