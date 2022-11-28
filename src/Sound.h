@@ -49,4 +49,5 @@ public:
 
 private:
     Mix_Chunk *curr_sound = nullptr;
+    bool is_playing = false;
 };

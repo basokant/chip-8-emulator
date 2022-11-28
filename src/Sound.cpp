@@ -34,6 +34,9 @@ Sound::Sound() {
 * via Mix_Volume() and Mix_PlayChannel()
 */
 void Sound::play_sound() {
+    if (is_playing)
+        return;
+    is_playing = true;
     //first arg is the channal we want to use to play the sound, -1 will use the nearest available channel
     //2nd arg is the mix_chunk being played
     //3rd arg is the number of repeats of the give mix_chunk, set to 0 for only play once needed
@@ -46,6 +49,9 @@ void Sound::play_sound() {
 * via Mix_HaltChannel();
 */
 void Sound::stop_sound() {
+    if (!is_playing)
+        return;
+    is_playing = false;
     Mix_HaltChannel(-1);
 }
 
