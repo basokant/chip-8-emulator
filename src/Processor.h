@@ -24,6 +24,7 @@
 /*
 See CHIP-8 documentation
 http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.5
+*/
 class Memory;
 class Display;
 class Keyboard;
