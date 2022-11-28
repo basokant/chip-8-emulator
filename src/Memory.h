@@ -16,6 +16,10 @@
 #include <cstdint>
 #include <string>
 
+/**
+ * @brief A class representing the physical memory unit of the emulator.
+ * 
+ */
 class Memory
 {
 public:

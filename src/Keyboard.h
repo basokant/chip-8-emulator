@@ -17,6 +17,9 @@
 #include <unordered_map>
 #include <SDL2/SDL.h>
 
+/**
+ * @brief A class representing the keyboard for the emulator controlled through the keyboard.
+ */
 class Keyboard
 {
 public:
