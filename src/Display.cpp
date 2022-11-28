@@ -125,7 +125,7 @@ bool Display::write_pixel_to_buffer(bool pixel, uint8_t x_coordinate, uint8_t y_
     }
 
     if (!new_pixel_value) {
-        pixel_was_cleared = false;
+        pixel_was_cleared = true;
     }
 
     // black if pixel is cleared, white if pixel is set
