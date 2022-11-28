@@ -2,8 +2,8 @@
 BIN = chip8
 
 CXX = g++
-WARNINGS := -Wfatal-errors -Wall -Wextra -Wpedantic -Wconversion -Wshadow
-CXXFLAGS := -g -std=c++17
+WARNINGS := -Wfatal-errors -Wall -Wextra -Wpedantic -Wconversion -Wshadow -fsanitize=address,undefined
+CXXFLAGS := -g -std=c++17 
 CPPFLAGS :=
 
 # system specific configurations (e.g. file include paths)
