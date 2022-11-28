@@ -158,12 +158,16 @@ void Display::write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t 
 bool Display::write_pixel_to_buffer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) {
     // CHIP8 XORs the current pixel with the pixel to draw to determine the new pixel to show
 
+    // Handle coordinates outside of the screen bounds by wrapping coordinates
+    x_coordinate %= 64;
+    y_coordinate %= 32;
+
     bool old_pixel_value = pixel_buffer[y_coordinate][x_coordinate];
     bool new_pixel_value = pixel ^ old_pixel_value;
     bool pixel_was_cleared = false;
     if (new_pixel_value == old_pixel_value) {
         // nothing changed, nothing to do
-        return pixel_was_cleared; // false => no overwrite
+        return pixel_was_cleared; // false => no overwrite 
     }
 
     if (!new_pixel_value) {
