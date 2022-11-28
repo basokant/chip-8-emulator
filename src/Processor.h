@@ -385,7 +385,7 @@ private:
     ST: 16-bit sound timer register
     */
 
-    std::array<uint8_t, 16> v_registers;
+    std::array<uint8_t, 16> v_registers = {0};
     uint16_t i_register = 0; // 16-bit special register
     uint16_t pc = 0x200; // program counter, CHIP-8 programs start at 0x200
     uint8_t sp = 0; // stack pointer
