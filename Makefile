@@ -36,7 +36,7 @@ CPPFLAGS += $(addprefix -I, \
 
 LD_FLAGS = -L$(SDL_LIB_DIR)
 
-
+all: $(BIN) docs
 
 # Target of the binary - depends on all .o files.
 $(BIN) : $(OBJS)
@@ -57,6 +57,8 @@ DEPS = $(OBJS:%.o=%.d)
 
 # Remove object files and generated dependencies
 .PHONY: clean
+docs:
+	doxygen dox.config
 clean:
 	rm -rf $(OBJS) $(DEPS)
 
