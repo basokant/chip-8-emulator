@@ -50,7 +50,7 @@ private:
      * 7 8 9 E
      * A 0 B F
      */
-    std::array<bool, 16> key_pressed;
+    std::array<bool, 16> key_pressed = {0};
 
     // maps hardware keycode to CHIP8 virtual keycode.
     const std::unordered_map<SDL_Keycode, uint8_t> keymap;
