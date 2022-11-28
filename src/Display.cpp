@@ -61,7 +61,7 @@ bool Display::write_pixels_to_buffer(uint8_t x_coordinate, uint8_t y_coordinate,
 void Display::write_buffer_to_renderer() {
     for (int row = 0; row < pixel_buffer.size(); ++row) {
         const std::array<bool, 64> &pixel_row = pixel_buffer[row];
-        for (int column = 0; column < pixel_buffer.size(); ++column) {
+        for (int column = 0; column < pixel_row.size(); ++column) {
             bool pixel = pixel_row[column];
             write_pixel_to_renderer(pixel, column, row);
         }
@@ -94,6 +94,8 @@ void Display::write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t 
     if (pixel) {
         // pixel is set, use white
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+    } else {
+        SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xff);
     }
 
     // get the scaling factor of the window
@@ -120,6 +122,10 @@ bool Display::write_pixel_to_buffer(bool pixel, uint8_t x_coordinate, uint8_t y_
     if (new_pixel_value == old_pixel_value) {
         // nothing changed, nothing to do
         return pixel_was_cleared; // false => no overwrite
+    }
+
+    if (!new_pixel_value) {
+        pixel_was_cleared = false;
     }
 
     // black if pixel is cleared, white if pixel is set
