@@ -13,6 +13,10 @@
 
 #include "Sound.h"
 
+/**
+* @brief open a audio mixer from SDL_mixer Mix_OpenAudio()
+* and load a sound file into current sound chunk via Mix_LoadWAV and error check them both
+*/
 Sound::Sound() {
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
         std::cerr << "SDL sound mixer error" << Mix_GetError();
@@ -24,6 +28,11 @@ Sound::Sound() {
     }
 }
 
+/**
+* @brief play a pre-loaded sound in a loop
+* with a fixed volum and nearest channal 
+* via Mix_Volume() and Mix_PlayChannel()
+*/
 void Sound::play_sound() {
     //first arg is the channal we want to use to play the sound, -1 will use the nearest available channel
     //2nd arg is the mix_chunk being played
@@ -32,10 +41,18 @@ void Sound::play_sound() {
     Mix_PlayChannel(-1, curr_sound, -1);
 }
 
+/**
+* @brief stop the looping sound from playing
+* via Mix_HaltChannel();
+*/
 void Sound::stop_sound() {
     Mix_HaltChannel(-1);
 }
 
+/**
+* @brief closes the mix chucks from SDL_Mixer
+* via Mix_FreeChunk, and quit the Mixer all together 
+*/
 void Sound::close_mix_chuck() {
     Mix_FreeChunk(Sound::curr_sound);
     Sound::curr_sound = NULL;
