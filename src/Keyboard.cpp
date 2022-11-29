@@ -9,32 +9,27 @@
  * 
  */
 
+#include <iostream>
+#include <fstream>
+
+#include "json.h"
+using json = nlohmann::json;
+
+#include <SDL2/SDL.h>
+
 #include "Keyboard.h"
 
-Keyboard::Keyboard()
-    : keymap {
-        {SDLK_1, 0x1},
-        {SDLK_2, 0x2},
-        {SDLK_3, 0x3},
-        {SDLK_c, 0xC},
-        
-        {SDLK_4, 0x4},
-        {SDLK_5, 0x5},
-        {SDLK_6, 0x6},
-        {SDLK_d, 0xD},
-        
-        {SDLK_7, 0x7},
-        {SDLK_8, 0x8},
-        {SDLK_9, 0x9},
-        {SDLK_e, 0xE},
-        
-        {SDLK_a, 0xA},
-        {SDLK_0, 0x0},
-        {SDLK_b, 0xB},
-        {SDLK_f, 0xF}
-    } {
-    
-    
+Keyboard::Keyboard() 
+{
+    std::ifstream f("./chip8.config.json");
+    json json1 = json::parse(f);
+    json json2 = json1["custom_keymap"];
+
+    for (auto& el : json2.items()) {
+        SDL_Keycode key = SDL_GetKeyFromName(el.key().c_str());
+        uint8_t value = el.value();
+        keymap.insert_or_assign(key, value);
+    }
 }
 
 void Keyboard::press_key(SDL_Keycode code) {

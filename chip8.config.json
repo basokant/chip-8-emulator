@@ -1,24 +1,21 @@
 {
     "custom_keymap" : {
-        "SDLK_1": "SDLK_1",
-        "SDLK_2": "SDLK_2",
-        "SDLK_3": "SDLK_3",
-        "SDLK_c": "SDLK_c",
-        
-        "SDLK_4": "SDLK_4",
-        "SDLK_5": "SDLK_5",
-        "SDLK_6": "SDLK_6",
-        "SDLK_d": "SDLK_d",
-        
-        "SDLK_7": "SDLK_7",
-        "SDLK_8": "SDLK_8",
-        "SDLK_9": "SDLK_9",
-        "SDLK_e": "SDLK_e",
-        
-        "SDLK_a": "SDLK_a",
-        "SDLK_0": "SDLK_0",
-        "SDLK_b": "SDLK_b",
-        "SDLK_f": "SDLK_f"
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "A": 10,
+        "B": 11,
+        "C": 12,
+        "D": 13,
+        "E": 14,
+        "F": 15
     },
-    "emulation_speed" : ""
+    "emulation_speed" : 5.0
 }

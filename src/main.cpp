@@ -11,18 +11,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    double emulation_speed = 1.0;
-
-    if (argc == 3) {
-        emulation_speed = atof(argv[2]);
-    }
 
     const std::string rom_name(argv[1]);
 
     System emulator;
     try {
         emulator.load_rom(rom_name);
-        emulator.set_emulation_speed(emulation_speed);
         emulator.run();
     } catch (ProcessorException &e) {
         std::cerr << "Error: " << e.what() << '\n';

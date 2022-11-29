@@ -13,6 +13,9 @@
 #include <chrono>
 #include <thread>
 #include <SDL2/SDL.h>
+#include <fstream>
+#include "json.h"
+using json = nlohmann::json;
 
 #include "System.h"
 
@@ -20,7 +23,11 @@ using Clock = std::chrono::high_resolution_clock;
 
 System::System()
     : processor {memory, display, keyboard}
-{}
+{
+    std::ifstream f("./chip8.config.json");
+    json data = json::parse(f);
+    emulation_speed = data.value("emulation_speed", 1.0);
+}
 
 void System::run() { 
     // 60 FPS = 16.66666... ms per frame
