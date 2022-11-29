@@ -13,12 +13,8 @@ int main(int argc, char *argv[]) {
 
     double emulation_speed = 1.0;
 
-    if (argc >= 4) {
-        const char * option_str = argv[2];
-        std::string option(option_str);
-        if (option == "-c") {
-            emulation_speed = atof(argv[3]);
-        }
+    if (argc == 3) {
+        emulation_speed = atof(argv[2]);
     }
 
     const std::string rom_name(argv[1]);
