@@ -52,6 +52,7 @@ void System::run_for_one_frame() {
     }
     // decrease delay timer by one
     processor.decrease_delay_timer();
+    processor.decrease_sound_timer();
 
     if (processor.sound_timer() > 0) {
         sound.play_sound();
