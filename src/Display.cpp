@@ -167,7 +167,7 @@ bool Display::write_pixel_to_buffer(bool pixel, uint8_t x_coordinate, uint8_t y_
     bool pixel_was_cleared = false;
     if (new_pixel_value == old_pixel_value) {
         // nothing changed, nothing to do
-        return pixel_was_cleared; // false => no overwrite 
+        return pixel_was_cleared; // false => no overwrite (ㆆ_ㆆ)👌
     }
 
     if (!new_pixel_value) {
