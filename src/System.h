@@ -41,6 +41,13 @@ public:
     */
     void load_rom(const std::string &rom_path);
 
+    /**
+     * @brief Set a new emulation speed
+     * 
+     * @param new_speed 
+     */
+    void set_emulation_speed(double new_speed);
+
 private:
     /**
      * @brief Run the emulator for one frame
@@ -68,6 +75,9 @@ private:
 
     // flag indicating if the emulator is running
     bool is_running = true;
+
+    // The speed of the emulator
+    double emulation_speed = 1.0;
 };
 
 #endif
