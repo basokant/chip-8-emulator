@@ -1,7 +1,8 @@
 ROMS := \
 loop.ch8 \
 fonttest.ch8 \
-keytest.ch8
+keytest.ch8 \
+nano.ch8
 
 CUSTOMASM_DIR := ../customasm
 
