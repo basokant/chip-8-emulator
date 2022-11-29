@@ -48,7 +48,7 @@ void System::run_for_one_frame() {
             on_key_release(keycode);
         }
     }
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5 * emulation_speed; ++i) {
         // step forward one processor instruction
         processor.step();
     }
@@ -80,4 +80,8 @@ void System::on_key_release(SDL_Keycode keycode) {
 
 void System::load_rom(const std::string &rom_path) {
     memory.load_file(rom_path.c_str());
+}
+
+void System::set_emulation_speed(double new_speed) {
+    emulation_speed = new_speed;
 }
