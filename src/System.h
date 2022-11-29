@@ -47,6 +47,18 @@ private:
      */
     void run_for_one_frame();
 
+    /**
+     * @brief Event handler fired on keypress
+     * @param keycode the SDL keycode of the pressed key 
+     */
+    void on_key_press(SDL_Keycode keycode);
+
+    /**
+     * @brief Event handler fired on key release 
+     * @param keycode the SDL keycode of the released key
+     */
+    void on_key_release(SDL_Keycode keycode);
+
 private:
     Processor processor;
     Memory memory;

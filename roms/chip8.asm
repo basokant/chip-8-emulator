@@ -7,6 +7,7 @@
 #ruledef
 {
     sys {addr: u12} => 0x0 @ addr
+    cls => 0x00e0
     ret => 0x00ee
     jp {addr: u12} => 0x1 @ addr
     call {addr: u12} => 0x2 @ addr

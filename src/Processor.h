@@ -72,6 +72,12 @@ public:
     void decrease_sound_timer();
 
     /**
+     * @brief Wake the Processor from a waiting state on key_input
+     * (used to wake the Processor after a LD Vx, K instruction)
+    */
+    void wake_from_key_input(uint8_t chip8_keycode);
+
+    /**
      * @brief Get the value of the delay timer register.
     */
     uint8_t delay_timer() const;
@@ -397,6 +403,11 @@ private:
     std::array<uint16_t, 16> stack = {0};
 
     static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters
+
+    // flag used by the load_key instruction (LD Vx, K)
+    bool waiting_for_key_input = false;
+    // register to save the pressed key after the load_key instruction (LD, Vx, K)
+    uint8_t waiting_for_key_input_register = 0;
 
     Memory &memory;
     Display &display;

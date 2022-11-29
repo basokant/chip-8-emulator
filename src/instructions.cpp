@@ -340,9 +340,8 @@ void Processor::load_register_from_dt(uint8_t vx) {
  * @param vx number of the register (0x0-0xf for v0-vf)
  */
 void Processor::load_key(uint8_t vx) {
-    uint16_t key = key_input();
-
-    v_registers[vx] = key;
+    waiting_for_key_input = true;
+    waiting_for_key_input_register = vx;
 }
 
 

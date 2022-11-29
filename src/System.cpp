@@ -41,14 +41,11 @@ void System::run_for_one_frame() {
         if (event.type == SDL_QUIT) {
             is_running = false; 
         } else if (event.key.type == SDL_KEYDOWN) {
-            SDL_KeyCode keycode = event.key.keysym.sym;
-            keyboard.press_key(keycode);
-            if (keyboard.is_mapped_key(keycode)) {
-                uint8_t chip8_keycode = keyboard.chip8_keycode(keycode);
-                processor.wake_from_key_input(chip8_keycode);
-            }
+            SDL_Keycode keycode = event.key.keysym.sym;
+            on_key_press(keycode);
         } else if (event.key.type == SDL_KEYUP) {
-            keyboard.release_key(event.key.keysym.sym);
+            SDL_Keycode keycode = event.key.keysym.sym;
+            on_key_release(keycode);
         }
     }
     for (int i = 0; i < 5; ++i) {
@@ -67,6 +64,18 @@ void System::run_for_one_frame() {
     
     display.write_buffer_to_renderer();
     display.present();
+}
+
+void System::on_key_press(SDL_Keycode keycode) {
+    keyboard.press_key(keycode);
+    if (keyboard.is_mapped_key(keycode)) {
+        uint8_t chip8_keycode = keyboard.chip8_keycode(keycode);
+        processor.wake_from_key_input(chip8_keycode);
+    }
+}
+
+void System::on_key_release(SDL_Keycode keycode) {
+    keyboard.release_key(keycode);
 }
 
 void System::load_rom(const std::string &rom_path) {

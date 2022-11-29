@@ -46,6 +46,8 @@ Processor::Processor(Memory &memory, Display &display, Keyboard &keyboard)
  * @brief Execute one processor instruction.
  */
 void Processor::step() {
+    if (waiting_for_key_input)
+        return; // do nothing, emulates waiting
     uint16_t instruction_to_run = read_instruction_from_memory();
     decode_and_execute(instruction_to_run);
 }
@@ -82,6 +84,15 @@ void Processor::decrease_sound_timer() {
     if (st > 0){
         --st;
     }
+}
+
+/**
+ * @brief Wake the Processor from a waiting state on key_input
+ * (used to wake the Processor after a LD k, Vx instruction)
+ */
+void Processor::wake_from_key_input(uint8_t chip8_keycode) {
+    waiting_for_key_input = false;
+    v_registers[waiting_for_key_input_register] = chip8_keycode;
 }
 
 void Processor::decode_and_execute(uint16_t instruction_to_run) {
