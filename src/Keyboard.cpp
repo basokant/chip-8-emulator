@@ -37,7 +37,7 @@ Keyboard::Keyboard()
 }
 
 void Keyboard::press_key(SDL_Keycode code) {
-    if (keymap.count(code) == 0) {
+    if (!is_mapped_key(code)) {
         // not a registered key
         return;
     }
@@ -46,7 +46,7 @@ void Keyboard::press_key(SDL_Keycode code) {
 }
 
 void Keyboard::release_key(SDL_Keycode code) {
-    if (keymap.count(code) == 0) {
+    if (!is_mapped_key(code)) {
         // not a registered key
         return;
     }
@@ -56,4 +56,8 @@ void Keyboard::release_key(SDL_Keycode code) {
 
 bool Keyboard::is_pressed(uint8_t chip8_key) {
     return key_pressed[chip8_key];
+}
+
+bool Keyboard::is_mapped_key(SDL_Keycode code) {
+    return keymap.count(code) != 0;
 }

@@ -24,7 +24,7 @@ System::System()
 
 void System::run() { 
     // 60 FPS = 16.66666... ms per frame
-    constexpr int time_per_frame = 17;
+    constexpr int time_per_frame = 0;
     while (is_running) {
         auto t1 = Clock::now();
         run_for_one_frame();
@@ -41,12 +41,17 @@ void System::run_for_one_frame() {
         if (event.type == SDL_QUIT) {
             is_running = false; 
         } else if (event.key.type == SDL_KEYDOWN) {
-            keyboard.press_key(event.key.keysym.sym);
+            SDL_KeyCode keycode = event.key.keysym.sym;
+            keyboard.press_key(keycode);
+            if (keyboard.is_mapped_key(keycode)) {
+                uint8_t chip8_keycode = keyboard.chip8_keycode(keycode);
+                processor.wake_from_key_input(chip8_keycode);
+            }
         } else if (event.key.type == SDL_KEYUP) {
             keyboard.release_key(event.key.keysym.sym);
         }
     }
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 5; ++i) {
         // step forward one processor instruction
         processor.step();
     }

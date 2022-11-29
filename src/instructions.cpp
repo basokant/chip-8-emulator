@@ -3,27 +3,6 @@
 
 #include "Processor.h"
 
-// helper functions: use anonymous namespace for internal linkage
-namespace {
-
-    /**
-     * @brief Checks whether a certain key is pressed.
-     *
-     * @param key the keycode from a 16-bit hexadecimal keypad
-     * @return true if the key is pressed
-     * @return false if the key is not pressed
-     */
-    bool is_pressed(uint8_t key) {
-        // TODO: implement emulator input
-        return false;
-    }
-
-    uint16_t key_input() {
-        // TODO: implement emulator input
-        return 1;
-    }
-}
-
 /**
  * @brief Jumps to a machine code routine at addr.
  *
@@ -149,7 +128,8 @@ void Processor::chip_xor(uint8_t vx, uint8_t vy) {
 }
 
 void Processor::add_registers(uint8_t vx, uint8_t vy) {
-   uint16_t sum = v_registers[vx] + v_registers[vy];
+    // cast before addition to detect 8-bit overflow
+   uint16_t sum = static_cast<uint16_t>(v_registers[vx]) + static_cast<uint16_t>(v_registers[vy]);
    if (sum > 255U) {
        v_registers[0xF] = 1;
    }

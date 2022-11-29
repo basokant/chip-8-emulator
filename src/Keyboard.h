@@ -41,6 +41,16 @@ public:
      */
     bool is_pressed(uint8_t chip8_key);
 
+    /**
+     * @brief Check if the pressed key is mapped to one of the CHIP-8 keys.
+     */
+    bool is_mapped_key(SDL_Keycode keycode);
+
+    /**
+     * @brief Get the mapped CHIP-8 key (0x0 to 0xF) of this key.
+     */
+    uint8_t chip8_keycode(SDL_Keycode keycode);
+
 private:
     /**
      * The layout of the chip-8 virtual keyboard.
