@@ -11,6 +11,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // bool configure = false;
+
+    // if (argc == 3 && argv[2] == "-c") {
+    //     configure = true;
+    // }
+
     const std::string rom_name(argv[1]);
 
     System emulator;
