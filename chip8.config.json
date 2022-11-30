@@ -17,5 +17,6 @@
         "E": 14,
         "F": 15
     },
-    "emulation_speed" : 5.0
+    "emulation_speed" : 1.0,
+    "screen_width": 960
 }
