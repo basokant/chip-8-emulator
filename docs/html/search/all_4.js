@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['jp_0',['jp',['../class_processor.html#a596ccfabcf0ee9ce1c32040e739f7991',1,'Processor']]],
-  ['jump_5fregister_1',['jump_register',['../class_processor.html#a897235b4843b42982f8e18540e466f51',1,'Processor']]]
+  ['is_5fmapped_5fkey_23',['is_mapped_key',['../classKeyboard.html#a93eec63dc82e7de76d7c9658d2559f89',1,'Keyboard']]],
+  ['is_5fpressed_24',['is_pressed',['../classKeyboard.html#a2e4e6a094a231e02f8241649bb6a5c8c',1,'Keyboard']]]
 ];

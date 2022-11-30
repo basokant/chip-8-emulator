@@ -1,0 +1,771 @@
+\hypertarget{classProcessor}{}\doxysection{Processor Class Reference}
+\label{classProcessor}\index{Processor@{Processor}}
+
+
+A class emulating the CHIP-\/8 processor.  
+
+
+
+
+{\ttfamily \#include $<$Processor.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classProcessor_a9dbc451203388cde4742df5da2446b3f}{Processor}} (\mbox{\hyperlink{classMemory}{Memory}} \&memory, \mbox{\hyperlink{classDisplay}{Display}} \&display, \mbox{\hyperlink{classKeyboard}{Keyboard}} \&keyboard)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classProcessor}{Processor}} object given memory callback functions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classProcessor_aa6ee160a84a9b1ed2d79d81703f74bcd}\label{classProcessor_aa6ee160a84a9b1ed2d79d81703f74bcd}} 
+void \mbox{\hyperlink{classProcessor_aa6ee160a84a9b1ed2d79d81703f74bcd}{step}} ()
+\begin{DoxyCompactList}\small\item\em Execute one processor instruction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_aa99c0be0ed21f573888ad57ff5e8cf93}{decode\+\_\+and\+\_\+execute}} (uint16\+\_\+t instruction\+\_\+to\+\_\+run)
+\begin{DoxyCompactList}\small\item\em Decode the given instruction and run it. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classProcessor_a96398074552f10f3efa9f1f465590559}\label{classProcessor_a96398074552f10f3efa9f1f465590559}} 
+void \mbox{\hyperlink{classProcessor_a96398074552f10f3efa9f1f465590559}{decrease\+\_\+delay\+\_\+timer}} ()
+\begin{DoxyCompactList}\small\item\em Decrement the delay timer by one (called every frame) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classProcessor_a5cd41788e0f3575cb536c2080eeef4d2}\label{classProcessor_a5cd41788e0f3575cb536c2080eeef4d2}} 
+void \mbox{\hyperlink{classProcessor_a5cd41788e0f3575cb536c2080eeef4d2}{decrease\+\_\+sound\+\_\+timer}} ()
+\begin{DoxyCompactList}\small\item\em Decrement the sound timer by one (called every frame) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classProcessor_a93dea727bc12423fe160d9ebcf1ffa5d}\label{classProcessor_a93dea727bc12423fe160d9ebcf1ffa5d}} 
+void \mbox{\hyperlink{classProcessor_a93dea727bc12423fe160d9ebcf1ffa5d}{wake\+\_\+from\+\_\+key\+\_\+input}} (uint8\+\_\+t chip8\+\_\+keycode)
+\begin{DoxyCompactList}\small\item\em Wake the \mbox{\hyperlink{classProcessor}{Processor}} from a waiting state on key\+\_\+input (used to wake the \mbox{\hyperlink{classProcessor}{Processor}} after a LD Vx, K instruction) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classProcessor_a2673f5f5dd5ae17d0df7406c1bcb4376}\label{classProcessor_a2673f5f5dd5ae17d0df7406c1bcb4376}} 
+uint8\+\_\+t \mbox{\hyperlink{classProcessor_a2673f5f5dd5ae17d0df7406c1bcb4376}{delay\+\_\+timer}} () const
+\begin{DoxyCompactList}\small\item\em Get the value of the delay timer register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classProcessor_aaf183d072c2843e123530e711a799da5}\label{classProcessor_aaf183d072c2843e123530e711a799da5}} 
+uint8\+\_\+t \mbox{\hyperlink{classProcessor_aaf183d072c2843e123530e711a799da5}{sound\+\_\+timer}} () const
+\begin{DoxyCompactList}\small\item\em Get the value of the sound timer register. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classProcessor_a06ef5e32b7eeb543e2c99fbccc8d927e}{dump}} () const
+\begin{DoxyCompactList}\small\item\em Dump the registers of the CPU into a printable string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classProcessor_a160d5e214c4098993620402884170b57}{read\+\_\+instruction\+\_\+from\+\_\+memory}} ()
+\begin{DoxyCompactList}\small\item\em Read the next instruction from memory pointed to by the PC, and increment the PC. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a7c929f19658827c3c88071ba3db242d1}{sys}} (uint16\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em Jumps to a machine code routine at addr. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classProcessor_adb427c177f70e96d96c6319416612cf6}\label{classProcessor_adb427c177f70e96d96c6319416612cf6}} 
+void \mbox{\hyperlink{classProcessor_adb427c177f70e96d96c6319416612cf6}{cls}} () const
+\begin{DoxyCompactList}\small\item\em Clear the display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_aee058e318474563059a3295c61ba5621}{ret}} ()
+\begin{DoxyCompactList}\small\item\em Return from a subroutine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a596ccfabcf0ee9ce1c32040e739f7991}{jp}} (uint16\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em The interpreter sets the program counter to addr. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a2e1a307c5d1f4218d3e94db62d096d6d}{call}} (uint16\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em The interpreter jumps to addr, pushing the current PC to the stack. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a5a939384a9e7be6118d8a9fd649f1d8b}{se\+\_\+byte}} (uint8\+\_\+t vx, uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Skips the next instruction if vx == byte. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_ac1ef1744944423a0243274342c4fcd44}{sne\+\_\+byte}} (uint8\+\_\+t vx, uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Skips the next instruction if vx != byte. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a2a294cc744494f597717d1a92c656b4f}{se\+\_\+register}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em Skips the next instruction if vx == vy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a1ae90faf3f0e56e3dbe1ed148e31d0e3}{add}} (uint8\+\_\+t vx, uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em ADD Vx, byte instruction\+: add byte to Vx register. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_afaf18e6d8cc8213a1a7fd05c5083e6ab}{chip\+\_\+and}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_ab568bcecbedb1798d060d1bc6aa38ebf}{chip\+\_\+or}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em Performs a bitwise OR on the values of Vx and Vy, then stores the result in Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a0ce365e15ce10a1754ef4a7c09780bb6}{chip\+\_\+xor}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em Performs a bitwise XOR on the values of Vx and Vy, then stores the result in Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_ad206a35776089aa93396f31b1fdf833a}{add\+\_\+registers}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em The values of Vx and Vy are added together. If the result is greater than 8 bits (i.\+e., $>$ 255,) VF is set to 1, otherwise 0. Only the lowest 8 bits of the result are kept, and stored in Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a0ac4c68fe87a1bdb0f28784f7c8bc45a}{sub}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em If Vx $>$ Vy, then VF is set to 1, otherwise 0. Then Vy is subtracted from Vx, and the results stored in Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a5d2b16cc2d979bb138e775dfa124879e}{shr}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em If the least-\/significant bit of Vx is 1, then VF is set to 1, otherwise 0. Then Vx is divided by 2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_af7d3333761b441011060f7194ce6b7e0}{subn}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em If Vy $>$ Vx, then VF is set to 1, otherwise 0. Then Vx is subtracted from Vy, and the results stored in Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_adb5b9265340ad590a754da06456a19dd}{shl}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em If the most-\/significant bit of Vx is 1, then VF is set to 1, otherwise to 0. Then Vx is multiplied by 2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_aa247087a9d3ec80bcfd60228be9bf64a}{sne}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em The values of Vx and Vy are compared, and if they are not equal, the program counter is increased by 2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_ae29d750e12f5a4ea086d774f9cef0656}{load\+\_\+byte}} (uint8\+\_\+t vx, uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em The interpreter puts the value kk into register Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a60adf2964dcd5fc81b61a6c678166ea8}{load\+\_\+register}} (uint8\+\_\+t vx, uint8\+\_\+t vy)
+\begin{DoxyCompactList}\small\item\em Stores the value of register Vy in register Vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_af2f1f1b603501b9d43e09a7cfa6387cf}{load\+\_\+addr}} (uint16\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em Stores the address in register I. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a897235b4843b42982f8e18540e466f51}{jump\+\_\+register}} (uint16\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em The program jumps by setting the program counter to an address (addr plus the value of v0) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a71ad950d3e76d9ec13325bda9a058c1b}{random}} (uint8\+\_\+t vx, uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Generate a random number from 0 to 255, which is then ANDed with a value byte, and stored in a register vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_ac63c1839d0bc503b8b39199046ed3b89}{draw}} (uint8\+\_\+t vx, uint8\+\_\+t vy, uint8\+\_\+t nibble)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDisplay}{Display}} n-\/byte sprite starting at memory location I at (vx, vy), set VF = collision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a785df5c161b5363c58b364ecfce23f21}{skip\+\_\+pressed}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Skip next instruction if key with the value of vx is pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a644e5f49e00d83cfd1621543f57604ef}{skip\+\_\+not\+\_\+pressed}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Skip next instruction if key with teh value of vx is NOT pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a2e2c8cfaf4330b5c4128c860fe9008a3}{load\+\_\+register\+\_\+from\+\_\+dt}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Set register vx to the value of the delay timer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a704a990fc7ec06db4d8a417d7e57da5d}{load\+\_\+key}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Wait for a key press, store the value of the key in register vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_aac03e1fe1417796576e4881200c0ccc8}{load\+\_\+dt\+\_\+from\+\_\+register}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Set delay timer to the value of register vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a40b536b9916e9113609b2546b544ff15}{load\+\_\+st\+\_\+from\+\_\+register}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Set the sound timer to the value of register vx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a4dfd6ead525ece74b86802bba6f5257e}{add\+\_\+sum}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em The values of I and the value stored in the register Vx are added, and the results are stored in I. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a4bbcabe7ec4d6b8ab154aabdbbf155c2}{load\+\_\+loc\+\_\+of\+\_\+sprite}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Set the value of index to the location of the sprite for the digit stored in Vx. Get the address of the first byte of any character by taking an offset from the start address. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a3c7d334eb8468c6860881b047502c049}{str\+\_\+bcd\+\_\+in\+\_\+memory}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Store BCD representation of Vx in memory locations I, I+1, and I+2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a21701db4d787c27274476700450695b3}{str\+\_\+registers\+\_\+in\+\_\+memory}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Store registers V0 through Vx in memory starting at location I. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProcessor_a2f3e533327105de5c0b89f6c72db6985}{read\+\_\+registers}} (uint8\+\_\+t vx)
+\begin{DoxyCompactList}\small\item\em Read registers V0 through Vx from memory starting at location I. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classProcessor_aae7cbb9419f625cbac59c56cd8932eb1}\label{classProcessor_aae7cbb9419f625cbac59c56cd8932eb1}} 
+std\+::array$<$ uint8\+\_\+t, 16 $>$ {\bfseries v\+\_\+registers} = \{0\}
+\item 
+\mbox{\Hypertarget{classProcessor_a0477a819156fe7aa3b49dd62431c0c53}\label{classProcessor_a0477a819156fe7aa3b49dd62431c0c53}} 
+uint16\+\_\+t {\bfseries i\+\_\+register} = 0
+\item 
+\mbox{\Hypertarget{classProcessor_a3b653fc4e962d4e66d074f6653225638}\label{classProcessor_a3b653fc4e962d4e66d074f6653225638}} 
+uint16\+\_\+t {\bfseries pc} = 0x200
+\item 
+\mbox{\Hypertarget{classProcessor_ad45f761c2ee193ae3c9e33353532ec10}\label{classProcessor_ad45f761c2ee193ae3c9e33353532ec10}} 
+uint8\+\_\+t {\bfseries sp} = 0
+\item 
+\mbox{\Hypertarget{classProcessor_aa3e4251be6f6bb72b97376e2f195383a}\label{classProcessor_aa3e4251be6f6bb72b97376e2f195383a}} 
+uint16\+\_\+t {\bfseries dt} = 0
+\item 
+\mbox{\Hypertarget{classProcessor_a57834fff980f6eb589b2b59c4b1fc6f0}\label{classProcessor_a57834fff980f6eb589b2b59c4b1fc6f0}} 
+uint16\+\_\+t {\bfseries st} = 0
+\item 
+\mbox{\Hypertarget{classProcessor_ac6df6f5a66b230bf29d3befd49753e79}\label{classProcessor_ac6df6f5a66b230bf29d3befd49753e79}} 
+std\+::array$<$ uint16\+\_\+t, 16 $>$ {\bfseries stack} = \{0\}
+\item 
+\mbox{\Hypertarget{classProcessor_a2cd89f7ded446faecbdebbb27afaaf1b}\label{classProcessor_a2cd89f7ded446faecbdebbb27afaaf1b}} 
+bool {\bfseries waiting\+\_\+for\+\_\+key\+\_\+input} = false
+\item 
+\mbox{\Hypertarget{classProcessor_a6a3bb912668ff3d2e3d0891e0620684c}\label{classProcessor_a6a3bb912668ff3d2e3d0891e0620684c}} 
+uint8\+\_\+t {\bfseries waiting\+\_\+for\+\_\+key\+\_\+input\+\_\+register} = 0
+\item 
+\mbox{\Hypertarget{classProcessor_a809c7c0ea59ec24d36015eeb58f47c04}\label{classProcessor_a809c7c0ea59ec24d36015eeb58f47c04}} 
+\mbox{\hyperlink{classMemory}{Memory}} \& {\bfseries memory}
+\item 
+\mbox{\Hypertarget{classProcessor_a0ec15903f3a8a59630a8c662e1a6093a}\label{classProcessor_a0ec15903f3a8a59630a8c662e1a6093a}} 
+\mbox{\hyperlink{classDisplay}{Display}} \& {\bfseries display}
+\item 
+\mbox{\Hypertarget{classProcessor_a74fe3fb7f2678c75f8930c0d28dd9a11}\label{classProcessor_a74fe3fb7f2678c75f8930c0d28dd9a11}} 
+\mbox{\hyperlink{classKeyboard}{Keyboard}} \& {\bfseries keyboard}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classProcessor_a2891260a3c0b9032077663403c0f05e5}\label{classProcessor_a2891260a3c0b9032077663403c0f05e5}} 
+static constexpr unsigned int {\bfseries FONTSET\+\_\+\+ADDRESS} = 0x50
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class emulating the CHIP-\/8 processor. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classProcessor_a9dbc451203388cde4742df5da2446b3f}\label{classProcessor_a9dbc451203388cde4742df5da2446b3f}} 
+\index{Processor@{Processor}!Processor@{Processor}}
+\index{Processor@{Processor}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{Processor()}{Processor()}}
+{\footnotesize\ttfamily Processor\+::\+Processor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMemory}{Memory}} \&}]{memory,  }\item[{\mbox{\hyperlink{classDisplay}{Display}} \&}]{display,  }\item[{\mbox{\hyperlink{classKeyboard}{Keyboard}} \&}]{keyboard }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classProcessor}{Processor}} object given memory callback functions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em memory} & a reference to the memory object \\
+\hline
+{\em display} & a reference to the display \\
+\hline
+{\em keyboard} & a reference to the keyboard \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classProcessor_a1ae90faf3f0e56e3dbe1ed148e31d0e3}\label{classProcessor_a1ae90faf3f0e56e3dbe1ed148e31d0e3}} 
+\index{Processor@{Processor}!add@{add}}
+\index{add@{add}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void Processor\+::add (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ADD Vx, byte instruction\+: add byte to Vx register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em byte} & 8-\/bit value (0x00-\/0xff) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_ad206a35776089aa93396f31b1fdf833a}\label{classProcessor_ad206a35776089aa93396f31b1fdf833a}} 
+\index{Processor@{Processor}!add\_registers@{add\_registers}}
+\index{add\_registers@{add\_registers}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{add\_registers()}{add\_registers()}}
+{\footnotesize\ttfamily void Processor\+::add\+\_\+registers (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The values of Vx and Vy are added together. If the result is greater than 8 bits (i.\+e., $>$ 255,) VF is set to 1, otherwise 0. Only the lowest 8 bits of the result are kept, and stored in Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a4dfd6ead525ece74b86802bba6f5257e}\label{classProcessor_a4dfd6ead525ece74b86802bba6f5257e}} 
+\index{Processor@{Processor}!add\_sum@{add\_sum}}
+\index{add\_sum@{add\_sum}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{add\_sum()}{add\_sum()}}
+{\footnotesize\ttfamily void Processor\+::add\+\_\+sum (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The values of I and the value stored in the register Vx are added, and the results are stored in I. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a2e1a307c5d1f4218d3e94db62d096d6d}\label{classProcessor_a2e1a307c5d1f4218d3e94db62d096d6d}} 
+\index{Processor@{Processor}!call@{call}}
+\index{call@{call}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{call()}{call()}}
+{\footnotesize\ttfamily void Processor\+::call (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The interpreter jumps to addr, pushing the current PC to the stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & 16-\/bit address to jump to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_afaf18e6d8cc8213a1a7fd05c5083e6ab}\label{classProcessor_afaf18e6d8cc8213a1a7fd05c5083e6ab}} 
+\index{Processor@{Processor}!chip\_and@{chip\_and}}
+\index{chip\_and@{chip\_and}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{chip\_and()}{chip\_and()}}
+{\footnotesize\ttfamily void Processor\+::chip\+\_\+and (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_ab568bcecbedb1798d060d1bc6aa38ebf}\label{classProcessor_ab568bcecbedb1798d060d1bc6aa38ebf}} 
+\index{Processor@{Processor}!chip\_or@{chip\_or}}
+\index{chip\_or@{chip\_or}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{chip\_or()}{chip\_or()}}
+{\footnotesize\ttfamily void Processor\+::chip\+\_\+or (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Performs a bitwise OR on the values of Vx and Vy, then stores the result in Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a0ce365e15ce10a1754ef4a7c09780bb6}\label{classProcessor_a0ce365e15ce10a1754ef4a7c09780bb6}} 
+\index{Processor@{Processor}!chip\_xor@{chip\_xor}}
+\index{chip\_xor@{chip\_xor}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{chip\_xor()}{chip\_xor()}}
+{\footnotesize\ttfamily void Processor\+::chip\+\_\+xor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Performs a bitwise XOR on the values of Vx and Vy, then stores the result in Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_aa99c0be0ed21f573888ad57ff5e8cf93}\label{classProcessor_aa99c0be0ed21f573888ad57ff5e8cf93}} 
+\index{Processor@{Processor}!decode\_and\_execute@{decode\_and\_execute}}
+\index{decode\_and\_execute@{decode\_and\_execute}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{decode\_and\_execute()}{decode\_and\_execute()}}
+{\footnotesize\ttfamily void Processor\+::decode\+\_\+and\+\_\+execute (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{instruction\+\_\+to\+\_\+run }\end{DoxyParamCaption})}
+
+
+
+Decode the given instruction and run it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction\+\_\+to\+\_\+run} & The instruction to run \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_ac63c1839d0bc503b8b39199046ed3b89}\label{classProcessor_ac63c1839d0bc503b8b39199046ed3b89}} 
+\index{Processor@{Processor}!draw@{draw}}
+\index{draw@{draw}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Processor\+::draw (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy,  }\item[{uint8\+\_\+t}]{nibble }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{\hyperlink{classDisplay}{Display}} n-\/byte sprite starting at memory location I at (vx, vy), set VF = collision. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em nibble} & 4-\/bit value (0x0-\/0xf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a06ef5e32b7eeb543e2c99fbccc8d927e}\label{classProcessor_a06ef5e32b7eeb543e2c99fbccc8d927e}} 
+\index{Processor@{Processor}!dump@{dump}}
+\index{dump@{dump}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily std\+::string Processor\+::dump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Dump the registers of the CPU into a printable string. 
+
+\begin{DoxyReturn}{Returns}
+a string containing all the register values 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcessor_a596ccfabcf0ee9ce1c32040e739f7991}\label{classProcessor_a596ccfabcf0ee9ce1c32040e739f7991}} 
+\index{Processor@{Processor}!jp@{jp}}
+\index{jp@{jp}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{jp()}{jp()}}
+{\footnotesize\ttfamily void Processor\+::jp (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The interpreter sets the program counter to addr. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & 16-\/bit address to jump to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a897235b4843b42982f8e18540e466f51}\label{classProcessor_a897235b4843b42982f8e18540e466f51}} 
+\index{Processor@{Processor}!jump\_register@{jump\_register}}
+\index{jump\_register@{jump\_register}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{jump\_register()}{jump\_register()}}
+{\footnotesize\ttfamily void Processor\+::jump\+\_\+register (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The program jumps by setting the program counter to an address (addr plus the value of v0) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & A 16-\/bit address in memory \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_af2f1f1b603501b9d43e09a7cfa6387cf}\label{classProcessor_af2f1f1b603501b9d43e09a7cfa6387cf}} 
+\index{Processor@{Processor}!load\_addr@{load\_addr}}
+\index{load\_addr@{load\_addr}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_addr()}{load\_addr()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+addr (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Stores the address in register I. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & A 16-\/bit address in memory \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_ae29d750e12f5a4ea086d774f9cef0656}\label{classProcessor_ae29d750e12f5a4ea086d774f9cef0656}} 
+\index{Processor@{Processor}!load\_byte@{load\_byte}}
+\index{load\_byte@{load\_byte}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_byte()}{load\_byte()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The interpreter puts the value kk into register Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em byte} & 8-\/bit value (0x00-\/0xff) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_aac03e1fe1417796576e4881200c0ccc8}\label{classProcessor_aac03e1fe1417796576e4881200c0ccc8}} 
+\index{Processor@{Processor}!load\_dt\_from\_register@{load\_dt\_from\_register}}
+\index{load\_dt\_from\_register@{load\_dt\_from\_register}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_dt\_from\_register()}{load\_dt\_from\_register()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+dt\+\_\+from\+\_\+register (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set delay timer to the value of register vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a704a990fc7ec06db4d8a417d7e57da5d}\label{classProcessor_a704a990fc7ec06db4d8a417d7e57da5d}} 
+\index{Processor@{Processor}!load\_key@{load\_key}}
+\index{load\_key@{load\_key}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_key()}{load\_key()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+key (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Wait for a key press, store the value of the key in register vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a4bbcabe7ec4d6b8ab154aabdbbf155c2}\label{classProcessor_a4bbcabe7ec4d6b8ab154aabdbbf155c2}} 
+\index{Processor@{Processor}!load\_loc\_of\_sprite@{load\_loc\_of\_sprite}}
+\index{load\_loc\_of\_sprite@{load\_loc\_of\_sprite}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_loc\_of\_sprite()}{load\_loc\_of\_sprite()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+loc\+\_\+of\+\_\+sprite (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set the value of index to the location of the sprite for the digit stored in Vx. Get the address of the first byte of any character by taking an offset from the start address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Vx} & number of the register (0x0-\/0xf for v0-\/vf) ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a60adf2964dcd5fc81b61a6c678166ea8}\label{classProcessor_a60adf2964dcd5fc81b61a6c678166ea8}} 
+\index{Processor@{Processor}!load\_register@{load\_register}}
+\index{load\_register@{load\_register}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_register()}{load\_register()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+register (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Stores the value of register Vy in register Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a2e2c8cfaf4330b5c4128c860fe9008a3}\label{classProcessor_a2e2c8cfaf4330b5c4128c860fe9008a3}} 
+\index{Processor@{Processor}!load\_register\_from\_dt@{load\_register\_from\_dt}}
+\index{load\_register\_from\_dt@{load\_register\_from\_dt}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_register\_from\_dt()}{load\_register\_from\_dt()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+register\+\_\+from\+\_\+dt (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set register vx to the value of the delay timer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a40b536b9916e9113609b2546b544ff15}\label{classProcessor_a40b536b9916e9113609b2546b544ff15}} 
+\index{Processor@{Processor}!load\_st\_from\_register@{load\_st\_from\_register}}
+\index{load\_st\_from\_register@{load\_st\_from\_register}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{load\_st\_from\_register()}{load\_st\_from\_register()}}
+{\footnotesize\ttfamily void Processor\+::load\+\_\+st\+\_\+from\+\_\+register (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set the sound timer to the value of register vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a71ad950d3e76d9ec13325bda9a058c1b}\label{classProcessor_a71ad950d3e76d9ec13325bda9a058c1b}} 
+\index{Processor@{Processor}!random@{random}}
+\index{random@{random}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{random()}{random()}}
+{\footnotesize\ttfamily void Processor\+::random (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Generate a random number from 0 to 255, which is then ANDed with a value byte, and stored in a register vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em byte} & 8-\/bit value (0x00-\/0xff) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a160d5e214c4098993620402884170b57}\label{classProcessor_a160d5e214c4098993620402884170b57}} 
+\index{Processor@{Processor}!read\_instruction\_from\_memory@{read\_instruction\_from\_memory}}
+\index{read\_instruction\_from\_memory@{read\_instruction\_from\_memory}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{read\_instruction\_from\_memory()}{read\_instruction\_from\_memory()}}
+{\footnotesize\ttfamily uint16\+\_\+t Processor\+::read\+\_\+instruction\+\_\+from\+\_\+memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Read the next instruction from memory pointed to by the PC, and increment the PC. 
+
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcessor_a2f3e533327105de5c0b89f6c72db6985}\label{classProcessor_a2f3e533327105de5c0b89f6c72db6985}} 
+\index{Processor@{Processor}!read\_registers@{read\_registers}}
+\index{read\_registers@{read\_registers}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{read\_registers()}{read\_registers()}}
+{\footnotesize\ttfamily void Processor\+::read\+\_\+registers (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Read registers V0 through Vx from memory starting at location I. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_aee058e318474563059a3295c61ba5621}\label{classProcessor_aee058e318474563059a3295c61ba5621}} 
+\index{Processor@{Processor}!ret@{ret}}
+\index{ret@{ret}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{ret()}{ret()}}
+{\footnotesize\ttfamily void Processor\+::ret (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Return from a subroutine. 
+
+The interpreter sets the program counter to the address at the top of the stack, then subtracts 1 from the stack pointer. \mbox{\Hypertarget{classProcessor_a5a939384a9e7be6118d8a9fd649f1d8b}\label{classProcessor_a5a939384a9e7be6118d8a9fd649f1d8b}} 
+\index{Processor@{Processor}!se\_byte@{se\_byte}}
+\index{se\_byte@{se\_byte}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{se\_byte()}{se\_byte()}}
+{\footnotesize\ttfamily void Processor\+::se\+\_\+byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Skips the next instruction if vx == byte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & The number of the register (0x0-\/0xf) \\
+\hline
+{\em byte} & The byte to compare with \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a2a294cc744494f597717d1a92c656b4f}\label{classProcessor_a2a294cc744494f597717d1a92c656b4f}} 
+\index{Processor@{Processor}!se\_register@{se\_register}}
+\index{se\_register@{se\_register}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{se\_register()}{se\_register()}}
+{\footnotesize\ttfamily void Processor\+::se\+\_\+register (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Skips the next instruction if vx == vy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & The number of the first register (0x0-\/0xf) \\
+\hline
+{\em vy} & The number of the second register (0x0-\/0xf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_adb5b9265340ad590a754da06456a19dd}\label{classProcessor_adb5b9265340ad590a754da06456a19dd}} 
+\index{Processor@{Processor}!shl@{shl}}
+\index{shl@{shl}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{shl()}{shl()}}
+{\footnotesize\ttfamily void Processor\+::shl (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If the most-\/significant bit of Vx is 1, then VF is set to 1, otherwise to 0. Then Vx is multiplied by 2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a5d2b16cc2d979bb138e775dfa124879e}\label{classProcessor_a5d2b16cc2d979bb138e775dfa124879e}} 
+\index{Processor@{Processor}!shr@{shr}}
+\index{shr@{shr}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{shr()}{shr()}}
+{\footnotesize\ttfamily void Processor\+::shr (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If the least-\/significant bit of Vx is 1, then VF is set to 1, otherwise 0. Then Vx is divided by 2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a644e5f49e00d83cfd1621543f57604ef}\label{classProcessor_a644e5f49e00d83cfd1621543f57604ef}} 
+\index{Processor@{Processor}!skip\_not\_pressed@{skip\_not\_pressed}}
+\index{skip\_not\_pressed@{skip\_not\_pressed}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{skip\_not\_pressed()}{skip\_not\_pressed()}}
+{\footnotesize\ttfamily void Processor\+::skip\+\_\+not\+\_\+pressed (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Skip next instruction if key with teh value of vx is NOT pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a785df5c161b5363c58b364ecfce23f21}\label{classProcessor_a785df5c161b5363c58b364ecfce23f21}} 
+\index{Processor@{Processor}!skip\_pressed@{skip\_pressed}}
+\index{skip\_pressed@{skip\_pressed}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{skip\_pressed()}{skip\_pressed()}}
+{\footnotesize\ttfamily void Processor\+::skip\+\_\+pressed (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Skip next instruction if key with the value of vx is pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_aa247087a9d3ec80bcfd60228be9bf64a}\label{classProcessor_aa247087a9d3ec80bcfd60228be9bf64a}} 
+\index{Processor@{Processor}!sne@{sne}}
+\index{sne@{sne}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{sne()}{sne()}}
+{\footnotesize\ttfamily void Processor\+::sne (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The values of Vx and Vy are compared, and if they are not equal, the program counter is increased by 2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_ac1ef1744944423a0243274342c4fcd44}\label{classProcessor_ac1ef1744944423a0243274342c4fcd44}} 
+\index{Processor@{Processor}!sne\_byte@{sne\_byte}}
+\index{sne\_byte@{sne\_byte}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{sne\_byte()}{sne\_byte()}}
+{\footnotesize\ttfamily void Processor\+::sne\+\_\+byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Skips the next instruction if vx != byte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & The number of the register (0x0-\/0xf) \\
+\hline
+{\em byte} & The byte to compare with \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a3c7d334eb8468c6860881b047502c049}\label{classProcessor_a3c7d334eb8468c6860881b047502c049}} 
+\index{Processor@{Processor}!str\_bcd\_in\_memory@{str\_bcd\_in\_memory}}
+\index{str\_bcd\_in\_memory@{str\_bcd\_in\_memory}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{str\_bcd\_in\_memory()}{str\_bcd\_in\_memory()}}
+{\footnotesize\ttfamily void Processor\+::str\+\_\+bcd\+\_\+in\+\_\+memory (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Store BCD representation of Vx in memory locations I, I+1, and I+2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a21701db4d787c27274476700450695b3}\label{classProcessor_a21701db4d787c27274476700450695b3}} 
+\index{Processor@{Processor}!str\_registers\_in\_memory@{str\_registers\_in\_memory}}
+\index{str\_registers\_in\_memory@{str\_registers\_in\_memory}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{str\_registers\_in\_memory()}{str\_registers\_in\_memory()}}
+{\footnotesize\ttfamily void Processor\+::str\+\_\+registers\+\_\+in\+\_\+memory (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Store registers V0 through Vx in memory starting at location I. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a0ac4c68fe87a1bdb0f28784f7c8bc45a}\label{classProcessor_a0ac4c68fe87a1bdb0f28784f7c8bc45a}} 
+\index{Processor@{Processor}!sub@{sub}}
+\index{sub@{sub}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{sub()}{sub()}}
+{\footnotesize\ttfamily void Processor\+::sub (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If Vx $>$ Vy, then VF is set to 1, otherwise 0. Then Vy is subtracted from Vx, and the results stored in Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_af7d3333761b441011060f7194ce6b7e0}\label{classProcessor_af7d3333761b441011060f7194ce6b7e0}} 
+\index{Processor@{Processor}!subn@{subn}}
+\index{subn@{subn}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{subn()}{subn()}}
+{\footnotesize\ttfamily void Processor\+::subn (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vx,  }\item[{uint8\+\_\+t}]{vy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If Vy $>$ Vx, then VF is set to 1, otherwise 0. Then Vx is subtracted from Vy, and the results stored in Vx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vx} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+{\em vy} & number of the register (0x0-\/0xf for v0-\/vf) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcessor_a7c929f19658827c3c88071ba3db242d1}\label{classProcessor_a7c929f19658827c3c88071ba3db242d1}} 
+\index{Processor@{Processor}!sys@{sys}}
+\index{sys@{sys}!Processor@{Processor}}
+\doxysubsubsection{\texorpdfstring{sys()}{sys()}}
+{\footnotesize\ttfamily void Processor\+::sys (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Jumps to a machine code routine at addr. 
+
+This instruction is only used on the old computers on which Chip-\/8 was originally implemented. It is ignored by modern interpreters. 
+\begin{DoxyParams}{Parameters}
+{\em addr} & The 16-\/bit address to jump to \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Processor_8h}{Processor.\+h}}\end{DoxyCompactItemize}

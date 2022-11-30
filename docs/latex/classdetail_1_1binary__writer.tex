@@ -1,0 +1,380 @@
+\hypertarget{classdetail_1_1binary__writer}{}\doxysection{detail\+::binary\+\_\+writer$<$ Basic\+Json\+Type, Char\+Type $>$ Class Template Reference}
+\label{classdetail_1_1binary__writer}\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+
+
+serialization to CBOR and Message\+Pack values  
+
+
+
+
+{\ttfamily \#include $<$json.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetail_1_1binary__writer_a5b4f1bfcd0f3f7b57060c059e008c45b}{binary\+\_\+writer}} (\mbox{\hyperlink{namespacedetail_a160eb5d333fe01b259af32d3d4798a7b}{output\+\_\+adapter\+\_\+t}}$<$ Char\+Type $>$ adapter)
+\begin{DoxyCompactList}\small\item\em create a binary writer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a1aae361b7492825979cbb80245b9c0d6}{write\+\_\+bson}} (const Basic\+Json\+Type \&j)
+\item 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_ae6ab36b61e8ad346e75d9f9abc983d4c}{write\+\_\+cbor}} (const Basic\+Json\+Type \&j)
+\item 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_adc3dbefa80134d3530a1b3f1c9629586}{write\+\_\+msgpack}} (const Basic\+Json\+Type \&j)
+\item 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a972bec9688cbc5673bb482bbe9543e2a}{write\+\_\+ubjson}} (const Basic\+Json\+Type \&j, const bool use\+\_\+count, const bool use\+\_\+type, const bool add\+\_\+prefix=true, const bool use\+\_\+bjdata=false)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a2822d4a58bbb0dc2198686da430e8906}\label{classdetail_1_1binary__writer_a2822d4a58bbb0dc2198686da430e8906}} 
+{\footnotesize template$<$typename C  = Char\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+signed$<$ C $>$\+::value \&\&std\+::is\+\_\+signed$<$ char $>$\+::value $>$ $\ast$  = nullptr$>$ }\\static constexpr Char\+Type {\bfseries to\+\_\+char\+\_\+type} (std\+::uint8\+\_\+t x) noexcept
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a4bc03434de56f9c9afd24702922a7ec8}\label{classdetail_1_1binary__writer_a4bc03434de56f9c9afd24702922a7ec8}} 
+{\footnotesize template$<$typename C  = Char\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+signed$<$ C $>$\+::value \&\&std\+::is\+\_\+unsigned$<$ char $>$\+::value $>$ $\ast$  = nullptr$>$ }\\static Char\+Type {\bfseries to\+\_\+char\+\_\+type} (std\+::uint8\+\_\+t x) noexcept
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a2822d4a58bbb0dc2198686da430e8906}\label{classdetail_1_1binary__writer_a2822d4a58bbb0dc2198686da430e8906}} 
+{\footnotesize template$<$typename C  = Char\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+unsigned$<$ C $>$\+::value $>$ $\ast$  = nullptr$>$ }\\static constexpr Char\+Type {\bfseries to\+\_\+char\+\_\+type} (std\+::uint8\+\_\+t x) noexcept
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a91bfd3642a0f90c295f9ce79c9447be9}\label{classdetail_1_1binary__writer_a91bfd3642a0f90c295f9ce79c9447be9}} 
+{\footnotesize template$<$typename Input\+Char\+Type , typename C  = Char\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+signed$<$ C $>$\+::value \&\&std\+::is\+\_\+signed$<$ char $>$\+::value \&\&std\+::is\+\_\+same$<$ char, typename std\+::remove\+\_\+cv$<$ Input\+Char\+Type $>$\+::type $>$\+::value $>$ $\ast$  = nullptr$>$ }\\static constexpr Char\+Type {\bfseries to\+\_\+char\+\_\+type} (Input\+Char\+Type x) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a1dff4172c549dc614b2f15715966b101}\label{classdetail_1_1binary__writer_a1dff4172c549dc614b2f15715966b101}} 
+using {\bfseries string\+\_\+t} = typename Basic\+Json\+Type\+::string\+\_\+t
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a1bed62ac592abf5c247b66f8ed1dbcdc}\label{classdetail_1_1binary__writer_a1bed62ac592abf5c247b66f8ed1dbcdc}} 
+using {\bfseries binary\+\_\+t} = typename Basic\+Json\+Type\+::binary\+\_\+t
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ab02b25aae50e9016a4cecb945465b31e}\label{classdetail_1_1binary__writer_ab02b25aae50e9016a4cecb945465b31e}} 
+using {\bfseries number\+\_\+float\+\_\+t} = typename Basic\+Json\+Type\+::number\+\_\+float\+\_\+t
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aec35b5420c48539db2959ef88ae296d5}\label{classdetail_1_1binary__writer_aec35b5420c48539db2959ef88ae296d5}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_aec35b5420c48539db2959ef88ae296d5}{write\+\_\+bson\+\_\+entry\+\_\+header}} (const string\+\_\+t \&name, const std\+::uint8\+\_\+t element\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Writes the given {\itshape element\+\_\+type} and {\itshape name} to the output adapter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a1981a99a95f67eb1d433077e736b0f74}\label{classdetail_1_1binary__writer_a1981a99a95f67eb1d433077e736b0f74}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a1981a99a95f67eb1d433077e736b0f74}{write\+\_\+bson\+\_\+boolean}} (const string\+\_\+t \&name, const bool value)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and boolean value {\itshape value}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a9bd4a3aae88527f267ffd607d89f4a57}\label{classdetail_1_1binary__writer_a9bd4a3aae88527f267ffd607d89f4a57}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a9bd4a3aae88527f267ffd607d89f4a57}{write\+\_\+bson\+\_\+double}} (const string\+\_\+t \&name, const double value)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and double value {\itshape value}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a5aa8c085600b442cbb13acea438a2ce1}\label{classdetail_1_1binary__writer_a5aa8c085600b442cbb13acea438a2ce1}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a5aa8c085600b442cbb13acea438a2ce1}{write\+\_\+bson\+\_\+string}} (const string\+\_\+t \&name, const string\+\_\+t \&value)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and string value {\itshape value}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aaf86b30c0beb86fafdb0cad5573ce753}\label{classdetail_1_1binary__writer_aaf86b30c0beb86fafdb0cad5573ce753}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_aaf86b30c0beb86fafdb0cad5573ce753}{write\+\_\+bson\+\_\+null}} (const string\+\_\+t \&name)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and null value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a1c1c00c936b40970ec1305dce7e266e3}\label{classdetail_1_1binary__writer_a1c1c00c936b40970ec1305dce7e266e3}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a1c1c00c936b40970ec1305dce7e266e3}{write\+\_\+bson\+\_\+integer}} (const string\+\_\+t \&name, const std\+::int64\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and integer {\itshape value}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ab58b6af7866fc56b9c4b326b4db62e12}\label{classdetail_1_1binary__writer_ab58b6af7866fc56b9c4b326b4db62e12}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_ab58b6af7866fc56b9c4b326b4db62e12}{write\+\_\+bson\+\_\+unsigned}} (const string\+\_\+t \&name, const Basic\+Json\+Type \&j)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and unsigned {\itshape value}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aec965617342a951a3b60f89fcf2e633d}\label{classdetail_1_1binary__writer_aec965617342a951a3b60f89fcf2e633d}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_aec965617342a951a3b60f89fcf2e633d}{write\+\_\+bson\+\_\+object\+\_\+entry}} (const string\+\_\+t \&name, const typename Basic\+Json\+Type\+::object\+\_\+t \&value)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and object {\itshape value}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a3da500027916d93a83e7922006ddc331}\label{classdetail_1_1binary__writer_a3da500027916d93a83e7922006ddc331}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a3da500027916d93a83e7922006ddc331}{write\+\_\+bson\+\_\+array}} (const string\+\_\+t \&name, const typename Basic\+Json\+Type\+::array\+\_\+t \&value)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and array {\itshape value}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a15de15c0a19048ca8377b0d076b4a785}\label{classdetail_1_1binary__writer_a15de15c0a19048ca8377b0d076b4a785}} 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a15de15c0a19048ca8377b0d076b4a785}{write\+\_\+bson\+\_\+binary}} (const string\+\_\+t \&name, const binary\+\_\+t \&value)
+\begin{DoxyCompactList}\small\item\em Writes a BSON element with key {\itshape name} and binary value {\itshape value}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a882debd723dd172f42e0690f84d4b94f}{write\+\_\+bson\+\_\+element}} (const string\+\_\+t \&name, const Basic\+Json\+Type \&j)
+\begin{DoxyCompactList}\small\item\em Serializes the JSON value {\itshape j} to BSON and associates it with the key {\itshape name}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdetail_1_1binary__writer_a93441bda8d804f4e93742f3cf3868da4}{write\+\_\+bson\+\_\+object}} (const typename Basic\+Json\+Type\+::object\+\_\+t \&value)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a6df4a13e59faa87a72b0fbe8c5f838ba}\label{classdetail_1_1binary__writer_a6df4a13e59faa87a72b0fbe8c5f838ba}} 
+{\footnotesize template$<$typename Number\+Type , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+floating\+\_\+point$<$ Number\+Type $>$\+::value, int $>$\+::type  = 0$>$ }\\void {\bfseries write\+\_\+number\+\_\+with\+\_\+ubjson\+\_\+prefix} (const Number\+Type n, const bool add\+\_\+prefix, const bool use\+\_\+bjdata)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a6df4a13e59faa87a72b0fbe8c5f838ba}\label{classdetail_1_1binary__writer_a6df4a13e59faa87a72b0fbe8c5f838ba}} 
+{\footnotesize template$<$typename Number\+Type , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+unsigned$<$ Number\+Type $>$\+::value, int $>$\+::type  = 0$>$ }\\void {\bfseries write\+\_\+number\+\_\+with\+\_\+ubjson\+\_\+prefix} (const Number\+Type n, const bool add\+\_\+prefix, const bool use\+\_\+bjdata)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a6df4a13e59faa87a72b0fbe8c5f838ba}\label{classdetail_1_1binary__writer_a6df4a13e59faa87a72b0fbe8c5f838ba}} 
+{\footnotesize template$<$typename Number\+Type , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+signed$<$ Number\+Type $>$\+::value \&\&!std\+::is\+\_\+floating\+\_\+point$<$ Number\+Type $>$\+::value, int $>$\+::type  = 0$>$ }\\void {\bfseries write\+\_\+number\+\_\+with\+\_\+ubjson\+\_\+prefix} (const Number\+Type n, const bool add\+\_\+prefix, const bool use\+\_\+bjdata)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ab4f174660b2ad22a9ac900f9e7cce278}\label{classdetail_1_1binary__writer_ab4f174660b2ad22a9ac900f9e7cce278}} 
+Char\+Type \mbox{\hyperlink{classdetail_1_1binary__writer_ab4f174660b2ad22a9ac900f9e7cce278}{ubjson\+\_\+prefix}} (const Basic\+Json\+Type \&j, const bool use\+\_\+bjdata) const noexcept
+\begin{DoxyCompactList}\small\item\em determine the type prefix of container values \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classdetail_1_1binary__writer_a449ad96e1066a6a0c75ca983a086f46c}{write\+\_\+bjdata\+\_\+ndarray}} (const typename Basic\+Json\+Type\+::object\+\_\+t \&value, const bool use\+\_\+count, const bool use\+\_\+type)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aab9bf30c969ca7694eed2bfd39d9274a}\label{classdetail_1_1binary__writer_aab9bf30c969ca7694eed2bfd39d9274a}} 
+{\footnotesize template$<$typename Number\+Type $>$ }\\void {\bfseries write\+\_\+number} (const Number\+Type n, const bool Output\+Is\+Little\+Endian=false)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ae17b8f4f14cdf533e19c170c1f67651a}\label{classdetail_1_1binary__writer_ae17b8f4f14cdf533e19c170c1f67651a}} 
+void {\bfseries write\+\_\+compact\+\_\+float} (const number\+\_\+float\+\_\+t n, \mbox{\hyperlink{namespacedetail_a0ab3b338d0eadc6890b72cccef0ea04f}{detail\+::input\+\_\+format\+\_\+t}} format)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_aad96b5f9b144981e2bbeac6621830d00}{calc\+\_\+bson\+\_\+entry\+\_\+header\+\_\+size}} (const string\+\_\+t \&name, const Basic\+Json\+Type \&j)
+\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_aa5bf4b6949fd349197afb2fbda698eaa}{calc\+\_\+bson\+\_\+string\+\_\+size}} (const string\+\_\+t \&value)
+\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_aff00422b8c743de598277c79268970e3}{calc\+\_\+bson\+\_\+integer\+\_\+size}} (const std\+::int64\+\_\+t value)
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_a31b027931d741fb332ca54071b5c9ca0}{calc\+\_\+bson\+\_\+unsigned\+\_\+size}} (const std\+::uint64\+\_\+t value) noexcept
+\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_af8d6408cc5daa2e485d3f7d6cdb0eb58}{calc\+\_\+bson\+\_\+array\+\_\+size}} (const typename Basic\+Json\+Type\+::array\+\_\+t \&value)
+\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_ab69ca812898ed26caf0a54dcd95f894f}{calc\+\_\+bson\+\_\+binary\+\_\+size}} (const typename Basic\+Json\+Type\+::binary\+\_\+t \&value)
+\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_accdf775201461343bd5a2c420b4d6db9}{calc\+\_\+bson\+\_\+element\+\_\+size}} (const string\+\_\+t \&name, const Basic\+Json\+Type \&j)
+\begin{DoxyCompactList}\small\item\em Calculates the size necessary to serialize the JSON value {\itshape j} with its {\itshape name}. \end{DoxyCompactList}\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer_adc40d21af75e25e8c38747e3e92046ca}{calc\+\_\+bson\+\_\+object\+\_\+size}} (const typename Basic\+Json\+Type\+::object\+\_\+t \&value)
+\begin{DoxyCompactList}\small\item\em Calculates the size of the BSON serialization of the given JSON-\/object {\itshape j}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aeac61e27c0d1b834a8e0114170511a97}\label{classdetail_1_1binary__writer_aeac61e27c0d1b834a8e0114170511a97}} 
+static constexpr Char\+Type {\bfseries get\+\_\+cbor\+\_\+float\+\_\+prefix} (float)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a56a61a6c22a3b3f7a4ac40a20b7f518f}\label{classdetail_1_1binary__writer_a56a61a6c22a3b3f7a4ac40a20b7f518f}} 
+static constexpr Char\+Type {\bfseries get\+\_\+cbor\+\_\+float\+\_\+prefix} (double)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_af199e07c12948a357eb8dfe9471f5453}\label{classdetail_1_1binary__writer_af199e07c12948a357eb8dfe9471f5453}} 
+static constexpr Char\+Type {\bfseries get\+\_\+msgpack\+\_\+float\+\_\+prefix} (float)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a71dfa0adffeb52759f91223208f08937}\label{classdetail_1_1binary__writer_a71dfa0adffeb52759f91223208f08937}} 
+static constexpr Char\+Type {\bfseries get\+\_\+msgpack\+\_\+float\+\_\+prefix} (double)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ab695ec5f8626b333a681c15adf5ab5e4}\label{classdetail_1_1binary__writer_ab695ec5f8626b333a681c15adf5ab5e4}} 
+static constexpr Char\+Type {\bfseries get\+\_\+ubjson\+\_\+float\+\_\+prefix} (float)
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a60d49c47a03c575a985460a56f637f71}\label{classdetail_1_1binary__writer_a60d49c47a03c575a985460a56f637f71}} 
+static constexpr Char\+Type {\bfseries get\+\_\+ubjson\+\_\+float\+\_\+prefix} (double)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_af56f3d5b2ac90e06cc43ec1ff7ae4bca}\label{classdetail_1_1binary__writer_af56f3d5b2ac90e06cc43ec1ff7ae4bca}} 
+const bool \mbox{\hyperlink{classdetail_1_1binary__writer_af56f3d5b2ac90e06cc43ec1ff7ae4bca}{is\+\_\+little\+\_\+endian}} = \mbox{\hyperlink{namespacedetail_a9a6920228c2b39db99481d6952ca1add}{little\+\_\+endianness}}()
+\begin{DoxyCompactList}\small\item\em whether we can assume little endianness \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ae237dddfb00736854f4ceaee2164156b}\label{classdetail_1_1binary__writer_ae237dddfb00736854f4ceaee2164156b}} 
+\mbox{\hyperlink{namespacedetail_a160eb5d333fe01b259af32d3d4798a7b}{output\+\_\+adapter\+\_\+t}}$<$ Char\+Type $>$ \mbox{\hyperlink{classdetail_1_1binary__writer_ae237dddfb00736854f4ceaee2164156b}{oa}} = nullptr
+\begin{DoxyCompactList}\small\item\em the output \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Basic\+Json\+Type, typename Char\+Type$>$\newline
+class detail\+::binary\+\_\+writer$<$ Basic\+Json\+Type, Char\+Type $>$}
+
+serialization to CBOR and Message\+Pack values 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a5b4f1bfcd0f3f7b57060c059e008c45b}\label{classdetail_1_1binary__writer_a5b4f1bfcd0f3f7b57060c059e008c45b}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!binary\_writer@{binary\_writer}}
+\index{binary\_writer@{binary\_writer}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{binary\_writer()}{binary\_writer()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+\mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::\mbox{\hyperlink{classdetail_1_1binary__writer}{binary\+\_\+writer}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacedetail_a160eb5d333fe01b259af32d3d4798a7b}{output\+\_\+adapter\+\_\+t}}$<$ Char\+Type $>$}]{adapter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+create a binary writer 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em adapter} & output adapter to write to \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_af8d6408cc5daa2e485d3f7d6cdb0eb58}\label{classdetail_1_1binary__writer_af8d6408cc5daa2e485d3f7d6cdb0eb58}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_array\_size@{calc\_bson\_array\_size}}
+\index{calc\_bson\_array\_size@{calc\_bson\_array\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_array\_size()}{calc\_bson\_array\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+array\+\_\+size (\begin{DoxyParamCaption}\item[{const typename Basic\+Json\+Type\+::array\+\_\+t \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+\begin{DoxyReturn}{Returns}
+The size of the BSON-\/encoded array {\itshape value} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ab69ca812898ed26caf0a54dcd95f894f}\label{classdetail_1_1binary__writer_ab69ca812898ed26caf0a54dcd95f894f}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_binary\_size@{calc\_bson\_binary\_size}}
+\index{calc\_bson\_binary\_size@{calc\_bson\_binary\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_binary\_size()}{calc\_bson\_binary\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+binary\+\_\+size (\begin{DoxyParamCaption}\item[{const typename Basic\+Json\+Type\+::binary\+\_\+t \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+\begin{DoxyReturn}{Returns}
+The size of the BSON-\/encoded binary array {\itshape value} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_accdf775201461343bd5a2c420b4d6db9}\label{classdetail_1_1binary__writer_accdf775201461343bd5a2c420b4d6db9}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_element\_size@{calc\_bson\_element\_size}}
+\index{calc\_bson\_element\_size@{calc\_bson\_element\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_element\_size()}{calc\_bson\_element\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+element\+\_\+size (\begin{DoxyParamCaption}\item[{const string\+\_\+t \&}]{name,  }\item[{const Basic\+Json\+Type \&}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Calculates the size necessary to serialize the JSON value {\itshape j} with its {\itshape name}. 
+
+\begin{DoxyReturn}{Returns}
+The calculated size for the BSON document entry for {\itshape j} with the given {\itshape name}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aad96b5f9b144981e2bbeac6621830d00}\label{classdetail_1_1binary__writer_aad96b5f9b144981e2bbeac6621830d00}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_entry\_header\_size@{calc\_bson\_entry\_header\_size}}
+\index{calc\_bson\_entry\_header\_size@{calc\_bson\_entry\_header\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_entry\_header\_size()}{calc\_bson\_entry\_header\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+entry\+\_\+header\+\_\+size (\begin{DoxyParamCaption}\item[{const string\+\_\+t \&}]{name,  }\item[{const Basic\+Json\+Type \&}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+\begin{DoxyReturn}{Returns}
+The size of a BSON document entry header, including the id marker and the entry name size (and its null-\/terminator). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aff00422b8c743de598277c79268970e3}\label{classdetail_1_1binary__writer_aff00422b8c743de598277c79268970e3}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_integer\_size@{calc\_bson\_integer\_size}}
+\index{calc\_bson\_integer\_size@{calc\_bson\_integer\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_integer\_size()}{calc\_bson\_integer\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+integer\+\_\+size (\begin{DoxyParamCaption}\item[{const std\+::int64\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+\begin{DoxyReturn}{Returns}
+The size of the BSON-\/encoded integer {\itshape value} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_adc40d21af75e25e8c38747e3e92046ca}\label{classdetail_1_1binary__writer_adc40d21af75e25e8c38747e3e92046ca}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_object\_size@{calc\_bson\_object\_size}}
+\index{calc\_bson\_object\_size@{calc\_bson\_object\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_object\_size()}{calc\_bson\_object\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+object\+\_\+size (\begin{DoxyParamCaption}\item[{const typename Basic\+Json\+Type\+::object\+\_\+t \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Calculates the size of the BSON serialization of the given JSON-\/object {\itshape j}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em value} & JSON value to serialize \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+value.\+type() == \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\+\_\+t\+::object}} 
+\end{DoxyPrecond}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_aa5bf4b6949fd349197afb2fbda698eaa}\label{classdetail_1_1binary__writer_aa5bf4b6949fd349197afb2fbda698eaa}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_string\_size@{calc\_bson\_string\_size}}
+\index{calc\_bson\_string\_size@{calc\_bson\_string\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_string\_size()}{calc\_bson\_string\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+string\+\_\+size (\begin{DoxyParamCaption}\item[{const string\+\_\+t \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+\begin{DoxyReturn}{Returns}
+The size of the BSON-\/encoded string in {\itshape value} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a31b027931d741fb332ca54071b5c9ca0}\label{classdetail_1_1binary__writer_a31b027931d741fb332ca54071b5c9ca0}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!calc\_bson\_unsigned\_size@{calc\_bson\_unsigned\_size}}
+\index{calc\_bson\_unsigned\_size@{calc\_bson\_unsigned\_size}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{calc\_bson\_unsigned\_size()}{calc\_bson\_unsigned\_size()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::calc\+\_\+bson\+\_\+unsigned\+\_\+size (\begin{DoxyParamCaption}\item[{const std\+::uint64\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+The size of the BSON-\/encoded unsigned integer in {\itshape j} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a449ad96e1066a6a0c75ca983a086f46c}\label{classdetail_1_1binary__writer_a449ad96e1066a6a0c75ca983a086f46c}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_bjdata\_ndarray@{write\_bjdata\_ndarray}}
+\index{write\_bjdata\_ndarray@{write\_bjdata\_ndarray}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{write\_bjdata\_ndarray()}{write\_bjdata\_ndarray()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+bool \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+bjdata\+\_\+ndarray (\begin{DoxyParamCaption}\item[{const typename Basic\+Json\+Type\+::object\+\_\+t \&}]{value,  }\item[{const bool}]{use\+\_\+count,  }\item[{const bool}]{use\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\begin{DoxyReturn}{Returns}
+false if the object is successfully converted to a bjdata ndarray, true if the type or size is invalid 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a1aae361b7492825979cbb80245b9c0d6}\label{classdetail_1_1binary__writer_a1aae361b7492825979cbb80245b9c0d6}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_bson@{write\_bson}}
+\index{write\_bson@{write\_bson}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{write\_bson()}{write\_bson()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+bson (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em j} & JSON value to serialize \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+j.\+type() == \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\+\_\+t\+::object}} 
+\end{DoxyPrecond}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a882debd723dd172f42e0690f84d4b94f}\label{classdetail_1_1binary__writer_a882debd723dd172f42e0690f84d4b94f}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_bson\_element@{write\_bson\_element}}
+\index{write\_bson\_element@{write\_bson\_element}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{write\_bson\_element()}{write\_bson\_element()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+bson\+\_\+element (\begin{DoxyParamCaption}\item[{const string\+\_\+t \&}]{name,  }\item[{const Basic\+Json\+Type \&}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Serializes the JSON value {\itshape j} to BSON and associates it with the key {\itshape name}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name to associate with the JSON entity {\itshape j} within the current BSON document \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a93441bda8d804f4e93742f3cf3868da4}\label{classdetail_1_1binary__writer_a93441bda8d804f4e93742f3cf3868da4}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_bson\_object@{write\_bson\_object}}
+\index{write\_bson\_object@{write\_bson\_object}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{write\_bson\_object()}{write\_bson\_object()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+bson\+\_\+object (\begin{DoxyParamCaption}\item[{const typename Basic\+Json\+Type\+::object\+\_\+t \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em value} & JSON value to serialize \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+value.\+type() == \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\+\_\+t\+::object}} 
+\end{DoxyPrecond}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_ae6ab36b61e8ad346e75d9f9abc983d4c}\label{classdetail_1_1binary__writer_ae6ab36b61e8ad346e75d9f9abc983d4c}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_cbor@{write\_cbor}}
+\index{write\_cbor@{write\_cbor}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{write\_cbor()}{write\_cbor()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+cbor (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em j} & JSON value to serialize \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_adc3dbefa80134d3530a1b3f1c9629586}\label{classdetail_1_1binary__writer_adc3dbefa80134d3530a1b3f1c9629586}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_msgpack@{write\_msgpack}}
+\index{write\_msgpack@{write\_msgpack}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{write\_msgpack()}{write\_msgpack()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+msgpack (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em j} & JSON value to serialize \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdetail_1_1binary__writer_a972bec9688cbc5673bb482bbe9543e2a}\label{classdetail_1_1binary__writer_a972bec9688cbc5673bb482bbe9543e2a}} 
+\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_ubjson@{write\_ubjson}}
+\index{write\_ubjson@{write\_ubjson}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
+\doxysubsubsection{\texorpdfstring{write\_ubjson()}{write\_ubjson()}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Char\+Type $>$ \\
+void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+ubjson (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j,  }\item[{const bool}]{use\+\_\+count,  }\item[{const bool}]{use\+\_\+type,  }\item[{const bool}]{add\+\_\+prefix = {\ttfamily true},  }\item[{const bool}]{use\+\_\+bjdata = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em j} & JSON value to serialize \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+count} & whether to use \textquotesingle{}\#\textquotesingle{} prefixes (optimized format) \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+type} & whether to use \textquotesingle{}\$\textquotesingle{} prefixes (optimized format) \\
+\hline
+\mbox{\texttt{ in}}  & {\em add\+\_\+prefix} & whether prefixes need to be used for this value \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+bjdata} & whether write in BJData format, default is false \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+h\end{DoxyCompactItemize}

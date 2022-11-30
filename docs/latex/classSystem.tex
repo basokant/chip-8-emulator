@@ -1,0 +1,112 @@
+\hypertarget{classSystem}{}\doxysection{System Class Reference}
+\label{classSystem}\index{System@{System}}
+
+
+The full emulator consisting of the processor, memory, display, keyboard, and sound.  
+
+
+
+
+{\ttfamily \#include $<$System.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSystem_afa39feb75f96798930f4bfb48205f40b}\label{classSystem_afa39feb75f96798930f4bfb48205f40b}} 
+void \mbox{\hyperlink{classSystem_afa39feb75f96798930f4bfb48205f40b}{run}} ()
+\begin{DoxyCompactList}\small\item\em Run the emulator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSystem_a681e708833b763e23b7f0c18b009d9cc}\label{classSystem_a681e708833b763e23b7f0c18b009d9cc}} 
+void \mbox{\hyperlink{classSystem_a681e708833b763e23b7f0c18b009d9cc}{load\+\_\+rom}} (const std\+::string \&rom\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Load the ROM specified at the given path into memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSystem_a7e55aeea19ccf9e60be59a783e3742bf}{set\+\_\+emulation\+\_\+speed}} (double new\+\_\+speed)
+\begin{DoxyCompactList}\small\item\em Set a new emulation speed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSystem_a88f3245c504de659a9886c249de5c0ea}\label{classSystem_a88f3245c504de659a9886c249de5c0ea}} 
+void \mbox{\hyperlink{classSystem_a88f3245c504de659a9886c249de5c0ea}{run\+\_\+for\+\_\+one\+\_\+frame}} ()
+\begin{DoxyCompactList}\small\item\em Run the emulator for one frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSystem_af21bf424334dde0f175e7d365283451c}{on\+\_\+key\+\_\+press}} (SDL\+\_\+\+Keycode keycode)
+\begin{DoxyCompactList}\small\item\em Event handler fired on keypress. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSystem_a946dac5417ec251893ad9a92865baea5}{on\+\_\+key\+\_\+release}} (SDL\+\_\+\+Keycode keycode)
+\begin{DoxyCompactList}\small\item\em Event handler fired on key release. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSystem_a76e82b2d50b07bf202034713d1086f78}\label{classSystem_a76e82b2d50b07bf202034713d1086f78}} 
+\mbox{\hyperlink{classProcessor}{Processor}} {\bfseries processor}
+\item 
+\mbox{\Hypertarget{classSystem_a6eaf47d5def53f654c37c948fbd33c1b}\label{classSystem_a6eaf47d5def53f654c37c948fbd33c1b}} 
+\mbox{\hyperlink{classMemory}{Memory}} {\bfseries memory}
+\item 
+\mbox{\Hypertarget{classSystem_ae607885367ca22f321eecd9845ea5df9}\label{classSystem_ae607885367ca22f321eecd9845ea5df9}} 
+\mbox{\hyperlink{classDisplay}{Display}} {\bfseries display}
+\item 
+\mbox{\Hypertarget{classSystem_acace88a5b2c64bcfaae748f47e1a530d}\label{classSystem_acace88a5b2c64bcfaae748f47e1a530d}} 
+\mbox{\hyperlink{classKeyboard}{Keyboard}} {\bfseries keyboard}
+\item 
+\mbox{\Hypertarget{classSystem_ae987ad2862970863a1f16b6f7e5c9052}\label{classSystem_ae987ad2862970863a1f16b6f7e5c9052}} 
+\mbox{\hyperlink{classSound}{Sound}} {\bfseries sound}
+\item 
+\mbox{\Hypertarget{classSystem_ad76e8461f446a544972d4982a257168b}\label{classSystem_ad76e8461f446a544972d4982a257168b}} 
+bool {\bfseries is\+\_\+running} = true
+\item 
+\mbox{\Hypertarget{classSystem_a9f359bb722c3f41599586fa042a92076}\label{classSystem_a9f359bb722c3f41599586fa042a92076}} 
+double {\bfseries emulation\+\_\+speed} = 1.\+0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The full emulator consisting of the processor, memory, display, keyboard, and sound. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSystem_af21bf424334dde0f175e7d365283451c}\label{classSystem_af21bf424334dde0f175e7d365283451c}} 
+\index{System@{System}!on\_key\_press@{on\_key\_press}}
+\index{on\_key\_press@{on\_key\_press}!System@{System}}
+\doxysubsubsection{\texorpdfstring{on\_key\_press()}{on\_key\_press()}}
+{\footnotesize\ttfamily void System\+::on\+\_\+key\+\_\+press (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Keycode}]{keycode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Event handler fired on keypress. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em keycode} & the SDL keycode of the pressed key \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSystem_a946dac5417ec251893ad9a92865baea5}\label{classSystem_a946dac5417ec251893ad9a92865baea5}} 
+\index{System@{System}!on\_key\_release@{on\_key\_release}}
+\index{on\_key\_release@{on\_key\_release}!System@{System}}
+\doxysubsubsection{\texorpdfstring{on\_key\_release()}{on\_key\_release()}}
+{\footnotesize\ttfamily void System\+::on\+\_\+key\+\_\+release (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Keycode}]{keycode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Event handler fired on key release. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em keycode} & the SDL keycode of the released key \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSystem_a7e55aeea19ccf9e60be59a783e3742bf}\label{classSystem_a7e55aeea19ccf9e60be59a783e3742bf}} 
+\index{System@{System}!set\_emulation\_speed@{set\_emulation\_speed}}
+\index{set\_emulation\_speed@{set\_emulation\_speed}!System@{System}}
+\doxysubsubsection{\texorpdfstring{set\_emulation\_speed()}{set\_emulation\_speed()}}
+{\footnotesize\ttfamily void System\+::set\+\_\+emulation\+\_\+speed (\begin{DoxyParamCaption}\item[{double}]{new\+\_\+speed }\end{DoxyParamCaption})}
+
+
+
+Set a new emulation speed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+speed} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{System_8h}{System.\+h}}\end{DoxyCompactItemize}

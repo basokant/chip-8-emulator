@@ -1,0 +1,43 @@
+\hypertarget{classdetail_1_1wide__string__input__adapter}{}\doxysection{detail\+::wide\+\_\+string\+\_\+input\+\_\+adapter$<$ Base\+Input\+Adapter, Wide\+Char\+Type $>$ Class Template Reference}
+\label{classdetail_1_1wide__string__input__adapter}\index{detail::wide\_string\_input\_adapter$<$ BaseInputAdapter, WideCharType $>$@{detail::wide\_string\_input\_adapter$<$ BaseInputAdapter, WideCharType $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_ae213f84ba1b7e9db57ca8d6cdc8c241d}\label{classdetail_1_1wide__string__input__adapter_ae213f84ba1b7e9db57ca8d6cdc8c241d}} 
+using {\bfseries char\+\_\+type} = char
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_a5deb0bdbced96a021ab968967a815773}\label{classdetail_1_1wide__string__input__adapter_a5deb0bdbced96a021ab968967a815773}} 
+{\bfseries wide\+\_\+string\+\_\+input\+\_\+adapter} (Base\+Input\+Adapter base)
+\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_ae36fc0c227da750a25d1e6d45dbcab3e}\label{classdetail_1_1wide__string__input__adapter_ae36fc0c227da750a25d1e6d45dbcab3e}} 
+std\+::char\+\_\+traits$<$ char $>$\+::int\+\_\+type {\bfseries get\+\_\+character} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_afaebf5106d919139ca4b330d9ed40da0}\label{classdetail_1_1wide__string__input__adapter_afaebf5106d919139ca4b330d9ed40da0}} 
+{\footnotesize template$<$size\+\_\+t T$>$ }\\void {\bfseries fill\+\_\+buffer} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_a53dd4fecb20b1358832c93758fb37378}\label{classdetail_1_1wide__string__input__adapter_a53dd4fecb20b1358832c93758fb37378}} 
+Base\+Input\+Adapter {\bfseries base\+\_\+adapter}
+\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_a378353ca4f8fa6ce681863db1a2ecd30}\label{classdetail_1_1wide__string__input__adapter_a378353ca4f8fa6ce681863db1a2ecd30}} 
+std\+::array$<$ std\+::char\+\_\+traits$<$ char $>$\+::int\+\_\+type, 4 $>$ \mbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a378353ca4f8fa6ce681863db1a2ecd30}{utf8\+\_\+bytes}} = \{\{0, 0, 0, 0\}\}
+\begin{DoxyCompactList}\small\item\em a buffer for UTF-\/8 bytes \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}\label{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}} 
+std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}{utf8\+\_\+bytes\+\_\+index}} = 0
+\begin{DoxyCompactList}\small\item\em index to the utf8\+\_\+codes array for the next valid byte \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}\label{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}} 
+std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}{utf8\+\_\+bytes\+\_\+filled}} = 0
+\begin{DoxyCompactList}\small\item\em number of valid bytes in the utf8\+\_\+codes array \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,82 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+A CHIP-\/8 emulator written in C++.\hypertarget{index_autotoc_md1}{}\doxysection{Build}\label{index_autotoc_md1}
+\hypertarget{index_autotoc_md2}{}\doxysubsection{Dependencies}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item SDL2
+\item SDL2-\/mixer
+\end{DoxyItemize}
+
+The default SDL2 include path is under {\ttfamily /usr/include} on Linux. The proper lib path is also included by default. If yours differs, add the paths to a {\ttfamily config.\+mk} file in the root directory as follows\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# in /config.mk}
+\DoxyCodeLine{SDL\_INCLUDE\_DIR := <your\_path\_here>}
+\DoxyCodeLine{SDL\_LIB\_DIR := <your\_path\_here>}
+
+\end{DoxyCode}
+
+
+Using a UNIX environment, run {\ttfamily make} in the root directory to build the executable. Then, run {\ttfamily ./chip8 $<$path\+\_\+to\+\_\+rom\+\_\+file$>$} to run a specified .ch8 file.
+
+
+\begin{DoxyItemize}
+\item run {\ttfamily make clean} to clean up the intermediate build files in the build directory {\ttfamily build/}.
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Configuration}\label{index_autotoc_md3}
+\mbox{\hyperlink{classKeyboard}{Keyboard}} mapping and emulation speed can be controlled from {\ttfamily chip8.\+config.\+json}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    "{}custom\_keymap"{} : \{}
+\DoxyCodeLine{        <SDL\_key\_name>: <chip8\_key>}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{    "{}emulation\_speed"{} : 1.0, // factor: 2.0 runs twice as fast}
+\DoxyCodeLine{    "{}screen\_width"{}: 960 // screen height is half the screen width}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The SDL key names can be found \href{https://wiki.libsdl.org/SDL2/SDL_Keycode}{\texttt{ here}} under \char`\"{}\+Key Name\char`\"{}.
+
+There are 16 CHIP-\/8 keys to map\+: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15\hypertarget{index_autotoc_md4}{}\doxysection{Controls}\label{index_autotoc_md4}
+The default key mapping is as follows (to match the original hardware)\+:
+
+\mbox{\hyperlink{classKeyboard}{Keyboard}} \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\multicolumn{4}{|c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }}\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\multicolumn{4}{|c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }}\\\cline{1-4}
+\endhead
+1   &2   &3   &4    \\\cline{1-4}
+Q   &W   &E   &R    \\\cline{1-4}
+A   &S   &D   &F    \\\cline{1-4}
+Z   &X   &C   &V   \\\cline{1-4}
+\end{longtabu}
+
+
+CHIP-\/8 Mapping \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\multicolumn{4}{|c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }}\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\multicolumn{4}{|c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }}\\\cline{1-4}
+\endhead
+1   &2   &3   &C    \\\cline{1-4}
+4   &5   &6   &D    \\\cline{1-4}
+7   &8   &9   &E    \\\cline{1-4}
+A   &0   &B   &F   \\\cline{1-4}
+\end{longtabu}
+
+
+Note\+: A-\/F are referenced by their hex values (e.\+g. 10 = A, 11 = B, etc.) 

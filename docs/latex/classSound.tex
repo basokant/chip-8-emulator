@@ -1,0 +1,43 @@
+\hypertarget{classSound}{}\doxysection{Sound Class Reference}
+\label{classSound}\index{Sound@{Sound}}
+
+
+The audio unit of the processor that produces sound.  
+
+
+
+
+{\ttfamily \#include $<$Sound.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSound_a539c205cdf06fe2c621fd77c37bcfac9}\label{classSound_a539c205cdf06fe2c621fd77c37bcfac9}} 
+\mbox{\hyperlink{classSound_a539c205cdf06fe2c621fd77c37bcfac9}{Sound}} ()
+\begin{DoxyCompactList}\small\item\em open a audio mixer from SDL\+\_\+mixer Mix\+\_\+\+Open\+Audio() and load a sound file into current sound chunk via Mix\+\_\+\+Load\+WAV and error check them both \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSound_a71d7b6d8c6d002ad7133648432caeb4f}\label{classSound_a71d7b6d8c6d002ad7133648432caeb4f}} 
+void \mbox{\hyperlink{classSound_a71d7b6d8c6d002ad7133648432caeb4f}{play\+\_\+sound}} ()
+\begin{DoxyCompactList}\small\item\em play a pre-\/loaded sound in a loop with a fixed volum and nearest channal via Mix\+\_\+\+Volume() and Mix\+\_\+\+Play\+Channel() \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSound_a9c8c13df27b7f666eb408175650b3409}\label{classSound_a9c8c13df27b7f666eb408175650b3409}} 
+void \mbox{\hyperlink{classSound_a9c8c13df27b7f666eb408175650b3409}{stop\+\_\+sound}} ()
+\begin{DoxyCompactList}\small\item\em stop the looping sound from playing via Mix\+\_\+\+Halt\+Channel(); \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSound_a9c6c80f4b4f712eb754d43402d210e1f}\label{classSound_a9c6c80f4b4f712eb754d43402d210e1f}} 
+void \mbox{\hyperlink{classSound_a9c6c80f4b4f712eb754d43402d210e1f}{close\+\_\+mix\+\_\+chuck}} ()
+\begin{DoxyCompactList}\small\item\em closes the mix chucks from SDL\+\_\+\+Mixer via Mix\+\_\+\+Free\+Chunk, and quit the Mixer all together \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSound_af857b562a6fbdb124b1003db439e1fb0}\label{classSound_af857b562a6fbdb124b1003db439e1fb0}} 
+Mix\+\_\+\+Chunk $\ast$ {\bfseries curr\+\_\+sound} = nullptr
+\item 
+\mbox{\Hypertarget{classSound_a11945ac3c29b67a8be4bceb16138690b}\label{classSound_a11945ac3c29b67a8be4bceb16138690b}} 
+bool {\bfseries is\+\_\+playing} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The audio unit of the processor that produces sound. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Sound_8h}{Sound.\+h}}\end{DoxyCompactItemize}

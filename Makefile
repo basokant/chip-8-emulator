@@ -57,7 +57,7 @@ $(BIN) : $(OBJS)
 DEPS = $(OBJS:%.o=%.d)
 
 # Remove object files and generated dependencies
-.PHONY: clean
+.PHONY: clean docs
 docs:
 	doxygen dox.config
 clean:

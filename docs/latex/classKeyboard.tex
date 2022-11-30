@@ -1,0 +1,56 @@
+\hypertarget{classKeyboard}{}\doxysection{Keyboard Class Reference}
+\label{classKeyboard}\index{Keyboard@{Keyboard}}
+
+
+A class representing the keyboard for the emulator controlled through the keyboard.  
+
+
+
+
+{\ttfamily \#include $<$Keyboard.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classKeyboard_a06d4042f3172391377ba0b2d827cce19}\label{classKeyboard_a06d4042f3172391377ba0b2d827cce19}} 
+void \mbox{\hyperlink{classKeyboard_a06d4042f3172391377ba0b2d827cce19}{press\+\_\+key}} (SDL\+\_\+\+Keycode code)
+\begin{DoxyCompactList}\small\item\em Press the CHIP8 key associated with the given keyboard key. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classKeyboard_acc79ef9d87cedde0e14058311cd1c874}\label{classKeyboard_acc79ef9d87cedde0e14058311cd1c874}} 
+void \mbox{\hyperlink{classKeyboard_acc79ef9d87cedde0e14058311cd1c874}{release\+\_\+key}} (SDL\+\_\+\+Keycode code)
+\begin{DoxyCompactList}\small\item\em Release the CHIP8 key associated with the given keyboard key. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classKeyboard_a2e4e6a094a231e02f8241649bb6a5c8c}\label{classKeyboard_a2e4e6a094a231e02f8241649bb6a5c8c}} 
+bool \mbox{\hyperlink{classKeyboard_a2e4e6a094a231e02f8241649bb6a5c8c}{is\+\_\+pressed}} (uint8\+\_\+t chip8\+\_\+key) const
+\begin{DoxyCompactList}\small\item\em Check if the given CHIP-\/8 key is pressed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classKeyboard_a93eec63dc82e7de76d7c9658d2559f89}\label{classKeyboard_a93eec63dc82e7de76d7c9658d2559f89}} 
+bool \mbox{\hyperlink{classKeyboard_a93eec63dc82e7de76d7c9658d2559f89}{is\+\_\+mapped\+\_\+key}} (SDL\+\_\+\+Keycode keycode) const
+\begin{DoxyCompactList}\small\item\em Check if the pressed key is mapped to one of the CHIP-\/8 keys. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classKeyboard_a60410b949f10ded21857f9f659164de2}\label{classKeyboard_a60410b949f10ded21857f9f659164de2}} 
+uint8\+\_\+t \mbox{\hyperlink{classKeyboard_a60410b949f10ded21857f9f659164de2}{chip8\+\_\+keycode}} (SDL\+\_\+\+Keycode keycode) const
+\begin{DoxyCompactList}\small\item\em Get the mapped CHIP-\/8 key (0x0 to 0xF) of this key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::array$<$ bool, 16 $>$ \mbox{\hyperlink{classKeyboard_aa63815c10d6d2503efc4235b52b12b63}{key\+\_\+pressed}} = \{0\}
+\item 
+\mbox{\Hypertarget{classKeyboard_a6bc550256841a375417eea68d3fc2ef5}\label{classKeyboard_a6bc550256841a375417eea68d3fc2ef5}} 
+std\+::unordered\+\_\+map$<$ SDL\+\_\+\+Keycode, uint8\+\_\+t $>$ {\bfseries keymap}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class representing the keyboard for the emulator controlled through the keyboard. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classKeyboard_aa63815c10d6d2503efc4235b52b12b63}\label{classKeyboard_aa63815c10d6d2503efc4235b52b12b63}} 
+\index{Keyboard@{Keyboard}!key\_pressed@{key\_pressed}}
+\index{key\_pressed@{key\_pressed}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{key\_pressed}{key\_pressed}}
+{\footnotesize\ttfamily std\+::array$<$bool, 16$>$ Keyboard\+::key\+\_\+pressed = \{0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+The layout of the chip-\/8 virtual keyboard.
+
+1 2 3 C 4 5 6 D 7 8 9 E A 0 B F 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Keyboard_8h}{Keyboard.\+h}}\end{DoxyCompactItemize}

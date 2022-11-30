@@ -1,0 +1,144 @@
+\hypertarget{classDisplay}{}\doxysection{Display Class Reference}
+\label{classDisplay}\index{Display@{Display}}
+
+
+A class representing the window and renderer for the emulator.  
+
+
+
+
+{\ttfamily \#include $<$Display.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDisplay_ae972fffea6f7ca1d627ef48c3d841bb3}\label{classDisplay_ae972fffea6f7ca1d627ef48c3d841bb3}} 
+\mbox{\hyperlink{classDisplay_ae972fffea6f7ca1d627ef48c3d841bb3}{Display}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the display\textquotesingle{}s window and renderer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDisplay_ac2607a6bb236c55547a4223d40d85d1f}\label{classDisplay_ac2607a6bb236c55547a4223d40d85d1f}} 
+\mbox{\hyperlink{classDisplay_ac2607a6bb236c55547a4223d40d85d1f}{$\sim$\+Display}} ()
+\begin{DoxyCompactList}\small\item\em destroy the display\textquotesingle{}s window and renderer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDisplay_a7e801015ec4678aa2f46737e8ba888d4}{write\+\_\+pixels\+\_\+to\+\_\+buffer}} (uint8\+\_\+t x\+\_\+coordinate, uint8\+\_\+t y\+\_\+coordinate, const std\+::vector$<$ uint8\+\_\+t $>$ \&sprite)
+\begin{DoxyCompactList}\small\item\em Write a sequence of bytes to the buffer at (x\+\_\+coordinate, y\+\_\+coordinate). The display XORs the bytes onto the screen\+: pixels that are already set are cleared and vice-\/versa. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDisplay_a14a8496edd2d54669186019b08cedc34}\label{classDisplay_a14a8496edd2d54669186019b08cedc34}} 
+void \mbox{\hyperlink{classDisplay_a14a8496edd2d54669186019b08cedc34}{write\+\_\+buffer\+\_\+to\+\_\+renderer}} () const
+\begin{DoxyCompactList}\small\item\em Writes the pixel buffer to the renderer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDisplay_ac24e98ee03c74e5d5617818c93f2cbe7}\label{classDisplay_ac24e98ee03c74e5d5617818c93f2cbe7}} 
+void \mbox{\hyperlink{classDisplay_ac24e98ee03c74e5d5617818c93f2cbe7}{present}} () const
+\begin{DoxyCompactList}\small\item\em Presents the SDL renderer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDisplay_ad8246b69da2d2c6b0b372235063bc830}\label{classDisplay_ad8246b69da2d2c6b0b372235063bc830}} 
+void \mbox{\hyperlink{classDisplay_ad8246b69da2d2c6b0b372235063bc830}{clear\+\_\+renderer}} () const
+\begin{DoxyCompactList}\small\item\em Clear the screen (set all pixels to background) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDisplay_a9cc42614fbc8e36ec871d0e411496633}\label{classDisplay_a9cc42614fbc8e36ec871d0e411496633}} 
+void \mbox{\hyperlink{classDisplay_a9cc42614fbc8e36ec871d0e411496633}{clear\+\_\+buffer}} ()
+\begin{DoxyCompactList}\small\item\em clear the buffer(set all buffer mermory to zero) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classDisplay_a6b2b9a5ddf8ee72bee92703c8bce4e21}{write\+\_\+pixel\+\_\+to\+\_\+renderer}} (bool pixel, uint8\+\_\+t x\+\_\+coordinate, uint8\+\_\+t y\+\_\+coordinate) const
+\item 
+bool \mbox{\hyperlink{classDisplay_aabe9b8e81ed64c998e2aa0160566ad06}{write\+\_\+pixel\+\_\+to\+\_\+buffer}} (bool pixel, uint8\+\_\+t x\+\_\+coordinate, uint8\+\_\+t y\+\_\+coordinate)
+\begin{DoxyCompactList}\small\item\em XOR a pixel to the buffer at x\+\_\+coordinate and y\+\_\+coordinate 1 = on 0 = off. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDisplay_a5b379bf9c9300cea9260edf46212d4b7}\label{classDisplay_a5b379bf9c9300cea9260edf46212d4b7}} 
+std\+::array$<$ std\+::array$<$ bool, CHIP8\+\_\+\+WIDTH $>$, CHIP8\+\_\+\+HEIGHT $>$ {\bfseries pixel\+\_\+buffer} = \{0\}
+\item 
+\mbox{\Hypertarget{classDisplay_ab828634d0f49493b0b52c111f06808d8}\label{classDisplay_ab828634d0f49493b0b52c111f06808d8}} 
+SDL\+\_\+\+Window $\ast$ {\bfseries window} = nullptr
+\item 
+\mbox{\Hypertarget{classDisplay_a4049243aa9c7dad97844cbeed737521c}\label{classDisplay_a4049243aa9c7dad97844cbeed737521c}} 
+SDL\+\_\+\+Renderer $\ast$ {\bfseries renderer} = nullptr
+\item 
+\mbox{\Hypertarget{classDisplay_a915697837cf858b0aec9eae7c93f2ba7}\label{classDisplay_a915697837cf858b0aec9eae7c93f2ba7}} 
+int {\bfseries screen\+\_\+width} = 640
+\item 
+\mbox{\Hypertarget{classDisplay_afb15e28817d553c221829c05bb6d590d}\label{classDisplay_afb15e28817d553c221829c05bb6d590d}} 
+int {\bfseries screen\+\_\+height} = 320
+\item 
+\mbox{\Hypertarget{classDisplay_ad439be2f38ecab90d955f47d92029493}\label{classDisplay_ad439be2f38ecab90d955f47d92029493}} 
+std\+::array$<$ int, 3 $>$ {\bfseries foreground\+\_\+color} \{255,255,255\}
+\item 
+\mbox{\Hypertarget{classDisplay_a24aa7b3616c000602084294d0a283c1c}\label{classDisplay_a24aa7b3616c000602084294d0a283c1c}} 
+std\+::array$<$ int, 3 $>$ {\bfseries background\+\_\+color} \{0,0,0\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDisplay_a4dd26a0eb92bc693f9f64469d815e74e}\label{classDisplay_a4dd26a0eb92bc693f9f64469d815e74e}} 
+static constexpr int {\bfseries CHIP8\+\_\+\+WIDTH} = 64
+\item 
+\mbox{\Hypertarget{classDisplay_ad31bc25cc4dafa65e1ac551fddde6843}\label{classDisplay_ad31bc25cc4dafa65e1ac551fddde6843}} 
+static constexpr int {\bfseries CHIP8\+\_\+\+HEIGHT} = 32
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class representing the window and renderer for the emulator. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDisplay_aabe9b8e81ed64c998e2aa0160566ad06}\label{classDisplay_aabe9b8e81ed64c998e2aa0160566ad06}} 
+\index{Display@{Display}!write\_pixel\_to\_buffer@{write\_pixel\_to\_buffer}}
+\index{write\_pixel\_to\_buffer@{write\_pixel\_to\_buffer}!Display@{Display}}
+\doxysubsubsection{\texorpdfstring{write\_pixel\_to\_buffer()}{write\_pixel\_to\_buffer()}}
+{\footnotesize\ttfamily bool Display\+::write\+\_\+pixel\+\_\+to\+\_\+buffer (\begin{DoxyParamCaption}\item[{bool}]{pixel,  }\item[{uint8\+\_\+t}]{x\+\_\+coordinate,  }\item[{uint8\+\_\+t}]{y\+\_\+coordinate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+XOR a pixel to the buffer at x\+\_\+coordinate and y\+\_\+coordinate 1 = on 0 = off. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pixel} & pixel value\+: 0 = off, 1 = on \\
+\hline
+{\em x\+\_\+coordinate} & x-\/coordinate of the pixel \\
+\hline
+{\em y\+\_\+coordinate} & y-\/coordinate of the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true the given coordinate pixel was overwritten 
+
+false the given pixel was not overwritten 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDisplay_a6b2b9a5ddf8ee72bee92703c8bce4e21}\label{classDisplay_a6b2b9a5ddf8ee72bee92703c8bce4e21}} 
+\index{Display@{Display}!write\_pixel\_to\_renderer@{write\_pixel\_to\_renderer}}
+\index{write\_pixel\_to\_renderer@{write\_pixel\_to\_renderer}!Display@{Display}}
+\doxysubsubsection{\texorpdfstring{write\_pixel\_to\_renderer()}{write\_pixel\_to\_renderer()}}
+{\footnotesize\ttfamily void Display\+::write\+\_\+pixel\+\_\+to\+\_\+renderer (\begin{DoxyParamCaption}\item[{bool}]{pixel,  }\item[{uint8\+\_\+t}]{x\+\_\+coordinate,  }\item[{uint8\+\_\+t}]{y\+\_\+coordinate }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em pixel} & \\
+\hline
+{\em x\+\_\+coordinate} & \\
+\hline
+{\em y\+\_\+coordinate} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDisplay_a7e801015ec4678aa2f46737e8ba888d4}\label{classDisplay_a7e801015ec4678aa2f46737e8ba888d4}} 
+\index{Display@{Display}!write\_pixels\_to\_buffer@{write\_pixels\_to\_buffer}}
+\index{write\_pixels\_to\_buffer@{write\_pixels\_to\_buffer}!Display@{Display}}
+\doxysubsubsection{\texorpdfstring{write\_pixels\_to\_buffer()}{write\_pixels\_to\_buffer()}}
+{\footnotesize\ttfamily bool Display\+::write\+\_\+pixels\+\_\+to\+\_\+buffer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{x\+\_\+coordinate,  }\item[{uint8\+\_\+t}]{y\+\_\+coordinate,  }\item[{const std\+::vector$<$ uint8\+\_\+t $>$ \&}]{sprite }\end{DoxyParamCaption})}
+
+
+
+Write a sequence of bytes to the buffer at (x\+\_\+coordinate, y\+\_\+coordinate). The display XORs the bytes onto the screen\+: pixels that are already set are cleared and vice-\/versa. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sprite} & sprite bytes to XOR onto the screen \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Collision detected\+: bits were cleared from the screen 
+
+false No collision detected\+: no bits were cleared from the screen 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Display_8h}{Display.\+h}}\end{DoxyCompactItemize}
