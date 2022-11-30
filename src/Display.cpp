@@ -29,11 +29,6 @@ Display::Display() {
     
     clear_renderer();
 
-    // TODO: test, remove later
-    // write_pixel(1, 10, 10);
-    // SDL_Rect rect {10, 10, 100, 100};
-    // SDL_RenderFillRect(renderer, &rect);
-
     SDL_RenderPresent(renderer);
 }
 

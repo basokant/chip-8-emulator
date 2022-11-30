@@ -21,6 +21,11 @@
 #include "Processor.h"
 #include "ProcessorException.h"
 
+/**
+ * @brief Function that retuns an error if there is an unimplemented instruction 
+ * 
+ * @param instruction_to_run 
+ */
 void unimplemented_instruction(uint16_t instruction_to_run) {
     std::cout << "Unimplemented instruction! 0x"
               << std::hex

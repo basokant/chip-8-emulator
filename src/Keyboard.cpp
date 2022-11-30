@@ -32,6 +32,11 @@ Keyboard::Keyboard()
     }
 }
 
+/**
+ * @brief Maps to a keycode when a key is pressed and retrieves the keymap code and assigns it to the chip8_key
+ * 
+ * @param code SDL keycode is passed
+ */
 void Keyboard::press_key(SDL_Keycode code) {
     if (!is_mapped_key(code)) {
         // not a registered key
@@ -41,6 +46,11 @@ void Keyboard::press_key(SDL_Keycode code) {
     key_pressed[chip8_key] = true;
 }
 
+/**
+ * @brief Press the CHIP8 key associated with the given keyboard key
+ * 
+ * @param code SDL keycode is passed  
+ */
 void Keyboard::release_key(SDL_Keycode code) {
     if (!is_mapped_key(code)) {
         // not a registered key
@@ -50,16 +60,32 @@ void Keyboard::release_key(SDL_Keycode code) {
     key_pressed[chip8_key] = false;
 }
 
+/**
+ * @brief Release the CHIP8 key associated with the given keyboard key
+ * 
+ * @param chip8_key 
+ * @return true 
+ * @return false 
+ */
 bool Keyboard::is_pressed(uint8_t chip8_key) {
     return key_pressed[chip8_key];
 }
 
+/**
+ * @brief Check if the pressed key is mapped to one of the CHIP-8 keys.
+ * 
+ * @param code 
+ * @return true 
+ * @return false 
+ */
 bool Keyboard::is_mapped_key(SDL_Keycode code) {
     return keymap.count(code) != 0;
 }
 
 /**
  * @brief Get the mapped CHIP-8 key (0x0 to 0xF) of this key.
+ * 
+ * @param keycode 
  */
 uint8_t Keyboard::chip8_keycode(SDL_Keycode keycode) {
     return keymap.at(keycode);

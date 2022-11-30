@@ -10,7 +10,7 @@ CPPFLAGS :=
 include config.mk
 # specify defaults if not specified in config
 SDL_INCLUDE_DIR ?= /usr/include/SDL2
-SDL_LIB_DIR ?=
+SDL_LIB_DIR ?= /lib64/cmake/SDL2
 
 # Our object files
 OBJS = \
