@@ -1,0 +1,149 @@
+\hypertarget{class_memory}{}\doxysection{Memory Class Reference}
+\label{class_memory}\index{Memory@{Memory}}
+
+
+A class representing the physical memory unit of the emulator.  
+
+
+
+
+{\ttfamily \#include $<$Memory.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_memory_a3cdab705681b406b7bd5e8a4f41869d0}{load\+\_\+file}} (char const $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Copies the binary data stored in the file into the memory array. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_memory_af4b92ebb3103c60698a934658e72cd77}{read\+\_\+memory}} (uint16\+\_\+t addr) const
+\begin{DoxyCompactList}\small\item\em Reads the byte in memory located at the given address. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_memory_a83f73e17578e0ee3288c6397c38421c6}{write\+\_\+memory}} (uint16\+\_\+t addr, uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Writes a byte in memory to the given address. \end{DoxyCompactList}\item 
+std\+::array$<$ uint8\+\_\+t, 0x10000 $>$ \mbox{\hyperlink{class_memory_a44508007d72db9ee8a3e1669d8a45a7a}{dump}} () const
+\begin{DoxyCompactList}\small\item\em Dump the raw memory array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_memory_ab02f0887a2a059fedc99a0f578b97a2c}\label{class_memory_ab02f0887a2a059fedc99a0f578b97a2c}} 
+std\+::array$<$ uint8\+\_\+t, 0x1000 $>$ {\bfseries memory} = \{0\}
+\item 
+\mbox{\Hypertarget{class_memory_a7447a4c2e0fc1f22bbbd10bc7732b3e2}\label{class_memory_a7447a4c2e0fc1f22bbbd10bc7732b3e2}} 
+const unsigned int {\bfseries START\+\_\+\+MEMORY\+\_\+\+ADRESS} = 0\+X200
+\item 
+uint8\+\_\+t \mbox{\hyperlink{class_memory_a861f9c2f5e948ab4e57dafdfa3a1412d}{font\+\_\+characters}} \mbox{[}FONTSET\+\_\+\+LENGTH\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_memory_a5cffa23c69c13fc4a8883cb9e1d2453f}\label{class_memory_a5cffa23c69c13fc4a8883cb9e1d2453f}} 
+static const unsigned int {\bfseries FONTSET\+\_\+\+ADDRESS} = 0x50
+\item 
+\mbox{\Hypertarget{class_memory_acd6e2f6245ec34446b458c91a9ba750e}\label{class_memory_acd6e2f6245ec34446b458c91a9ba750e}} 
+static const unsigned int {\bfseries FONTSET\+\_\+\+LENGTH} = 80
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class representing the physical memory unit of the emulator. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_memory_a44508007d72db9ee8a3e1669d8a45a7a}\label{class_memory_a44508007d72db9ee8a3e1669d8a45a7a}} 
+\index{Memory@{Memory}!dump@{dump}}
+\index{dump@{dump}!Memory@{Memory}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily std\+::array$<$ uint8\+\_\+t, 0x10000 $>$ Memory\+::dump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Dump the raw memory array. 
+
+\begin{DoxyReturn}{Returns}
+std\+::array$<$uint8\+\_\+t, 0x10000$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_memory_a3cdab705681b406b7bd5e8a4f41869d0}\label{class_memory_a3cdab705681b406b7bd5e8a4f41869d0}} 
+\index{Memory@{Memory}!load\_file@{load\_file}}
+\index{load\_file@{load\_file}!Memory@{Memory}}
+\doxysubsubsection{\texorpdfstring{load\_file()}{load\_file()}}
+{\footnotesize\ttfamily void Memory\+::load\+\_\+file (\begin{DoxyParamCaption}\item[{char const $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Copies the binary data stored in the file into the memory array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+path} & path to the file \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_memory_af4b92ebb3103c60698a934658e72cd77}\label{class_memory_af4b92ebb3103c60698a934658e72cd77}} 
+\index{Memory@{Memory}!read\_memory@{read\_memory}}
+\index{read\_memory@{read\_memory}!Memory@{Memory}}
+\doxysubsubsection{\texorpdfstring{read\_memory()}{read\_memory()}}
+{\footnotesize\ttfamily uint8\+\_\+t Memory\+::read\+\_\+memory (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption}) const}
+
+
+
+Reads the byte in memory located at the given address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & address in memory to read from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t byte read from memory 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_memory_a83f73e17578e0ee3288c6397c38421c6}\label{class_memory_a83f73e17578e0ee3288c6397c38421c6}} 
+\index{Memory@{Memory}!write\_memory@{write\_memory}}
+\index{write\_memory@{write\_memory}!Memory@{Memory}}
+\doxysubsubsection{\texorpdfstring{write\_memory()}{write\_memory()}}
+{\footnotesize\ttfamily void Memory\+::write\+\_\+memory (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr,  }\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})}
+
+
+
+Writes a byte in memory to the given address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & address in memory to write to \\
+\hline
+{\em byte} & byte to write \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_memory_a861f9c2f5e948ab4e57dafdfa3a1412d}\label{class_memory_a861f9c2f5e948ab4e57dafdfa3a1412d}} 
+\index{Memory@{Memory}!font\_characters@{font\_characters}}
+\index{font\_characters@{font\_characters}!Memory@{Memory}}
+\doxysubsubsection{\texorpdfstring{font\_characters}{font\_characters}}
+{\footnotesize\ttfamily uint8\+\_\+t Memory\+::font\+\_\+characters\mbox{[}FONTSET\+\_\+\+LENGTH\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{        0xF0, 0x90, 0x90, 0x90, 0xF0, }
+\DoxyCodeLine{        0x20, 0x60, 0x20, 0x20, 0x70, }
+\DoxyCodeLine{        0xF0, 0x10, 0xF0, 0x80, 0xF0, }
+\DoxyCodeLine{        0xF0, 0x10, 0xF0, 0x10, 0xF0, }
+\DoxyCodeLine{        0x90, 0x90, 0xF0, 0x10, 0x10, }
+\DoxyCodeLine{        0xF0, 0x80, 0xF0, 0x10, 0xF0, }
+\DoxyCodeLine{        0xF0, 0x80, 0xF0, 0x90, 0xF0, }
+\DoxyCodeLine{        0xF0, 0x10, 0x20, 0x40, 0x40, }
+\DoxyCodeLine{        0xF0, 0x90, 0xF0, 0x90, 0xF0, }
+\DoxyCodeLine{        0xF0, 0x90, 0xF0, 0x10, 0xF0, }
+\DoxyCodeLine{        0xF0, 0x90, 0xF0, 0x90, 0x90, }
+\DoxyCodeLine{        0xE0, 0x90, 0xE0, 0x90, 0xE0, }
+\DoxyCodeLine{        0xF0, 0x80, 0x80, 0x80, 0xF0, }
+\DoxyCodeLine{        0xE0, 0x90, 0x90, 0x90, 0xE0, }
+\DoxyCodeLine{        0xF0, 0x80, 0xF0, 0x80, 0xF0, }
+\DoxyCodeLine{        0xF0, 0x80, 0xF0, 0x80, 0x80  }
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_memory_8h}{Memory.\+h}}\end{DoxyCompactItemize}

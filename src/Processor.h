@@ -14,52 +14,89 @@
 
 #include <array>
 #include <cstdint>
+#include <functional>
 #include <string>
+
+#include "Display.h"
+#include "Keyboard.h"
+#include "Memory.h"
 
 /*
 See CHIP-8 documentation
 http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.5
 */
+class Memory;
+class Display;
+class Keyboard;
 
+/**
+ * @brief A class emulating the CHIP-8 processor.
+ * 
+ */
 class Processor
 {
 public:
 
-    Processor();
+    /**
+     * @brief Construct a new Processor object given memory callback functions
+     * 
+     * @param memory a reference to the memory object
+     * @param display a reference to the display
+     * @param keyboard a reference to the keyboard
+     */
+    Processor(Memory &memory, Display &display, Keyboard &keyboard);
+
     ~Processor() = default;
 
     /**
-     * @brief Run the processor until the end of memory.
+     * @brief Execute one processor instruction.
      */
-    void run();
+    void step();
 
     /**
-     * @brief Load a byte-array into memory at 0x0.
-     * @param byte_array The list of bytes to load into memory. 
+     * @brief Decode the given instruction and run it.
+     * 
+     * @param instruction_to_run The instruction to run
      */
-    void load_memory(const std::array<uint8_t, 0x10000> &byte_array);
+    void decode_and_execute(uint16_t instruction_to_run);
+
+    /**
+     * @brief Decrement the delay timer by one (called every frame)
+     * 
+     */
+    void decrease_delay_timer();
+
+    /**
+     * @brief Decrement the sound timer by one (called every frame)
+    */
+    void decrease_sound_timer();
+
+    /**
+     * @brief Wake the Processor from a waiting state on key_input
+     * (used to wake the Processor after a LD Vx, K instruction)
+    */
+    void wake_from_key_input(uint8_t chip8_keycode);
+
+    /**
+     * @brief Get the value of the delay timer register.
+    */
+    uint8_t delay_timer() const;
+
+
+    /**
+     * @brief Get the value of the sound timer register.
+     */
+    uint8_t sound_timer() const;
 
     /**
      * @brief Dump the registers of the CPU into a printable string.
      * 
      * @return a string containing all the register values
      */
-    std::string dump();
+    std::string dump() const;
 
 private: // internal memory calls
-    /**
-     * @brief Read the byte stored at memory address addr
-     * 
-     * @param addr A 16-byte address in memory
-     * @return uint8_t 
-     */
-    uint8_t read_memory(uint16_t addr);
 
-    /**
-     * @brief Write a byte to memory at address addr
-     * 
-     */
-    void write_memory(uint16_t addr, uint8_t byte);
 
     /**
      * @brief Read the next instruction from memory pointed
@@ -79,6 +116,12 @@ private: // 36 CHIP-8 instructions
      * @param addr The 16-bit address to jump to
      */
     void sys(uint16_t addr);
+
+    /**
+     * @brief Clear the display.
+     *
+     */
+    void cls() const;
 
     /**
      * @brief Return from a subroutine.
@@ -220,21 +263,19 @@ private: // 36 CHIP-8 instructions
 
 
     /**
-     * @brief Stores the address in register i.
+     * @brief Stores the address in register I.
      * 
-     * @param i number of the register (0x-0xf for v0-vf)
      * @param addr A 16-bit address in memory
      */
-    void load_addr(uint8_t i, uint16_t addr);
+    void load_addr(uint16_t addr);
 
 
     /**
      * @brief The program jumps by setting the program counter to an address (addr plus the value of v0)
      * 
-     * @param v0 number of the register (0x0-0xf for v0-vf)
      * @param addr A 16-bit address in memory
      */
-    void jump_register(uint8_t v0, uint16_t addr);
+    void jump_register(uint16_t addr);
 
     
     /**
@@ -253,7 +294,7 @@ private: // 36 CHIP-8 instructions
      * @param vy number of the register (0x0-0xf for v0-vf)
      * @param nibble 4-bit value (0x0-0xf)
      */
-    void display(uint8_t vx, uint8_t vy, uint8_t nibble);
+    void draw(uint8_t vx, uint8_t vy, uint8_t nibble);
 
     
     /**
@@ -304,12 +345,11 @@ private: // 36 CHIP-8 instructions
     void load_st_from_register(uint8_t vx);
 
     /**
-     * @brief The values of index and the value stored in the register Vx are added, and the results are stored in index.
+     * @brief The values of I and the value stored in the register Vx are added, and the results are stored in I.
      * 
-     * @param index 8 byte integer value
      * @param vx number of the register (0x0-0xf for v0-vf)
      */
-    void add_sum(uint8_t index, uint8_t vx);
+    void add_sum(uint8_t vx);
 
     /**
      * @brief Set the value of index to the location of the sprite for the digit stored in Vx. 
@@ -329,18 +369,16 @@ private: // 36 CHIP-8 instructions
     /**
      * @brief Store registers V0 through Vx in memory starting at location I
      * 
-     * @param i an 8 byte memory starting location integer value, 
      * @param  Vx number of the register (0x0-0xf for v0-vf)
      */
-    void str_registers_in_memory(uint8_t i, uint8_t vx);
+    void str_registers_in_memory(uint8_t vx);
    
     /**
      * @brief Read registers V0 through Vx from memory starting at location I.
      * 
-     * @param i an 8 byte memory starting location integer value, 
      * @param  Vx number of the register (0x0-0xf for v0-vf)
      */
-    void read_registers(uint8_t vx, uint8_t i);
+    void read_registers(uint8_t vx);
 
 private:
     /*
@@ -353,24 +391,27 @@ private:
     ST: 16-bit sound timer register
     */
 
-    std::array<uint16_t, 16> v_registers;
-    uint16_t pc = 0; // program counter
+    std::array<uint8_t, 16> v_registers = {0};
+    uint16_t i_register = 0; // 16-bit special register
+    uint16_t pc = 0x200; // program counter, CHIP-8 programs start at 0x200
     uint8_t sp = 0; // stack pointer
 
     uint16_t dt = 0; // delay timer
     uint16_t st = 0; // sound timer
 
     // Internal call stack: stores return address from subroutine calls
-    std::array<uint16_t, 16> stack;
+    std::array<uint16_t, 16> stack = {0};
 
-    uint8_t index = 0; //index 
+    static constexpr unsigned int FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters
 
-    static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters 
+    // flag used by the load_key instruction (LD Vx, K)
+    bool waiting_for_key_input = false;
+    // register to save the pressed key after the load_key instruction (LD, Vx, K)
+    uint8_t waiting_for_key_input_register = 0;
 
-    // Array storing memory 
-    // TODO: separate this into a memory class later
-    // CHIP-8 has 4KB of addressable memory = 0x10000 bytes
-    std::array<uint8_t, 0x10000> memory;
+    Memory &memory;
+    Display &display;
+    Keyboard &keyboard;
 };
 
 #endif

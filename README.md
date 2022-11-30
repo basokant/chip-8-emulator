@@ -3,6 +3,18 @@ A CHIP-8 emulator written in C++.
 
 ## Build
 
+### Dependencies
+* SDL2
+
+The default SDL2 include path is under `/usr/include` on Linux. The lib path is also searched by default.
+If yours differs, add the paths to a `config.mk` file in the root directory as follows:
+
+```makefile
+# in /config.mk
+SDL_INCLUDE_DIR := <your_path_here>
+SDL_LIB_DIR := <your_path_here>
+```
+
 Using a UNIX environment, run `make` in the root directory to build the executable. Then, run `./chip8` to run the hard-coded test ROM.
 
 * run `make clean` to clean up the intermediate build files in the build directory `build/`.

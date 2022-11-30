@@ -1,31 +1,39 @@
-#include <array>
+/**
+ * @file main.cpp
+ * @author David Tran, Ben Asokanthan, Dhruv Panicker, Davis Mtui, Sean Hou
+ * @brief The main entry point of the program
+ * @version 0.1
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <iostream>
 #include <string>
+#include <SDL2/SDL.h>
 
-#include "Processor.h"
+#include "System.h"
+#include "ProcessorException.h"
+#include "FileNotFoundException.h"
 
-int main() {
-    Processor processor;
-    // sequence of test instructions to run
-    std::array<uint8_t, 0x10000> instructions = {
-        0x60, // ld v0, 0x1
-        0x01,
-        0x61, // ld v1, 0x2
-        0x02,
-        0x80, // add v0, v1
-        0x14
-    };
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        std::cerr << "enter a ROM file to load\n";
+        return 1;
+    }
 
-    // CPU dump BEFORE running the instructions
-    std::cout << processor.dump();
-    std::cout << "******************\n";
-    std::cout << "EXECUTING PROGRAM\n";
-    // load the intsructions into memory
-    processor.load_memory(instructions);
-    // run the instructions currently loaded in memory
-    processor.run();
-    std::cout << "******************\n";
-    // CPU dump AFTER running the instructions
-    std::cout << processor.dump();
+
+    const std::string rom_name(argv[1]);
+
+    System emulator;
+    try {
+        emulator.load_rom(rom_name);
+        emulator.run();
+    } catch (ProcessorException &e) {
+        std::cerr << "Error: " << e.what() << '\n';
+    } catch (FileNotFoundException &e) {
+        std::cerr << "Error: " << e.what() << "\n";
+    }
     return 0;
 }

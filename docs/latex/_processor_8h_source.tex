@@ -1,0 +1,167 @@
+\hypertarget{_processor_8h_source}{}\doxysection{Processor.\+h}
+\label{_processor_8h_source}\index{Processor.h@{Processor.h}}
+\mbox{\hyperlink{_processor_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef PROCESSOR\_H\_INCLUDED}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define PROCESSOR\_H\_INCLUDED}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_display_8h}{Display.h}}"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_keyboard_8h}{Keyboard.h}}"{}}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_memory_8h}{Memory.h}}"{}}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{comment}{/*}}
+\DoxyCodeLine{25 \textcolor{comment}{See CHIP-\/8 documentation}}
+\DoxyCodeLine{26 \textcolor{comment}{http://devernay.free.fr/hacks/chip8/C8TECH10.HTM\#2.5}}
+\DoxyCodeLine{27 \textcolor{comment}{class Memory;}}
+\DoxyCodeLine{28 \textcolor{comment}{class Display;}}
+\DoxyCodeLine{29 \textcolor{comment}{class Keyboard;}}
+\DoxyCodeLine{30 \textcolor{comment}{}}
+\DoxyCodeLine{35 \textcolor{comment}{class Processor}}
+\DoxyCodeLine{36 \textcolor{comment}{\{}}
+\DoxyCodeLine{37 \textcolor{comment}{public:}}
+\DoxyCodeLine{38 \textcolor{comment}{}}
+\DoxyCodeLine{46 \textcolor{comment}{    Processor(Memory \&memory, Display \&display, Keyboard \&keyboard);}}
+\DoxyCodeLine{47 \textcolor{comment}{}}
+\DoxyCodeLine{48 \textcolor{comment}{    \string~Processor() = default;}}
+\DoxyCodeLine{49 \textcolor{comment}{}}
+\DoxyCodeLine{53 \textcolor{comment}{    void step();}}
+\DoxyCodeLine{54 \textcolor{comment}{}}
+\DoxyCodeLine{60 \textcolor{comment}{    void decode\_and\_execute(uint16\_t instruction\_to\_run);}}
+\DoxyCodeLine{61 \textcolor{comment}{}}
+\DoxyCodeLine{66 \textcolor{comment}{    void decrease\_delay\_timer();}}
+\DoxyCodeLine{67 \textcolor{comment}{}}
+\DoxyCodeLine{71 \textcolor{comment}{    void decrease\_sound\_timer();}}
+\DoxyCodeLine{72 \textcolor{comment}{}}
+\DoxyCodeLine{76 \textcolor{comment}{    uint8\_t delay\_timer() const;}}
+\DoxyCodeLine{77 \textcolor{comment}{}}
+\DoxyCodeLine{78 \textcolor{comment}{}}
+\DoxyCodeLine{82 \textcolor{comment}{    uint8\_t sound\_timer() const;}}
+\DoxyCodeLine{83 \textcolor{comment}{}}
+\DoxyCodeLine{89 \textcolor{comment}{    std::string dump();}}
+\DoxyCodeLine{90 \textcolor{comment}{}}
+\DoxyCodeLine{91 \textcolor{comment}{private: // internal memory calls}}
+\DoxyCodeLine{92 \textcolor{comment}{}}
+\DoxyCodeLine{93 \textcolor{comment}{}}
+\DoxyCodeLine{100 \textcolor{comment}{    uint16\_t read\_instruction\_from\_memory();}}
+\DoxyCodeLine{101 \textcolor{comment}{}}
+\DoxyCodeLine{102 \textcolor{comment}{private: // 36 CHIP-\/8 instructions}}
+\DoxyCodeLine{103 \textcolor{comment}{}}
+\DoxyCodeLine{111 \textcolor{comment}{    void sys(uint16\_t addr);}}
+\DoxyCodeLine{112 \textcolor{comment}{}}
+\DoxyCodeLine{117 \textcolor{comment}{    void cls();}}
+\DoxyCodeLine{118 \textcolor{comment}{}}
+\DoxyCodeLine{126 \textcolor{comment}{    void ret();}}
+\DoxyCodeLine{127 \textcolor{comment}{}}
+\DoxyCodeLine{133 \textcolor{comment}{    void jp(uint16\_t addr);}}
+\DoxyCodeLine{134 \textcolor{comment}{}}
+\DoxyCodeLine{140 \textcolor{comment}{    void call(uint16\_t addr);}}
+\DoxyCodeLine{141 \textcolor{comment}{}}
+\DoxyCodeLine{148 \textcolor{comment}{    void se\_byte(uint8\_t vx, uint8\_t byte);}}
+\DoxyCodeLine{149 \textcolor{comment}{}}
+\DoxyCodeLine{155 \textcolor{comment}{    void sne\_byte(uint8\_t vx, uint8\_t byte);}}
+\DoxyCodeLine{156 \textcolor{comment}{}}
+\DoxyCodeLine{163 \textcolor{comment}{    void se\_register(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{164 \textcolor{comment}{}}
+\DoxyCodeLine{171 \textcolor{comment}{    void add(uint8\_t vx, uint8\_t byte);}}
+\DoxyCodeLine{172 \textcolor{comment}{}}
+\DoxyCodeLine{179 \textcolor{comment}{    void chip\_and(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{180 \textcolor{comment}{}}
+\DoxyCodeLine{181 \textcolor{comment}{}}
+\DoxyCodeLine{187 \textcolor{comment}{    void chip\_or(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{188 \textcolor{comment}{}}
+\DoxyCodeLine{194 \textcolor{comment}{    void chip\_xor(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{195 \textcolor{comment}{}}
+\DoxyCodeLine{203 \textcolor{comment}{    void add\_registers(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{204 \textcolor{comment}{    }}
+\DoxyCodeLine{211 \textcolor{comment}{    void sub(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{212 \textcolor{comment}{    }}
+\DoxyCodeLine{218 \textcolor{comment}{    void shr(uint8\_t vx);}}
+\DoxyCodeLine{219 \textcolor{comment}{    }}
+\DoxyCodeLine{226 \textcolor{comment}{    void subn(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{227 \textcolor{comment}{}}
+\DoxyCodeLine{233 \textcolor{comment}{    void shl(uint8\_t vx);}}
+\DoxyCodeLine{234 \textcolor{comment}{}}
+\DoxyCodeLine{241 \textcolor{comment}{    void sne(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{242 \textcolor{comment}{}}
+\DoxyCodeLine{248 \textcolor{comment}{    void load\_byte(uint8\_t vx, uint8\_t byte);}}
+\DoxyCodeLine{249 \textcolor{comment}{}}
+\DoxyCodeLine{255 \textcolor{comment}{    void load\_register(uint8\_t vx, uint8\_t vy);}}
+\DoxyCodeLine{256 \textcolor{comment}{}}
+\DoxyCodeLine{257 \textcolor{comment}{}}
+\DoxyCodeLine{263 \textcolor{comment}{    void load\_addr(uint16\_t addr);}}
+\DoxyCodeLine{264 \textcolor{comment}{}}
+\DoxyCodeLine{265 \textcolor{comment}{}}
+\DoxyCodeLine{271 \textcolor{comment}{    void jump\_register(uint16\_t addr);}}
+\DoxyCodeLine{272 \textcolor{comment}{}}
+\DoxyCodeLine{273 \textcolor{comment}{    }}
+\DoxyCodeLine{280 \textcolor{comment}{    void random(uint8\_t vx, uint8\_t byte);}}
+\DoxyCodeLine{281 \textcolor{comment}{}}
+\DoxyCodeLine{282 \textcolor{comment}{}}
+\DoxyCodeLine{290 \textcolor{comment}{    void draw(uint8\_t vx, uint8\_t vy, uint8\_t nibble);}}
+\DoxyCodeLine{291 \textcolor{comment}{}}
+\DoxyCodeLine{292 \textcolor{comment}{    }}
+\DoxyCodeLine{298 \textcolor{comment}{    void skip\_pressed(uint8\_t vx);}}
+\DoxyCodeLine{299 \textcolor{comment}{}}
+\DoxyCodeLine{300 \textcolor{comment}{}}
+\DoxyCodeLine{306 \textcolor{comment}{    void skip\_not\_pressed(uint8\_t vx);}}
+\DoxyCodeLine{307 \textcolor{comment}{}}
+\DoxyCodeLine{308 \textcolor{comment}{}}
+\DoxyCodeLine{314 \textcolor{comment}{    void load\_register\_from\_dt(uint8\_t vx);}}
+\DoxyCodeLine{315 \textcolor{comment}{}}
+\DoxyCodeLine{316 \textcolor{comment}{}}
+\DoxyCodeLine{322 \textcolor{comment}{    void load\_key(uint8\_t vx);}}
+\DoxyCodeLine{323 \textcolor{comment}{}}
+\DoxyCodeLine{324 \textcolor{comment}{}}
+\DoxyCodeLine{330 \textcolor{comment}{    void load\_dt\_from\_register(uint8\_t vx);}}
+\DoxyCodeLine{331 \textcolor{comment}{}}
+\DoxyCodeLine{332 \textcolor{comment}{}}
+\DoxyCodeLine{338 \textcolor{comment}{    void load\_st\_from\_register(uint8\_t vx);}}
+\DoxyCodeLine{339 \textcolor{comment}{}}
+\DoxyCodeLine{345 \textcolor{comment}{    void add\_sum(uint8\_t vx);}}
+\DoxyCodeLine{346 \textcolor{comment}{}}
+\DoxyCodeLine{353 \textcolor{comment}{    void load\_loc\_of\_sprite(uint8\_t vx);}}
+\DoxyCodeLine{354 \textcolor{comment}{}}
+\DoxyCodeLine{360 \textcolor{comment}{    void str\_bcd\_in\_memory(uint8\_t vx);}}
+\DoxyCodeLine{361 \textcolor{comment}{}}
+\DoxyCodeLine{367 \textcolor{comment}{    void str\_registers\_in\_memory(uint8\_t vx);}}
+\DoxyCodeLine{368 \textcolor{comment}{   }}
+\DoxyCodeLine{374 \textcolor{comment}{    void read\_registers(uint8\_t vx);}}
+\DoxyCodeLine{375 \textcolor{comment}{}}
+\DoxyCodeLine{376 \textcolor{comment}{private:}}
+\DoxyCodeLine{377 \textcolor{comment}{    /*}}
+\DoxyCodeLine{378 \textcolor{comment}{    v0-\/vF: 16 8-\/bit registers}}
+\DoxyCodeLine{379 \textcolor{comment}{}}
+\DoxyCodeLine{380 \textcolor{comment}{    PC: 16-\/bit register}}
+\DoxyCodeLine{381 \textcolor{comment}{    SP: 8-\/bit register}}
+\DoxyCodeLine{382 \textcolor{comment}{}}
+\DoxyCodeLine{383 \textcolor{comment}{    DT: 16-\/bit delay timer register}}
+\DoxyCodeLine{384 \textcolor{comment}{    ST: 16-\/bit sound timer register}}
+\DoxyCodeLine{385 \textcolor{comment}{    */}}
+\DoxyCodeLine{386 }
+\DoxyCodeLine{387     std::array<uint8\_t, 16> v\_registers;}
+\DoxyCodeLine{388     uint16\_t i\_register = 0; \textcolor{comment}{// 16-\/bit special register}}
+\DoxyCodeLine{389     uint16\_t pc = 0x200; \textcolor{comment}{// program counter, CHIP-\/8 programs start at 0x200}}
+\DoxyCodeLine{390     uint8\_t sp = 0; \textcolor{comment}{// stack pointer}}
+\DoxyCodeLine{391 }
+\DoxyCodeLine{392     uint16\_t dt = 0; \textcolor{comment}{// delay timer}}
+\DoxyCodeLine{393     uint16\_t st = 0; \textcolor{comment}{// sound timer}}
+\DoxyCodeLine{394 }
+\DoxyCodeLine{395     \textcolor{comment}{// Internal call stack: stores return address from subroutine calls}}
+\DoxyCodeLine{396     std::array<uint16\_t, 16> stack = \{0\};}
+\DoxyCodeLine{397 }
+\DoxyCodeLine{398     \textcolor{keyword}{static} \textcolor{keyword}{constexpr} uint16\_t FONTSET\_ADDRESS = 0x50; \textcolor{comment}{//Start location in memory of the font characters}}
+\DoxyCodeLine{399 }
+\DoxyCodeLine{400     \mbox{\hyperlink{class_memory}{Memory}} \&memory;}
+\DoxyCodeLine{401     \mbox{\hyperlink{class_display}{Display}} \&display;}
+\DoxyCodeLine{402     \mbox{\hyperlink{class_keyboard}{Keyboard}} \&keyboard;}
+\DoxyCodeLine{403 \};}
+\DoxyCodeLine{404 }
+\DoxyCodeLine{405 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

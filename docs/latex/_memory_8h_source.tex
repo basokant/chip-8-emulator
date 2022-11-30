@@ -1,0 +1,64 @@
+\hypertarget{_memory_8h_source}{}\doxysection{Memory.\+h}
+\label{_memory_8h_source}\index{Memory.h@{Memory.h}}
+\mbox{\hyperlink{_memory_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef MEMORY\_H\_INCLUDED}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define MEMORY\_H\_INCLUDED}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{23 \textcolor{keyword}{class }\mbox{\hyperlink{class_memory}{Memory}}}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 \textcolor{keyword}{public}:}
+\DoxyCodeLine{26     \mbox{\hyperlink{class_memory}{Memory}}();}
+\DoxyCodeLine{27     \mbox{\hyperlink{class_memory}{\string~Memory}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_memory_a3cdab705681b406b7bd5e8a4f41869d0}{load\_file}}(\textcolor{keywordtype}{char} \textcolor{keyword}{const}* filename);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 }
+\DoxyCodeLine{42     uint8\_t \mbox{\hyperlink{class_memory_af4b92ebb3103c60698a934658e72cd77}{read\_memory}}(uint16\_t addr) \textcolor{keyword}{const};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{50     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_memory_a83f73e17578e0ee3288c6397c38421c6}{write\_memory}}(uint16\_t addr, uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{57     std::array<uint8\_t, 0x10000> \mbox{\hyperlink{class_memory_a44508007d72db9ee8a3e1669d8a45a7a}{dump}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{private}:}
+\DoxyCodeLine{60     \textcolor{comment}{// Array storing memory}}
+\DoxyCodeLine{61     \textcolor{comment}{// TODO: separate this into a memory class later}}
+\DoxyCodeLine{62     \textcolor{comment}{// CHIP-\/8 has 4KB of addressable memory = 0x1000 bytes}}
+\DoxyCodeLine{63     std::array<uint8\_t, 0x1000> memory = \{0\};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} START\_MEMORY\_ADRESS = 0X200;}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \textcolor{comment}{//Position where ROM files will know where fonts begin in memory }}
+\DoxyCodeLine{69     \textcolor{keyword}{const} \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} FONTSET\_ADDRESS = 0x50;}
+\DoxyCodeLine{70     \textcolor{comment}{//Length of the font array}}
+\DoxyCodeLine{71     \textcolor{keyword}{const} \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} FONTSET\_LENGTH = 80;}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     uint8\_t font\_characters[FONTSET\_LENGTH] = \{}
+\DoxyCodeLine{74         0xF0, 0x90, 0x90, 0x90, 0xF0, \textcolor{comment}{// 0}}
+\DoxyCodeLine{75         0x20, 0x60, 0x20, 0x20, 0x70, \textcolor{comment}{// 1}}
+\DoxyCodeLine{76         0xF0, 0x10, 0xF0, 0x80, 0xF0, \textcolor{comment}{// 2}}
+\DoxyCodeLine{77         0xF0, 0x10, 0xF0, 0x10, 0xF0, \textcolor{comment}{// 3}}
+\DoxyCodeLine{78         0x90, 0x90, 0xF0, 0x10, 0x10, \textcolor{comment}{// 4}}
+\DoxyCodeLine{79         0xF0, 0x80, 0xF0, 0x10, 0xF0, \textcolor{comment}{// 5}}
+\DoxyCodeLine{80         0xF0, 0x80, 0xF0, 0x90, 0xF0, \textcolor{comment}{// 6}}
+\DoxyCodeLine{81         0xF0, 0x10, 0x20, 0x40, 0x40, \textcolor{comment}{// 7}}
+\DoxyCodeLine{82         0xF0, 0x90, 0xF0, 0x90, 0xF0, \textcolor{comment}{// 8}}
+\DoxyCodeLine{83         0xF0, 0x90, 0xF0, 0x10, 0xF0, \textcolor{comment}{// 9}}
+\DoxyCodeLine{84         0xF0, 0x90, 0xF0, 0x90, 0x90, \textcolor{comment}{// A}}
+\DoxyCodeLine{85         0xE0, 0x90, 0xE0, 0x90, 0xE0, \textcolor{comment}{// B}}
+\DoxyCodeLine{86         0xF0, 0x80, 0x80, 0x80, 0xF0, \textcolor{comment}{// C}}
+\DoxyCodeLine{87         0xE0, 0x90, 0x90, 0x90, 0xE0, \textcolor{comment}{// D}}
+\DoxyCodeLine{88         0xF0, 0x80, 0xF0, 0x80, 0xF0, \textcolor{comment}{// E}}
+\DoxyCodeLine{89         0xF0, 0x80, 0xF0, 0x80, 0x80  \textcolor{comment}{// F}}
+\DoxyCodeLine{90     \};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

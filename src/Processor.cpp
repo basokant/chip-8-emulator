@@ -16,28 +16,22 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
 
 #include "Processor.h"
+#include "ProcessorException.h"
 
-// helper functions: use anonymous namespace for internal linkage
-namespace {
-
-    /**
-     * @brief Checks whether a certain key is pressed.
-     *
-     * @param key the keycode from a 16-bit hexadecimal keypad
-     * @return true if the key is pressed
-     * @return false if the key is not pressed
-     */
-    bool is_pressed(uint8_t key) {
-        // TODO: implement emulator input
-        return false;
-    }
-
-    uint16_t key_input() {
-        // TODO: implement emulator input
-        return 1;
-    }
+/**
+ * @brief Function that retuns an error if there is an unimplemented instruction 
+ * 
+ * @param instruction_to_run 
+ */
+void unimplemented_instruction(uint16_t instruction_to_run) {
+    std::cout << "Unimplemented instruction! 0x"
+              << std::hex
+              << instruction_to_run
+              << std::dec
+              << '\n';
 }
 
 /**
@@ -45,61 +39,287 @@ namespace {
  * 
  * Seeds the random number generator used by the RANDOM instruction
  */
-Processor::Processor() {
+Processor::Processor(Memory &memory, Display &display, Keyboard &keyboard)
+    : memory {memory},
+    display {display},
+    keyboard {keyboard} {
     // seed the random-number generator for future calls to RAND
     std::srand(std::time(0));
 }
 
 /**
- * @brief Run the processor until the end of memory.
+ * @brief Execute one processor instruction.
  */
-void Processor::run() {
-    // TODO: implement proper program execution (not hardcoded to a test ROM)
-    // loop from beginning of memory to the end of our test program
-    while (pc < 0x6) {
-        uint16_t instruction_to_run = read_instruction_from_memory();
+void Processor::step() {
+    if (waiting_for_key_input)
+        return; // do nothing, emulates waiting
+    uint16_t instruction_to_run = read_instruction_from_memory();
+    decode_and_execute(instruction_to_run);
+}
 
-        // TODO: implement decoding for all instructions
-        // for now, just LD and ADD for the test ROM
-        switch (instruction_to_run & 0xf000) {
-            // instruction can be identified by 4 most significant bits
-            case 0x6000: {
-                // LD Vx, byte
-                // vx is bits 8-11
-                uint8_t vx = (instruction_to_run >> 8) & 0xf;
-                // byte is bits 0-7
-                uint8_t byte = instruction_to_run & 0xff;
-                load_byte(vx, byte);
-            } break;
-            case 0x8000: {
-                // ADD Vx, Vy
-                // vx is bits 8-11
-                uint8_t vx = (instruction_to_run >> 8) & 0xf;
-                // vy is bits 4-7
-                uint8_t vy = (instruction_to_run >> 4) & 0xf;
-                add_registers(vx, vy);
-            } break;
-            default: {
-                std::cout << "Unimplemented instruction! " << instruction_to_run << '\n';
-            }
-        }
+/**
+ * @brief Get the value of the delay timer register.
+ */
+uint8_t Processor::delay_timer() const {
+    return dt;
+}
+
+/**
+ * @brief Get the value of the sound timer register.
+ */
+uint8_t Processor::sound_timer() const {
+    return st;
+}
+
+/**
+ * @brief Decrement the delay timer by one (called every frame)
+ * 
+ */
+void Processor::decrease_delay_timer() {
+    if (dt > 0){
+        --dt;
     }
 }
 
 /**
- * @brief Load a byte-array into memory at 0x0.
- * @param byte_array The list of bytes to load into memory.
+ * @brief Decrement the delay timer by one (called every frame)
+ * 
  */
-void Processor::load_memory(const std::array<uint8_t, 0x10000> &byte_array) {
-    memory = byte_array;
+void Processor::decrease_sound_timer() {
+    if (st > 0){
+        --st;
+    }
 }
+
+/**
+ * @brief Wake the Processor from a waiting state on key_input
+ * (used to wake the Processor after a LD k, Vx instruction)
+ */
+void Processor::wake_from_key_input(uint8_t chip8_keycode) {
+    if (!waiting_for_key_input)
+        return;
+    waiting_for_key_input = false;
+    v_registers[waiting_for_key_input_register] = chip8_keycode;
+}
+
+void Processor::decode_and_execute(uint16_t instruction_to_run) {
+    switch (instruction_to_run & 0xf000) {
+        // instruction can be identified by 4 most significant bits
+        case 0x0000: {
+            switch (instruction_to_run & 0xff) {
+                case 0xe0: {
+                    cls();
+                } break;
+                case 0xee: {
+                    ret();
+                } break;
+                default: {
+                    unimplemented_instruction(instruction_to_run);
+                } break;
+            }
+        } break;
+        case 0x1000: {
+            // JP addr
+            // addr is bits 0-11
+            uint16_t addr = instruction_to_run & 0xfff;
+            jp(addr);
+        } break;
+        case 0x2000: {
+            // CALL addr 
+            // addr is bits 0-11
+            uint16_t addr = instruction_to_run & 0xfff;
+            call(addr);
+        } break;
+        case 0x3000: {
+            // SE Vx, byte
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // byte is bits 0-7
+            uint8_t byte = instruction_to_run & 0xff;
+            se_byte(vx, byte);
+        } break;
+        case 0x4000: {
+            // SNE Vx, byte
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // byte is bits 0-7
+            uint8_t byte = instruction_to_run & 0xff;
+            sne_byte(vx, byte);
+        } break;
+        case 0x5000: {
+            // SE Vx, Vy
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // vy is bits 4-7
+            uint8_t vy = (instruction_to_run >> 4) & 0xf;
+            se_register(vx, vy);
+        } break;
+        case 0x6000: {
+            // LD Vx, byte
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // byte is bits 0-7
+            uint8_t byte = instruction_to_run & 0xff;
+            load_byte(vx, byte);
+        } break;
+        case 0x7000: {
+            // ADD Vx, byte
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // byte is bits 0-7
+            uint8_t byte = instruction_to_run & 0xff;
+            add(vx, byte);
+        } break;
+        case 0x8000: {
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // vy is bits 4-7
+            uint8_t vy = (instruction_to_run >> 4) & 0xf;
+
+            switch (instruction_to_run & 0xf) {
+                case 0x0: {
+                    // LD Vx, Vy
+                    load_register(vx, vy);
+                } break;
+                case 0x1: {
+                    // OR Vx, Vy
+                    chip_or(vx, vy);
+                } break;
+                case 0x2: {
+                    // AND Vx, Vy
+                    chip_and(vx, vy);
+                } break;
+                case 0x3: {
+                    // XOR Vx, Vy
+                    chip_xor(vx, vy);
+                } break;
+                case 0x4: {
+                    // ADD Vx, Vy
+                    add_registers(vx, vy);
+                } break;
+                case 0x5: {
+                    // SUB Vx, Vy
+                    sub(vx, vy);
+                } break;
+                case 0x6: {
+                    // SHR Vx {, Vy}
+                    shr(vx);
+                } break;
+                case 0x7: {
+                    // SUBN Vx, Vy
+                    subn(vx, vy);
+                } break;
+                case 0xE: {
+                    // SHL Vx {, Vy}
+                    shl(vx);
+                } break;
+            }
+        } break;
+        case 0x9000: {
+            // SNE Vx, Vy
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // vy is bits 4-7
+            uint8_t vy = (instruction_to_run >> 4) & 0xf;
+            sne(vx, vy);
+        } break;
+        case 0xA000: {
+            // LD I, addr
+            // addr is bits 0-11
+            uint16_t addr = instruction_to_run & 0xfff;
+            load_addr(addr);
+        } break;
+        case 0xB000: {
+            // JP V0, addr
+            // addr is bits 0-11
+            uint16_t addr = instruction_to_run & 0xfff;
+            jump_register(addr);
+        } break;
+        case 0xC000: {
+            // RND Vx, byte
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // byte is bits 0-7
+            uint16_t byte = instruction_to_run & 0xff;
+            random(vx, byte);
+        } break;
+        case 0xD000: {
+            // DRW Vx, Vy, nibble
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            // vy is bits 4-7
+            uint8_t vy = (instruction_to_run >> 4) & 0xf;
+            // nibble is bits 0-3
+            uint8_t nibble = instruction_to_run & 0xf;
+            draw(vx, vy, nibble);
+        } break;
+        case 0xE000: {
+            uint8_t id = instruction_to_run & 0xf;
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            if (id == 0xE) {
+                // SKP Vx
+                skip_pressed(vx);
+            } else if (id == 0x1) {
+                // SKNP Vx
+                skip_not_pressed(vx);
+            }
+        } break;
+        case 0xF000: {
+            // vx is bits 8-11
+            uint8_t vx = (instruction_to_run >> 8) & 0xf;
+            switch (instruction_to_run & 0xff) {
+                case 0x07: {
+                    // LD Vx, DT
+                    load_register_from_dt(vx);
+                } break;
+                case 0x0A: {
+                    // LD Vx, K
+                    load_key(vx);
+                } break;
+                case 0x15: {
+                    // LD DT, Vx
+                    load_dt_from_register(vx);
+                } break;
+                case 0x18: {
+                    // LD ST, Vx
+                    load_st_from_register(vx);
+                } break;
+                case 0x1E: {
+                    // ADD I, Vx
+                    add_sum(vx);
+                } break;
+                case 0x29: {
+                    // LD F, Vx
+                    load_loc_of_sprite(vx);
+                } break;
+                case 0x33: {
+                    // LD B, Vx
+                    str_bcd_in_memory(vx);
+                } break;
+                case 0x55: {
+                    // LD [I], Vx
+                    str_registers_in_memory(vx);
+                } break;
+                case 0x65: {
+                    // LD Vx, [I]
+                    read_registers(vx);
+                } break;
+            }
+        } break;
+        default: {
+            unimplemented_instruction(instruction_to_run);
+        }
+    }
+}
+
 
 /**
  * @brief Dump the registers of the CPU into a printable string.
  *
  * @return a string containing all the register values
  */
-std::string Processor::dump() {
+std::string Processor::dump() const {
     std::stringstream dump_ss;
     for (int i = 0; i < v_registers.size(); i++)
     {
@@ -114,420 +334,25 @@ std::string Processor::dump() {
 }
 
 /**
- * @brief Read the byte stored at memory address addr
- *
- * @param addr A 16-byte address in memory
- * @return uint8_t
- */
-uint8_t Processor::read_memory(uint16_t addr) {
-    return memory[addr];
-}
-
-/**
- * @brief Write a byte to memory at address addr
- */
-void Processor::write_memory(uint16_t addr, uint8_t byte) {
-    memory[addr] = byte;
-}
-
-/**
  * @brief Read the next instruction from memory pointed
  * to by the PC, and increment the PC
  *
  * @return uint16_t
  */
 uint16_t Processor::read_instruction_from_memory() {
+    // make sure that the PC is not in a non-executable memory segment
+    if (pc < 0x200) {
+        throw ProcessorException("attempt to execute instruction in non-executable memory segment");
+    }
+    // make sure that the PC is in bounds
+    if (pc > 0xfff) {
+        throw ProcessorException("attempt to access past the end of bounds of memory (0xfff)");
+    }
+
     // read next 2 bytes pointed by PC, then concatenate
-    uint8_t d1 = read_memory((uint16_t)pc++); //0x20
-    uint8_t d2 = read_memory((uint16_t)pc++); //0x40
+    uint8_t d1 = memory.read_memory((uint16_t)pc++); //0x20
+    uint8_t d2 = memory.read_memory((uint16_t)pc++); //0x40
 
     uint16_t instr = ((uint16_t)d1 << 8) | d2;
     return instr;
-}
-
-
-/**
- * @brief Jumps to a machine code routine at addr.
- *
- * This instruction is only used on the old computers on which Chip-8 was originally
- * implemented. It is ignored by modern interpreters.
- * @param addr The 16-bit address to jump to
- */
-void Processor::sys(uint16_t addr) {
-    // do nothing: this instruction is ignored by modern interpreters.
-}
-
-/**
- * @brief Return from a subroutine.
- *
- * The interpreter sets the program counter to the address at the top of the stack,
- * then subtracts 1 from the stack pointer.
- *
- */
-void Processor::ret() {
-    uint8_t top_of_stack = read_memory(sp);
-    pc = top_of_stack;
-    // pop stack: decrement stack pointer
-    sp -= 1;
-}
-
-/**
- * @brief The interpreter sets the program counter to addr.
- *
- * @param addr 16-bit address to jump to
- */
-void Processor::jp(uint16_t addr) {
-    pc = addr;
-}
-
-/**
- * @brief The interpreter jumps to addr, pushing the current PC to the stack.
- *
- * @param addr 16-bit address to jump to
- */
-void Processor::call(uint16_t addr) {
-    // push current PC to the top of the stack
-    sp += 1;
-    stack[sp] = pc;
-    pc = addr;
-}
-
-/**
- * @brief Skips the next instruction if vx == byte
- *
- * @param vx The number of the register (0x0-0xf)
- * @param byte The byte to compare with
- */
-void Processor::se_byte(uint8_t vx, uint8_t byte) {
-    if (v_registers[vx] == byte)
-        pc += 1;
-}
-
-/**
- * @brief Skips the next instruction if vx != byte
- * @param vx The number of the register (0x0-0xf)
- * @param byte The byte to compare with
- */
-void Processor::sne_byte(uint8_t vx, uint8_t byte) {
-    if (v_registers[vx] != byte)
-        pc += 1;
-}
-
-/**
- * @brief Skips the next instruction if vx == vy
- *
- * @param vx The number of the first register (0x0-0xf)
- * @param vy The number of the second register (0x0-0xf)
- */
-void Processor::se_register(uint8_t vx, uint8_t vy) {
-    if (v_registers[vx] == v_registers[vy])
-        pc += 1;
-}
-
-/**
- * @brief ADD Vx, byte instruction: add byte to Vx register
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- * @param byte 8-bit value (0x00-0xff)
- */
-void Processor::add(uint8_t vx, uint8_t byte) {
-    v_registers[vx] += byte;
-}
-
-/**
-* @brief Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx
-* @param vx number of the register (0x0-0xf for v0-vf)
-* @param vy number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::chip_and(uint8_t vx, uint8_t vy) {
-    v_registers[vx] = v_registers[vx] & v_registers[vy];
-}
-
-/**
-* @brief Performs a bitwise OR on the values of Vx and Vy, then stores the result in Vx
-* @param vx number of the register (0x0-0xf for v0-vf)
-* @param vy number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::chip_or(uint8_t vx, uint8_t vy) {
-    v_registers[vx] = v_registers[vx] | v_registers[vy];
-
-}
-
-/**
-* @brief Performs a bitwise XOR on the values of Vx and Vy, then stores the result in Vx
-* @param vx number of the register (0x0-0xf for v0-vf)
-* @param vy number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::chip_xor(uint8_t vx, uint8_t vy) {
-    v_registers[vx] = v_registers[vx] ^ v_registers[vy];
-}
-
-void Processor::add_registers(uint8_t vx, uint8_t vy) {
-   uint16_t sum = v_registers[vx] + v_registers[vy];
-   if (sum > 255U) {
-       v_registers[0xF] = 1;
-   }
-   else {
-       v_registers[0xF] = 0;
-   }
-   v_registers[vx] = sum & 0xFFu;
-}
-
-/**
-* @brief If Vx > Vy, then VF is set to 1, otherwise 0. 
-* Then Vy is subtracted from Vx, and the results stored in Vx.
-* @param vx number of the register (0x0-0xf for v0-vf)
-* @param vy number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::sub(uint8_t vx, uint8_t vy) {
-    if (v_registers[vx] > v_registers[vy]) {
-        v_registers[0xF] = 1;
-    }
-    else {
-        v_registers[0xf] = 0;
-    }
-    v_registers[vx] = v_registers[vx] - v_registers[vy];
-}
-
-/**
-* @brief If the least-significant bit of Vx is 1, then VF is set to 1, otherwise 0. 
-* Then Vx is divided by 2.
-* @param vx number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::shr(uint8_t vx) {
-    v_registers[0xF] = v_registers[vx] & 0x1u;
-    v_registers[vx] >>= 1;
-}
-
-
-/**
-* @brief If Vy > Vx, then VF is set to 1, otherwise 0. 
-* Then Vx is subtracted from Vy, and the results stored in Vx.
-* @param vx number of the register (0x0-0xf for v0-vf)
-* @param vy number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::subn(uint8_t vx, uint8_t vy) {
-    if (v_registers[vy] > v_registers[vx]) {
-        v_registers[0xF] = 1;
-    }
-    else {
-        v_registers[0xf] = 0;
-    }
-    v_registers[vx] = v_registers[vy] - v_registers[vx];
-}
-
-/**
-* @brief If the most-significant bit of Vx is 1, then VF is set to 1, otherwise to 0. 
-* Then Vx is multiplied by 2.
-* @param vx number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::shl(uint8_t vx) {
-    v_registers[0xF] = v_registers[vx] & 0x80u;
-    v_registers[0xF] = v_registers[vx] >> 7u;
-    v_registers[vx] <<= 1;
-}
-
-/**
-* @brief The values of Vx and Vy are compared, 
-* and if they are not equal, the program counter is increased by 2.
-* @param vx number of the register (0x0-0xf for v0-vf)
-* @param vy number of the register (0x0-0xf for v0-vf)
-*/
-void Processor::sne(uint8_t vx, uint8_t vy) {
-    if (v_registers[vx] != v_registers[vy]) {
-        pc += 2;
-    }
-}
-
-/**
- * @brief The interpreter puts the value byte into register Vx.
- * @param vx number of the register (0x0-0xf for v0-vf).
- * @param byte 8-bit value (0x00-0xff)
- */
-void Processor::load_byte(uint8_t vx, uint8_t byte) {
-    v_registers[vx] = byte;
-}
-
-/**
- * @brief Stores the value of register Vy in register Vx.
- * @param vx number of the register (0x0-0xf for v0-vf)
- * @param vy number of the register (0x0-0xf for v0-vf)
- */
-void Processor::load_register(uint8_t vx, uint8_t vy) {
-    v_registers[vx] = v_registers[vy];
-}
-
-
-/**
- * @brief Stores the address in register i.
- * 
- * @param i number of the register (0x-0xf for v0-vf)
- * @param addr A 16-bit address in memory
- */
-void Processor::load_addr(uint8_t i, uint16_t addr) {
-    v_registers[i] = addr;
-}
-
-
-/**
- * @brief The program jumps by setting the program counter to an address (addr plus the value of v0)
- * 
- * @param v0 number of the register (0x0-0xf for v0-vf)
- * @param addr A 16-bit address in memory
- */
-void Processor::jump_register(uint8_t v0, uint16_t addr) {
-    pc = addr + v_registers[v0];
-}
-
-
-/**
- * @brief Generate a random number from 0 to 255, which is then ANDed with a value byte, and stored in a register vx.
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- * @param byte 8-bit value (0x00-0xff)
- */
-void Processor::random(uint8_t vx, uint8_t byte) {
-    uint8_t num = std::rand() % 0xFF;
-    v_registers[vx] = num;
-}
-
-
-/**
- * @brief Display n-byte sprite starting at memory location I at (vx, vy), set VF = collision.
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- * @param vy number of the register (0x0-0xf for v0-vf)
- * @param nibble 4-bit value (0x0-0xf)
- */
-void Processor::display(uint8_t vx, uint8_t vy, uint8_t nibble) {
-    // TODO: implement display functionality
-}
-
-
-/**
- * @brief Skip next instruction if key with the value of vx is pressed.
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::skip_pressed(uint8_t vx) {
-    if (is_pressed(vx)) {
-        pc += 2;
-    }
-}
-
-
-/**
- * @brief Skip next instruction if key with the value of vx is NOT pressed.
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::skip_not_pressed(uint8_t vx) {
-    if (!is_pressed(vx)) {
-        pc += 2;
-    }
-}
-
-
-/**
- * @brief Set register vx to the value of the delay timer.
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::load_register_from_dt(uint8_t vx) {
-    v_registers[vx] = dt;
-}
-
-
-/**
- * @brief Wait for a key press, store the value of the key in register vx.
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::load_key(uint8_t vx) {
-    uint16_t key = key_input();
-
-    v_registers[vx] = key;
-}
-
-
-/**
- * @brief Set delay timer to the value of register vx
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::load_dt_from_register(uint8_t vx) {
-    dt = v_registers[vx];
-}
-
-
-/**
- * @brief Set the sound timer to the value of register vx
- * 
- * @param vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::load_st_from_register(uint8_t vx) {
-    st = v_registers[vx];
-}
-
-/**
- * @brief The values of index and the value stored in the register Vx are added, and the results are stored in index.
- * @param vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::add_sum(uint8_t index, uint8_t vx) {
-    index = index +  v_registers[vx];
-}
-
-/**
- * @brief Set the value of index to the location of the sprite for the digit stored in Vx. 
- * Get the address of the first byte of any character by taking an offset from the start address.
- * 
- * @param  Vx number of the register (0x0-0xf for v0-vf)  
- */
-
-void Processor::load_loc_of_sprite(uint8_t vx) {
-    index = FONTSET_ADDRESS + (5* v_registers[vx]);
-}
-
-/**
- * @brief Store BCD representation of Vx in memory locations I, I+1, and I+2
- * 
- * @param Vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::str_bcd_in_memory(uint8_t vx) {
-
-    //one's digit 
-    memory[index + 2] = v_registers[vx] % 10; 
-    v_registers[vx] /= 10; 
-
-    // ten's digit 
-    memory[index + 1] = v_registers[vx] % 10;
-    v_registers[vx] /= 10; 
-
-    //hundred's digit
-    memory[index] = v_registers[vx] % 10;
-}
-
-/**
- * @brief Store registers V0 through Vx in memory starting at location I
- * 
- * @param i an 8 byte memory starting location integer value, 
- * @param  Vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::str_registers_in_memory(uint8_t i, uint8_t vx) {
-    
-    for (uint8_t n = 0; n <= vx; n++) {
-        memory[i + n] = v_registers[n]; 
-    }
-}
-
-/**
- * @brief Read registers V0 through Vx from memory starting at location I.
- * 
- * @param i an 8 byte memory starting location integer value, 
- * @param  Vx number of the register (0x0-0xf for v0-vf)
- */
-void Processor::read_registers(uint8_t vx, uint8_t i) {
-    for (uint8_t n = 0; n <= vx; n++) {
-        v_registers[n] = memory[i + n];
-    }
 }

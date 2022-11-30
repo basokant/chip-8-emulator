@@ -1,0 +1,35 @@
+\hypertarget{_keyboard_8h_source}{}\doxysection{Keyboard.\+h}
+\label{_keyboard_8h_source}\index{Keyboard.h@{Keyboard.h}}
+\mbox{\hyperlink{_keyboard_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef KEYBOARD\_H\_INCLUDED}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define KEYBOARD\_H\_INCLUDED}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <SDL2/SDL.h>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{23 \textcolor{keyword}{class }\mbox{\hyperlink{class_keyboard}{Keyboard}}}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 \textcolor{keyword}{public}:}
+\DoxyCodeLine{26     \mbox{\hyperlink{class_keyboard}{Keyboard}}();}
+\DoxyCodeLine{27     \mbox{\hyperlink{class_keyboard}{\string~Keyboard}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{32     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_keyboard_a06d4042f3172391377ba0b2d827cce19}{press\_key}}(SDL\_Keycode code);}
+\DoxyCodeLine{33     }
+\DoxyCodeLine{37     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_keyboard_acc79ef9d87cedde0e14058311cd1c874}{release\_key}}(SDL\_Keycode code);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{42     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_keyboard_a83fcbd6a9ebd1a74a4066e01553385ad}{is\_pressed}}(uint8\_t chip8\_key);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{private}:}
+\DoxyCodeLine{53     std::array<bool, 16> \mbox{\hyperlink{class_keyboard_aa63815c10d6d2503efc4235b52b12b63}{key\_pressed}};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{comment}{// maps hardware keycode to CHIP8 virtual keycode.}}
+\DoxyCodeLine{56     \textcolor{keyword}{const} std::unordered\_map<SDL\_Keycode, uint8\_t> keymap;}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

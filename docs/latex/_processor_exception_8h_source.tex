@@ -1,0 +1,17 @@
+\hypertarget{_processor_exception_8h_source}{}\doxysection{Processor\+Exception.\+h}
+\label{_processor_exception_8h_source}\index{ProcessorException.h@{ProcessorException.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef PROCESSOR\_EXCEPTION\_H\_INCLUDED}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define PROCESSOR\_EXCEPTION\_H\_INCLUDED}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <stdexcept>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{10 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_processor_exception}{ProcessorException}} : std::runtime\_error \{}
+\DoxyCodeLine{11     \textcolor{comment}{// Use std::runtime\_error constructor for this class}}
+\DoxyCodeLine{12     \textcolor{keyword}{using }std::runtime\_error::runtime\_error;}
+\DoxyCodeLine{13 \};}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
