@@ -51,19 +51,19 @@ public:
      * @brief Writes the pixel buffer to the renderer
      * 
      */
-    void write_buffer_to_renderer();
+    void write_buffer_to_renderer() const;
 
     /**
      * @brief Presents the SDL renderer
      * 
      */
-    void present();
+    void present() const;
 
     /**
      * @brief Clear the screen (set all pixels to background)
      * 
      */
-    void clear_renderer();
+    void clear_renderer() const;
 
     /**
      * @brief clear the buffer(set all buffer mermory to zero)
@@ -80,7 +80,7 @@ private:
      * @param x_coordinate 
      * @param y_coordinate 
      */
-    void write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate);
+    void write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) const;
 
     /**
      * @brief XOR a pixel to the buffer at x_coordinate and y_coordinate

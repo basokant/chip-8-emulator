@@ -39,17 +39,17 @@ public:
     /**
      * @brief Check if the given CHIP-8 key is pressed
      */
-    bool is_pressed(uint8_t chip8_key);
+    bool is_pressed(uint8_t chip8_key) const;
 
     /**
      * @brief Check if the pressed key is mapped to one of the CHIP-8 keys.
      */
-    bool is_mapped_key(SDL_Keycode keycode);
+    bool is_mapped_key(SDL_Keycode keycode) const;
 
     /**
      * @brief Get the mapped CHIP-8 key (0x0 to 0xF) of this key.
      */
-    uint8_t chip8_keycode(SDL_Keycode keycode);
+    uint8_t chip8_keycode(SDL_Keycode keycode) const;
 
 private:
     /**

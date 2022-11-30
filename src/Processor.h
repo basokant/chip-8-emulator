@@ -93,7 +93,7 @@ public:
      * 
      * @return a string containing all the register values
      */
-    std::string dump();
+    std::string dump() const;
 
 private: // internal memory calls
 
@@ -121,7 +121,7 @@ private: // 36 CHIP-8 instructions
      * @brief Clear the display.
      *
      */
-    void cls();
+    void cls() const;
 
     /**
      * @brief Return from a subroutine.
@@ -402,7 +402,7 @@ private:
     // Internal call stack: stores return address from subroutine calls
     std::array<uint16_t, 16> stack = {0};
 
-    static constexpr uint16_t FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters
+    static constexpr unsigned int FONTSET_ADDRESS = 0x50; //Start location in memory of the font characters
 
     // flag used by the load_key instruction (LD Vx, K)
     bool waiting_for_key_input = false;

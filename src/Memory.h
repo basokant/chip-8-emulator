@@ -66,7 +66,7 @@ private:
     const unsigned int START_MEMORY_ADRESS = 0X200;
 
     //Position where ROM files will know where fonts begin in memory 
-    const static unsigned int FONTSET_ADDRESS = 0x50;
+    const static uint16_t FONTSET_ADDRESS = 0x50;
     //Length of the font array
     const static unsigned int FONTSET_LENGTH = 80;
 

@@ -1,6 +1,6 @@
-#include <stdlib.h>
 #include <vector>
 #include <SDL2/SDL.h>
+#include <iostream>
 
 #include "Display.h"
 #include "SDLException.h"
@@ -74,7 +74,7 @@ bool Display::write_pixels_to_buffer(uint8_t x_coordinate, uint8_t y_coordinate,
 * @brief Writes the pixel buffer to the renderer
 * 
 */
-void Display::write_buffer_to_renderer() {
+void Display::write_buffer_to_renderer() const {
     for (int row = 0; row < pixel_buffer.size(); ++row) {
         const std::array<bool, 64> &pixel_row = pixel_buffer[row];
         for (int column = 0; column < pixel_row.size(); ++column) {
@@ -88,7 +88,7 @@ void Display::write_buffer_to_renderer() {
 * @brief Presents the SDL renderer
 * 
 */
-void Display::present() {
+void Display::present() const {
     SDL_RenderPresent(renderer);
 }
 
@@ -96,7 +96,7 @@ void Display::present() {
 * @brief Clear the screen (set all pixels to background)
 * 
 */
-void Display::clear_renderer() {
+void Display::clear_renderer() const {
     // set draw color to black for clearing
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
@@ -121,7 +121,7 @@ void Display::clear_buffer() {
 * @param x_coordinate 
 * @param y_coordinate 
 */
-void Display::write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) {
+void Display::write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) const {
     if (pixel) {
         // pixel is set, use white
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
@@ -164,18 +164,9 @@ bool Display::write_pixel_to_buffer(bool pixel, uint8_t x_coordinate, uint8_t y_
 
     bool old_pixel_value = pixel_buffer[y_coordinate][x_coordinate];
     bool new_pixel_value = pixel ^ old_pixel_value;
-    bool pixel_was_cleared = false;
-    if (new_pixel_value == old_pixel_value) {
-        // nothing changed, nothing to do
-        return pixel_was_cleared; // false => no overwrite (ㆆ_ㆆ)👌
-    }
-
-    if (!new_pixel_value) {
-        pixel_was_cleared = true;
-    }
+    bool pixel_was_cleared = (old_pixel_value == 1) && (new_pixel_value == 0);
 
     // black if pixel is cleared, white if pixel is set
     pixel_buffer[y_coordinate][x_coordinate] = new_pixel_value;
-
     return pixel_was_cleared;
 }

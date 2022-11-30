@@ -91,6 +91,8 @@ void Processor::decrease_sound_timer() {
  * (used to wake the Processor after a LD k, Vx instruction)
  */
 void Processor::wake_from_key_input(uint8_t chip8_keycode) {
+    if (!waiting_for_key_input)
+        return;
     waiting_for_key_input = false;
     v_registers[waiting_for_key_input_register] = chip8_keycode;
 }
@@ -312,7 +314,7 @@ void Processor::decode_and_execute(uint16_t instruction_to_run) {
  *
  * @return a string containing all the register values
  */
-std::string Processor::dump() {
+std::string Processor::dump() const {
     std::stringstream dump_ss;
     for (int i = 0; i < v_registers.size(); i++)
     {

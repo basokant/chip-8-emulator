@@ -11,14 +11,14 @@
  * @param addr The 16-bit address to jump to
  */
 void Processor::sys(uint16_t addr) {
-    // do nothing: this instruction is ignored by modern interpreters.
+    // jp(addr);
 }
 
 /**
  * @brief Clear the display.
  *
  */
-void Processor::cls() {
+void Processor::cls() const {
     display.clear_buffer();
 }
 
@@ -252,7 +252,7 @@ void Processor::jump_register(uint16_t addr) {
  */
 void Processor::random(uint8_t vx, uint8_t byte) {
     uint8_t num = std::rand() % 0xFF;
-    v_registers[vx] = num;
+    v_registers[vx] = num & byte;
 }
 
 /**
@@ -391,16 +391,17 @@ void Processor::load_loc_of_sprite(uint8_t vx) {
  */
 void Processor::str_bcd_in_memory(uint8_t vx) {
 
+    uint8_t reg = v_registers[vx];
     //one's digit
-    memory.write_memory(i_register + 2, v_registers[vx] % 10);
-    v_registers[vx] /= 10; 
+    memory.write_memory(i_register + 2, reg % 10);
+    reg /= 10; 
 
     // ten's digit 
-    memory.write_memory(i_register + 1, v_registers[vx] % 10);
-    v_registers[vx] /= 10; 
+    memory.write_memory(i_register + 1, reg % 10);
+    reg /= 10; 
 
     //hundred's digit
-    memory.write_memory(i_register, v_registers[vx] % 10);
+    memory.write_memory(i_register, reg % 10);
 }
 
 /**

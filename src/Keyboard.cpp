@@ -54,17 +54,17 @@ void Keyboard::release_key(SDL_Keycode code) {
     key_pressed[chip8_key] = false;
 }
 
-bool Keyboard::is_pressed(uint8_t chip8_key) {
+bool Keyboard::is_pressed(uint8_t chip8_key) const {
     return key_pressed[chip8_key];
 }
 
-bool Keyboard::is_mapped_key(SDL_Keycode code) {
+bool Keyboard::is_mapped_key(SDL_Keycode code) const {
     return keymap.count(code) != 0;
 }
 
 /**
  * @brief Get the mapped CHIP-8 key (0x0 to 0xF) of this key.
  */
-uint8_t Keyboard::chip8_keycode(SDL_Keycode keycode) {
+uint8_t Keyboard::chip8_keycode(SDL_Keycode keycode) const {
     return keymap.at(keycode);
 }

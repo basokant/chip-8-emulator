@@ -24,7 +24,7 @@ System::System()
 
 void System::run() { 
     // 60 FPS = 16.66666... ms per frame
-    constexpr int time_per_frame = 0;
+    constexpr int time_per_frame = 15;
     while (is_running) {
         auto t1 = Clock::now();
         run_for_one_frame();
@@ -48,7 +48,7 @@ void System::run_for_one_frame() {
             on_key_release(keycode);
         }
     }
-    for (int i = 0; i < 5 * emulation_speed; ++i) {
+    for (int i = 0; i < 10 * emulation_speed; ++i) {
         // step forward one processor instruction
         processor.step();
     }
