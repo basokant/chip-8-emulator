@@ -15,6 +15,7 @@ SDL_LIB_DIR ?= /lib64/cmake/SDL2
 # Our object files
 OBJS = \
 src/Display.o \
+src/FileNotFoundException.o \
 src/instructions.o \
 src/Keyboard.o \
 src/main.o \

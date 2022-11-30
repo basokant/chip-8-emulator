@@ -4,6 +4,7 @@
 
 #include "System.h"
 #include "ProcessorException.h"
+#include "FileNotFoundException.h"
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -20,6 +21,8 @@ int main(int argc, char *argv[]) {
         emulator.run();
     } catch (ProcessorException &e) {
         std::cerr << "Error: " << e.what() << '\n';
+    } catch (FileNotFoundException &e) {
+        std::cerr << "Error: " << e.what() << "\n";
     }
     return 0;
 }
