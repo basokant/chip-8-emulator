@@ -48,6 +48,7 @@ public:
     void close_mix_chuck();
 
 private:
+    //Initializing the sound members 
     Mix_Chunk *curr_sound = nullptr;
     bool is_playing = false;
 };

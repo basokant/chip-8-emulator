@@ -1,6 +1,10 @@
 #include <vector>
+#include <fstream>
 #include <SDL2/SDL.h>
 #include <iostream>
+
+#include "json.h"
+using json = nlohmann::json;
 
 #include "Display.h"
 #include "SDLException.h"
@@ -13,16 +17,17 @@ Display::Display() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         throw SDLException {};
     }
+
+    std::ifstream f("./chip8.config.json");
+    json json = json::parse(f);
+
+    screen_width = json.value("screen_width", 640);
+    screen_height = (screen_width / CHIP8_WIDTH) * CHIP8_HEIGHT;
     
     window = SDL_CreateWindow("CHIP OFF THE BLOCK", 100, 100, screen_width, screen_height, 0);
     renderer = SDL_CreateRenderer(window, -1, 0);
     
     clear_renderer();
-
-    // TODO: test, remove later
-    // write_pixel(1, 10, 10);
-    // SDL_Rect rect {10, 10, 100, 100};
-    // SDL_RenderFillRect(renderer, &rect);
 
     SDL_RenderPresent(renderer);
 }

@@ -14,6 +14,7 @@
 
 #include <array>
 #include <cstdint>
+#include <string>
 #include <unordered_map>
 #include <SDL2/SDL.h>
 
@@ -63,7 +64,7 @@ private:
     std::array<bool, 16> key_pressed = {0};
 
     // maps hardware keycode to CHIP8 virtual keycode.
-    const std::unordered_map<SDL_Keycode, uint8_t> keymap;
+    std::unordered_map<SDL_Keycode, uint8_t> keymap;
 };
 
 #endif
