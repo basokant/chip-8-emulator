@@ -17,6 +17,8 @@
         "E": 14,
         "F": 15
     },
-    "emulation_speed" : 1.0,
-    "screen_width": 960
+    "emulation_speed" : 2.0,
+    "screen_width": 960,
+    "background_color": [27,16,45],
+    "foreground_color": [114,70,191]
 }
