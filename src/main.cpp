@@ -23,7 +23,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-
     const std::string rom_name(argv[1]);
 
     System emulator;
