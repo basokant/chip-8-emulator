@@ -18,7 +18,19 @@ SDL_LIB_DIR := <your_path_here>
 
 Using a UNIX environment, run `make` in the root directory to build the executable and the docs. Run `make chip8` or `make docs` to build just the executable or just the docs. Then, run `./chip8 <path_to_rom_file>` to run a specified .ch8 file.
 
+Custom ROMs are found in `roms`. 3rd party ROMs are found in `roms/3rdparty`.
+
+
 * run `make clean` to clean up the intermediate build files in the build directory `build/`.
+
+## Building Assembly Files
+
+Dependencies:
+* cargo
+
+To build all assembly files in the `roms` directory, add the source file to `roms/Makefile` and run `make`.
+
+(Make sure to pull git submodules as well).
 
 ## Configuration
 
