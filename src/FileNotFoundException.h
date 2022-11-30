@@ -21,7 +21,17 @@
  */
 class FileNotFoundException : public std::runtime_error {
     public:
+        /**
+         * @brief Construct a new File Not Found Exception object
+         * 
+         */
         FileNotFoundException();
+
+        /**
+         * @brief Construct a new File Not Found Exception object
+         * 
+         * @param msg Exception error message
+         */
         FileNotFoundException(std::string msg);
 };
 

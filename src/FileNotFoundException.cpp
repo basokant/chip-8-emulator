@@ -14,10 +14,19 @@
 
 #include "FileNotFoundException.h"
 
+/**
+ * @brief Construct a new File Not Found Exception:: File Not Found Exception object
+ * 
+ */
 FileNotFoundException::FileNotFoundException()
     : runtime_error("File not found")
 {}
 
+/**
+ * @brief Construct a new File Not Found Exception:: File Not Found Exception object
+ * 
+ * @param msg Exception error message
+ */
 FileNotFoundException::FileNotFoundException(std::string msg)
     : runtime_error(msg.c_str())
 {}
