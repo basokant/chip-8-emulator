@@ -106,6 +106,9 @@ private:
 
     int screen_width = 640; // default width
     int screen_height = 320; // default height
+
+    std::array<int, 3> foreground_color {255,255,255};
+    std::array<int, 3> background_color {0,0,0};
 };
 
 #endif

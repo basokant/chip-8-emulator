@@ -34,7 +34,10 @@ Display::Display() {
 
     screen_width = json.value("screen_width", 640);
     screen_height = (screen_width / CHIP8_WIDTH) * CHIP8_HEIGHT;
-    
+
+    foreground_color = json.at("foreground_color");
+    background_color = json.at("background_color");
+
     window = SDL_CreateWindow("CHIP OFF THE BLOCK", 100, 100, screen_width, screen_height, 0);
     renderer = SDL_CreateRenderer(window, -1, 0);
     
@@ -118,11 +121,16 @@ void Display::present() const {
 */
 void Display::clear_renderer() const {
     // set draw color to black for clearing
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    int r = background_color[0];
+    int g = background_color[1];
+    int b = background_color[2];
+    SDL_SetRenderDrawColor(renderer, r, g, b, 0);
     SDL_RenderClear(renderer);
     // set draw color to white for drawing pixels
-    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
-    
+    r = foreground_color[0];
+    g = foreground_color[1];
+    b = foreground_color[2];
+    SDL_SetRenderDrawColor(renderer, r, g, b, 0xff);
 }
 
 /**
@@ -144,9 +152,15 @@ void Display::clear_buffer() {
 void Display::write_pixel_to_renderer(bool pixel, uint8_t x_coordinate, uint8_t y_coordinate) const {
     if (pixel) {
         // pixel is set, use white
-        SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+        int r = foreground_color[0];
+        int g = foreground_color[1];
+        int b = foreground_color[2];
+        SDL_SetRenderDrawColor(renderer, r, g, b, 0xff);
     } else {
-        SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xff);
+        int r = background_color[0];
+        int g = background_color[1];
+        int b = background_color[2];
+        SDL_SetRenderDrawColor(renderer, r, g, b, 0xff);
     }
 
     // get the scaling factor of the window
