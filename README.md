@@ -20,18 +20,44 @@ Using a UNIX environment, run `make` in the root directory to build the executab
 
 * run `make clean` to clean up the intermediate build files in the build directory `build/`.
 
-## Expected Output
-The emulator runs the following CHIP8 binary ROM stored in the array `instructions` in the `main.cpp` file.
-```asm
-ld v0, 0x1
-ld v1, 0x2
-add v0, v1
+## Configuration
+
+Keyboard mapping and emulation speed can be controlled from `chip8.config.json`.
+
+```json
+{
+    "custom_keymap" : {
+        <SDL_key_name>: <chip8_key>
+    },
+    "emulation_speed" : 1.0, // factor: 2.0 runs twice as fast
+    "screen_width": 960 // screen height is half the screen width
+}
 ```
-The value 1 is loaded into register v0; the value 2 is loaded into register v1; the sum of v0 and v1 is stored in v0.
 
-The expected output should demonstrate that v0 contains the value 3 (1 + 2) and v1 contains the value 2.
+The SDL key names can be found [here](https://wiki.libsdl.org/SDL2/SDL_Keycode) under "Key Name".
 
-The PC register will have incremented to 6 because it has run 6 instructions (from 0x0000 to 0x0005).
+There are 16 CHIP-8 keys to map: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 
-## Notes from the Professor
-* We used GitHub instead of BitBucket for familiarity with the team: we recieved permission from the professor to use Github.
+## Controls
+
+The default key mapping is as follows (to match the original hardware):
+
+Keyboard
+|||||
+|---|---|---|---|
+|1|2|3|4|
+|Q|W|E|R|
+|A|S|D|F|
+|Z|X|C|V|
+
+CHIP-8 Mapping
+|||||
+|---|---|---|---|
+|1|2|3|C
+|4|5|6|D|
+|7|8|9|E|
+|A|0|B|F|
+
+Note: A-F are referenced by their hex values (e.g. 10 = A, 11 = B, etc.)
+
+
