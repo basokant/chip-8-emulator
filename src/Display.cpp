@@ -124,7 +124,7 @@ void Display::clear_renderer() const {
     int r = background_color[0];
     int g = background_color[1];
     int b = background_color[2];
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_SetRenderDrawColor(renderer, r, g, b, 0);
     SDL_RenderClear(renderer);
     // set draw color to white for drawing pixels
     r = foreground_color[0];
