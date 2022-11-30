@@ -16,7 +16,7 @@ SDL_INCLUDE_DIR := <your_path_here>
 SDL_LIB_DIR := <your_path_here>
 ```
 
-Using a UNIX environment, run `make` in the root directory to build the executable. Then, run `./chip8 <path_to_rom_file>` to run a specified .ch8 file.
+Using a UNIX environment, run `make` in the root directory to build the executable and the docs. Run `make chip8` or `make docs` to build just the executable or just the docs. Then, run `./chip8 <path_to_rom_file>` to run a specified .ch8 file.
 
 * run `make clean` to clean up the intermediate build files in the build directory `build/`.
 
