@@ -1,3 +1,14 @@
+/**
+ * @file Display.cpp
+ * @author David Tran, Ben Asokanthan, Dhruv Panicker, Davis Mtui, Sean Hou
+ * @brief Interface for the Display class
+ * @version 0.1
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <vector>
 #include <fstream>
 #include <SDL2/SDL.h>

@@ -1,7 +1,7 @@
 /**
- * @file System.h
+ * @file System.cpp
  * @author David Tran, Ben Asokanthan, Dhruv Panicker, Davis Mtui, Sean Hou
- * @brief Interface for the System class
+ * @brief Implementation for the System class
  * @version 0.5
  * @date 2022-11-27
  *

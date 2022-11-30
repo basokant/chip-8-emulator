@@ -1,3 +1,14 @@
+/**
+ * @file instructions.cpp
+ * @author David Tran, Ben Asokanthan, Dhruv Panicker, Davis Mtui, Sean Hou
+ * @brief Instruction implementation used by Processor
+ * @version 0.1
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <cstdint>
 #include <vector>
 

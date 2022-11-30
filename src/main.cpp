@@ -1,3 +1,14 @@
+/**
+ * @file main.cpp
+ * @author David Tran, Ben Asokanthan, Dhruv Panicker, Davis Mtui, Sean Hou
+ * @brief The main entry point of the program
+ * @version 0.1
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <iostream>
 #include <string>
 #include <SDL2/SDL.h>
